@@ -1,0 +1,106 @@
+What does it take to create with domain-appropriate tools? A case study on the "OROM" system.
+
+Abstract
+
+
+1. Introduction
+
+As someone who can code, I have already passed the first and most important hurdle for making full use of the potential of my computer. However, even in this supposedly empowered state, I am still far away from feeling the relationship between myself and software as between artisan and material, free to shape it into any form with effort proportional to complexity.
+
+One would have thought that software-creation acts like hypothetical super-intelligent AI. That is: even though we start from a primitive base in the 50s (or even today), there would surely be a recursive process of self-improvement, building better software-creation tools with the existing ones, until an "expressivity singularity" where software becomes a workable material as described.
+
+However, this didn't happen. Or at least, it is happening glacially slowly. The brute fact is that whenever you want to create software, you go to a text editor and figure out how to translate your design into that. The text editors, being software, were written with the help of previous text editors, and so on. It's undeniable that text editors have improved, even if you think it peaked with Emacs. We just don't seem able to go beyond them.
+
+Amdahl's Law generalises the following idea: even when you spend hours of effort doubling the performance of a component used 1% of the time, your reward is a system overall improved by a mere 0.5%.
+
+But wait -- text coding is certainly ubiquitous, the 99% case in programming, so you might wonder where I'm going with this. Well, a small improvement to text editing, if adopted by everyone, certainly does have a massive *intermediate* effect -- but this only *matters* to the extent that text was helping the programmers in the first place. If my goal is to draw or animate pictures, or create a digital synth from a frequency spectrogram, then giving me the ability to auto-indent my SVG markup is rather underwhelming as a productivity increase, as it doesn't target the core of the enterprise that makes it so hard.
+
+My experience of coding, with most of my projects requiring shapes (such as GUIs), leads me to conclude that no matter how much I improve my skill at a particular language, knowledge of libraries or even general coding ability, my predicament stays the same. Our basic method of creating software is optimised for an ever-diminishing proportion of the software we actually want to make; ill-optimised for the graphics, layout, interactivity and and basic physics -- more on this later -- that we usually require.
+
+Whenever I work on these I feel stuck in a box I know I can never escape from: that box is the text editor, a fixed conduit through which all *fundamental* changes to my program must pass. It's not a part of the system I am building, so I can't even make use of features of the thing I'm developing, to make its own development easier.
+
+Surely the trick is to *use* coding to build something *better than it*. And then use that, to build something even better. But there is an enormous breadth and depth of ideas and philosophies here, along with many failed historical attempts to do better -- or at least, ones that failed to catch on. But even worse than this is that in my *language* here I am making the same mistake as the text editor -- speaking in unqualified terms of "better" and "worse" as if there really is a one-size-fits-all solution to software creation!
+
+Of course what we *really* want is the ability for people to create *in the way that they think is best* in their particular context -- to equip them to (feasibly) create the tools that suit them for the thing they want to make. And second-order tools that suit them for making the first-order tools, etc. It would do no good to replace text-imperialism with anything-else-imperialism, which is one common interpretation of calls for alternatives. If someone wants to type out pictures in ASCII, let them -- whether they do it for a challenge, or even if they find that more natural for themselves. But equally, if I want to do it another way, then please give me that affordance.
+
+This is how I segue into the software artefact for which I have been attempting to build a natural representation. True, it is a programmer's artefact, but it is still representative of what any normal person has to do, insofar as:
+a) Wanting to create a piece of software (for whatever reason)
+b) Having in mind a natural way to represent it as it's being built.
+
+2. The OROM system
+
+When I first read the paper Open, Reusable Object Models, I was hooked on its idea of a small but expressive starting system that could be self-improved into anything. It describes a late-bound, Smalltalk-style objects and messaging environment that the authors call "Id" -- but which I refer to as OROM, for pronunciation and Googleability.
+
+The paper as a publication follows the usual patterns. It consists of mostly prose, several code listings, some diagrams, and full C sources for a sample implementation at the end. Insofar as this is normal, I cannot criticise it. But reading this paper, and trying to grasp their ideas, brought to my attention how inadequate this norm can sometimes be.
+
+First of all, in order to understand it in the first place, I repeatedly found myself drawing extra diagrams. For example, the first acts of the running system boil down to instantiating and initialising the three or so objects. What this consists of is allocating memory, interpreting it as a C struct and then filling in fields in a mundane manner. I had great difficulty grasping the specifics in my head, but when I drew tables in the style of the paper's diagrams I readily saw what what going on.
+
+Still, areas like messaging semantics could be quite confusing. After all, we shouldn't expect to be able to predict the entire future evolution of a dynamical system from a static description of its initial state, such as source code -- this is why debuggers exist. But having "de-compiled" English text and C source code into object diagrams, it is a shame to have to compile it all back to struct member assignments.
+
+Worst of all, the reference system does not even have text I/O when it is run, let alone some sort of GUI. That is, the (un)intended user interface for this project is a C debugger! Faced with the necessity of adding *some* UI, it seemed a waste of effort to end up with a system that must be continually polled for its current state at a terminal prompt. If I naturally think of this system as 2D tables, why can't that be how the running system looks? I do not have to keep polling my eyes for what state my diagrams are in.
+
+But further than that -- why can't the system be *built* out of tables in the first place? Shouldn't this be the main takeaway from the amount of time we spend prototyping, explaining and designing software as diagrams on paper? Why must the "natural representation" be restricted to the finished product?
+
+Thus was my natural representation decided. My first attempt to make it a reality was a partial success: a webpage made of HTML tables, evolved via JavaScript.
+
+3. OROM as HTML tables
+
+...
+
+Unfortunately, the choice of ordinary HTML as a substrate proved rather two-edged. I was grateful for the browser's management of graphical layout, resizable text fields, and keeping the DOM tree synchronised with what you actually see. This last property enabled me to make the decision to *directly* encode much of the system state in the DOM, achieving basic liveness (the thing on the screen is the actual thing) for the keys and values of obj-dicts.
+
+On the other hand, the browser requires many features to do its job of rendering complex web pages. And sadly, as its client, I could only make use of those capabilities which the W3C had decided, at the time of authorship, were worth the effort exposing in JavaScript. For anything else, the browser is a black box, and this was very frustrating in the following case.
+
+3.1 The Radical Concept of Arrows That Stay On The Shapes
+
+A key aspect of the OROM system is that there is an object *graph*. That is, obj-dicts can have entries pointing to other obj-dicts, without restriction to a tree structure. Now, drawing arrows between things to denote this is a no-brainer and I wanted it in my substrate for OROM, matching the diagrams.
+
+A small problem to surmount first: even though I could hijack the <table> for its display properties, what HTML element can I hijack to make arrows between arbitrary points? Luckily, I had SVG at my disposal, which can be persuaded to display over the HTML. However, another key feature of my intended substrate was to be able to rearrange and resize the boxes as desired. So I would also need to detect changes to the position and size of an element.
+
+Bizarrely, there is no such facility provided for HTML elements. This, despite the fact the *browser* needs this functionality hence it must reside *somewhere* inside the black box.
+
+Reluctantly, I stuck with my plan B: each object has a numerical ID and pointers are just fields containing a number, followed using a deref() function.
+
+...
+
+At this point it was starting to look like a mistake not to have done the whole thing in SVG. I would gain full graphical freedom, though also lose the benefits of the browser's managing it on my behalf. I already knew from experience the surprising complexity of a DIY approach to layout, model-view updates, and interactivity. But such an exercise would be an opportunity to carefully observe this tedium, and crystallise some of my intuitions about why it is so consistently frustrating.
+
+4. OROM as SVG trees
+
+In this version, obj-dicts are encoded as nested SVG <rect>s and other elements, reminiscent of diSessa's Boxer. This was a significant departure from the table representation, and even though SVG supports (some) nested HTML via <foreignObject>, I actually preferred the possibility of multiple levels of nesting.
+
+OROM/SVG more or less realises my desired substrate for implementing OROM. Needless to say, this version was far more challenging and took much longer to reach a satisfactory state. However, it is precisely this drudgery that brings me to a better understanding of this paper's question: *what has it taken?* I shall discuss this in the form of broad patterns or themes that stand out to me.
+
+Compromise On
+
+Inevitable Requirements Of Most Software (and how our languages prevent us meeting them)
+
+As A "Mere Consumer"
+
+Vector Graphics
+
+Maintaining Relationships Over Time
+
+Basic Expectations About Physical Objects
+
+Rigid Bodies
+
+As A "Developer"
+
+Extensional Functions
+
+... The OROM authors' implementation in C is 
+
+Externalisability
+
+
+
+
+
+A note about DIY and libraries
+...
+My other problem was one of cost-benefit. My aim was to ...
+
+OROM as files and directories
+
+The OROM system as a part of the solution
