@@ -65,7 +65,10 @@ Reluctantly, I stuck with my plan B: each object has a numerical ID and pointers
 
 At this point it was starting to look like a mistake not to have done the whole thing in SVG. I would gain full graphical freedom, though also lose some benefits of the browser's managing it on my behalf. I already knew from experience the surprising complexity of a DIY approach to layout, model-view updates, and interactivity. But such an exercise would be an opportunity to carefully observe this tedium, and crystallise some of my intuitions about why it is so consistently frustrating.
 
-2.2 OROM as SVG trees
+2.2 OROM as files and directories
+A short paragraph on this? Where should it go???
+
+2.3 OROM as SVG trees
 
 (Screenshot of OROM/SVG showing boxes, code and arrows)
 
@@ -122,8 +125,14 @@ If a platform does not provide a means to causally link and unlink bits of live 
 
 Such was the case in OROM/SVG. I implemented the system in an OOP fashion, and the Observable class is the most widely used. It wraps a list of subscribers and a current value, notifying them when it changes. It can be seen that this supplanted JavaScript's own "dumb" state by the frequency of the change() function throughout the code.
 
+Getting an object to follow the mouse pointer, for example when dragging, is conceptually very simple: an "always equal" relation. In OROM/SVG founded on live-state, this can be expressed in much the same way:
+
+subscribe(object.position, pointer.position);
+
+(By default, an Observable A responds to a change from Observable B by adopting B's new value.)
+
 3.1.2.3 Nut-Cracking With Sledgehammers
-Speaking about vector graphics, physics, layout and constraint maintenance might give the impression of high *conceptual* complexity at the heart of even simple software. I want to push back against this somewhat.
+Speaking about vector graphics, physics, layout and constraint maintenance might give the impression of high *conceptual* complexity at the heart of even simple software. This is not quite true, which makes it all the worse that there is yet still immense *incidental* or implementation complexity.
 
 We are conditioned to only think of these in their most general forms. The vector graphics I use in OROM/SVG are just rects, lines, circles and text; a fraction of the full capability of SVG. The "basic physics" I use is dwarfed by fully general 2D or 3D physics engines. The only layout algorithm I had the patience to implement was a simple way to expand a list of boxes to fit in a new child at the bottom; the affordance to place and size boxes *manually* staves off the rest for the time being! Yet search for material on layout algorithms and it can seem like Fully General Linear Inequality Solvers like Cassowary are all there is.
 
@@ -132,7 +141,7 @@ The inevitable requirements I suggest here, do *not* necessitate Fully General a
 Unfortunately, there doesn't seem to be much interest on the smaller-scale instances of these problems. I suggest the name "geometric physics" for the subset of physics I have mentioned.
 
 3.2 As A "Developer"
-I now turn to some things that were perhaps inevitable, definitely useful, as the *implementor* of OROM/SVG.
+I now turn to some things that were perhaps inevitable, in any case useful, as the *implementor* of OROM/SVG.
 
 3.2.1 Practicality vs. High Aesthetics
 There is the view that insists on provably-correct code written with strange Unicode symbols, and at the opposite end there is the attitude of "get the job done", high style be damned. Each has its merits, but for my task I quickly saw the latter route to be most suitable.
@@ -145,7 +154,7 @@ and in OROM/SVG the story is similar. It has the advantage of the powerful devel
 
 Contrast this with an approach that had to re-synthesise bits of the DOM whenever something changed. Admittedly this does still happen to a certain extent, but at least it was minimised where obvious.
 
-Another example of practicality was in the issue of positioning and sizing. In Section ?? I mentioned that I was able to sidestep some layout work by offloading it to the user. While building the system I tended to want to draw boxes into existence, and for that my brain's existing aesthetic algorithms can do the work of where they go. There are areas where the machine must be able to figure this out itself -- I don't want to be constantly bothered by prompts to place boxes as they are allocated by some running code -- but for one-offs it is a very convenient way to do a little less yak-shearing.
+Another example of practicality was in the issue of positioning and sizing. In Section ?? I mentioned that I was able to sidestep some layout work by offloading it to the user. While building the system I tended to want to draw boxes into existence, and for that my brain's existing aesthetic algorithms can decide where they go. There are areas where the machine must be able to figure this out itself -- I don't want to be constantly bothered by prompts to place boxes as they are allocated by some running code -- but for one-offs it is a very convenient way to do a little less yak-shearing.
 
 3.2.2 Positioning and Sizing
 The simple desire to move and resize boxes with the mouse motivated a lot of the live-state and geometric physics ideas. This problem could be considered a microcosm of OROM/SVG: what's a natural way I *conceive* of this behaviour, and could I implement it that way?
@@ -154,32 +163,83 @@ It starts with a consideration of translational rigidity. In its most primitive 
 
 (Diagram of delta transmission)
 
-I like to see what I'm doing, so I wanted these rods to be visible and thus *present in the SVG* somehow.
+I like to see what I'm doing, so I wanted these rods to be visible and thus somehow *present in the SVG*. This was not hard; in SVG I draw a <line>, though the background machinery of the Rod class does all the work. There is also a Point class that is used wherever manipulable points (SVG circles) are intended.
 
-Visible Coordinate Systems
+Resizing (of boxes at least) could be achieved through rods that stay horizontal or vertical. In the language of "small differences" spoken by my live-state infrastructure, this is expressed as a rod "transmitting deltas" in the vertical and horizontal, "absorbing" the other component into itself. Mirroring a DOM rect to these rods is as simple as subscribing its width and height to horizontal and vertical rods' length Observables. This way, boxes can be resized from whatever corner is convenient.
 
-Context-appropriate ontologies
+(Box demonstrating all three rod types)
 
-Extensional Functions
+I colour such "half-rigid" rods yellow and fully rigid rods red. The "absorb all endpoint changes" case is coloured green.
 
-... Some parts of the OROM authors' C code were confusing until I realised they were just the guts of a basic associative-array implementation.
+Unfortunately, with these rods came possibly the most frustrating technical challenges of the entire system. Initially I hoped to move boxes as rigid bodies by temporarily making their border rods rigid. However, the four border rods form a cyclic graph, as rods are not directed. This, coupled with the unintended depth-first semantics of Observable notification (a result of JavaScript function calls in a loop), led to duplicate deltas applied twice and other nightmares. This is the tip of an entire research iceberg stretching from Functional Reactive Programming to internet routing and distributed algorithms.
 
+I did manage to surmount this through kludging and compromise. But I do not know whether these problems are merely a consequence of some design decision I could change to escape it, or if they are intrinsic to my (modest) UI goal.
 
-Externalisability
+3.2.3 Visible Coordinate Systems
+Rigidity in a flat world of sibling shapes is somewhat straightforward. However, rigidity in the SVG world is more involved.
 
+First of all, SVG shapes (e.g. <rect>) are strictly leaf nodes, so if I wish to nest boxes within boxes, the visible "box" must be a mere *accessory* to the nestable element, in my case a <g> (group). This means that instead of resizing the x, y, width, height attributes of the <rect>, only its width and height change along with the transform attribute of its parent <g>. This was not too bad; just subscribe this attribute, instead of the <rect> position, to the top-left Point handle.
 
-Tensions between philosophies
-Stable or emergent?
-Turing-complete?
-Messaging vs Read-Write?
+All child elements of a node transform with it, so already SVG has baked in a basic facility for translational rigidity. This is only available as a tree hierarchy, but it is still useful. However, it conflicts with my  early decision to have Point objects all share the global co-ordinate system. This way, connecting "this point" to the mouse pointer, etc. are not infuriating to express. Still, it was necessary in the case of certain elements -- especially those which must transcend the tree structure altogether, like arrows between boxes -- to bite this bullet, one way or another.
 
+Again, I return to how we tend to work things out in the freedom of paper. Co-ordinate systems, here merely positionally displaced, have their origins here and there and have vectors between them. The rods thus far let me visually express relations between global Points; now was a question of expressing one global Point as a displacement from another (the <g> transform). New rod Observables p2_from_p1 and p1_from_p2 do the vector subtraction, which can then be propagated as local co-ordinates to children. It is nicer to express the relation (as well as see it!) this way -- see Figure ?? above.
 
+3.2.4 Context-appropriate ontologies
+...
+Talk about: fixed ontologies (a rect IS x,y,w,h, and nothing else!) imposed on programmer
+Example from 3.1.1. mention: CSS animations?
+"One size fits all" rears its ugly head again.
+I want: top-left, top-right, bot-left, bot-right ...
+Instead of explaining "the x y is the top left blah blah" in English in the W3C spec, they should make these relationships *machine readable* with information like:
+A Rect is
+- a Polygon
+- defined by 4 degrees of freedom x y width height
+- where the four vertices are
+  - [x,y] "top-left"
+  - [x+width,y] "top-right"
+  - etc
+Reference to paper related to Antranig involving knitting...?
+...
+
+3.2.5 Extensional Functions
+aka dicts, Maps, std::vector, ...
+...
+... Some parts of the OROM authors' C code were confusing until I realised they were just the guts of a basic associative-array implementation. ...
+...
+Inevitability / ubiquity of state descriptions that are at trees of strings with pointers
+Antranig "natural co-ordinates"?
+OROM/SVG as Boxer-like extensional functions
+
+3.2.6 Externalisability
+Reference Antranig's stuff on this. How I dealt with event listeners etc
+Necessity to development: frustrating to find bug, tear down, refresh, lose work, build it up again!
+Inspect Element: copy to save works, arbitrary edits *should* work (cuz it's on demand)
+Work required to parse SVG trees into objects "on demand"
+Started heavyweight, ended lightweight (generate rods on demand, let SVG move children)
+
+3.2.7 Polyfilling
+Very advantageous to permit this e.g. JavaScript
+Stupid lack of XYZ in JS or SVG due to come out in the next spec, etc
+Syntax sugar (SVG tree ops, vector ops)
+
+4 The OROM system as a part of the solution
+Meta-circularity as empowerment, not just "cool"
+The allure
+Other themes e.g. homoiconicity of code and data
+Problems: cognitive vs. "official" complexity
+
+Maxwell's eqns metaphor: omits the years of study compressed into the math symbols!
+And yet, the allure of the Maxwell's Eqns of Software?
+
+"Taming" SVG - ability to use SVG in a vaguely sane way (vector graphics editor)
+Similarly for e.g. 3D OpenGL, Web Audio, sockets ...
+
+4.2 Tensions between philosophies
+4.2.1 Stable or emergent? (Antranig against OOP dispatch)
+4.2.2 Turing-complete? (Antranig against this)
+4.2.3 Messaging vs Read-Write?
+
+Misc
 A note about DIY and libraries
 ...
 My other problem was one of cost-benefit. My aim was to ...
-
-OROM as files and directories
-
-The OROM system as a part of the solution
-
-Taming SVG
