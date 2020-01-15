@@ -1,7 +1,13 @@
 # What does it take to create with domain-appropriate tools? A case study on the "OROM" system.
 
 ## Abstract
-Insert abstract here.
+
+Context: What is the broad context of the work? What is the importance of the general research area?
+Inquiry: What problem or question does the paper address? How has this problem or question been addressed by others (if at all)?
+Approach: What was done that unveiled new knowledge?
+Knowledge: What new facts were uncovered? If the research was not results oriented, what new capabilities are enabled by the work?
+Grounding: What argument, feasibility proof, artifacts, or results and evaluation support this work?
+Importance: Why does this work matter?
 
 ## Introduction
 
@@ -279,7 +285,7 @@ A `rect` is...
 
 The hope is that if we then specify enough information --- say, the bot-left and top-right --- then the runtime has enough information to derive its internal 4 degrees of freedom. In a crude sense I have successfully anticipated the most obvious ontologies of a rectangle here. However, I missed out the "centre plus half-width and half-height" formulation, among many others.
 
-Is this a futile effort even for precise mathematical knowledge structures, or could enough formalisation of Euclidean geometry in the Web platform put an end to this sort of polyfilling?^[This relates to my belief that type systems and other auto-reasoning tools are trapped in a doomed quest for "closed-form" AI, representable as a LaTeX formula.]
+Is this a futile effort even for precise mathematical knowledge structures, or could enough formalisation of Euclidean geometry in the Web platform put an end to this sort of polyfilling?^[This relates to my intuition that type systems and other auto-reasoning tools are trapped in a doomed quest for "closed-form" AI, representable as a LaTeX formula.]
 
 #### Extensional Functions
 Time and time again we come across the same pattern of partitioning system state: trees or graphs of dictonaries, a.k.a. Maps, a.k.a. associative arrays. I am talking about filesystem paths `/path/to/some/file`, Python / Java modules `com.example.pkg.subpkg`, JavaScript objects `window.my_obj.component`. The common case is an association of a textual (string) name, to an arbitrary value. I find it useful to see this as a mathematical "function" defined *extensionally* by listing its input/output mappings -- this opposed to an *intensional* definition such as `x \mapsto 2x+3`, or a computer program.
@@ -288,7 +294,7 @@ Extensional functions are perhaps the most basic form of Knowledge Representatio
 
 It seems that this way of expressing the "parts" of a system is an inevitable requirement of any programming substrate. Some languages, such as C, do have static, *compile-time* associative arrays (`struct`s). In my experience this is not enough, and it's necessary to bring in a library or clutter the code with a home-grown approximation. Some parts of the OROM authors' C code were confusing until I realised they were just the guts of a basic associative-array implementation; when I switched to JavaScript, these lines vanished. Perhaps another strength of JavaScript is its low concrete syntax cost for *instances* or *literals* of associative arrays. Writing or reading
 
-```javascript
+```
 a = {
   b1: { c1: z, c2: y },
   b2: { c3: x, c4: w }
@@ -297,7 +303,7 @@ a = {
 
 is more WYSIWYG^[What You See Is What You Get] than the imperative-style
 
-```javascript
+```
 a = new Map();
 a.set('b1', new Map());
 a.get('b1').set('c1', z);
