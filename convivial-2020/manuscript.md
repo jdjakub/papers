@@ -2,6 +2,13 @@
 
 ## Abstract
 
+There is a one-size-fits-all quality to languages, APIs and even programming itself. This is a source of artificial difficulty in creating, understanding, and modifying software systems, because an author's design needs encoding into a form that does not resemble it. This paper presents an example of a step in the right direction: a Web implementation of a minimal OOP system, developed in a substrate designed to fit it better than plain JavaScript code. The experience of creating such a substrate is analysed, and I suggest tendencies in programming environments that stand in the way of making this commonplace, as well as ways to get around them.
+
+Problem
+Why interesting?
+What solution achieves?
+What follows from solution?
+
 Context: What is the broad context of the work? What is the importance of the general research area?
 Inquiry: What problem or question does the paper address? How has this problem or question been addressed by others (if at all)?
 Approach: What was done that unveiled new knowledge?
@@ -25,13 +32,11 @@ Whenever I work on these I feel stuck in a box I know I can never escape from: t
 
 Surely the trick is to *use* coding to build something *better than it*. And then use that, to build something even better. But there is an enormous breadth and depth of philosophies here, along with many failed historical attempts to do better --- or at least, ones that failed to catch on. But even worse than this is that in my very *language* here I am making the same mistake as the text editor --- speaking in unqualified terms of "better" and "worse" as if there really is a one-size-fits-all solution to software creation!
 
-Of course what we *really* want is the ability for people to create *in the way that they think is best* in their particular context --- to equip them to feasibly create the tools that suit them for the thing they want to make. And second-order tools that suit them for making the first-order tools, etc. It would do no good to replace text-imperialism with anything-else-imperialism, which is one interpretation of calls for alternatives. This dream goes beyond familiar senses of what constitutes a "craft", as far as a strong melding of tool and material.
-
-Certainly in the real world there is only one "material" --- matter --- and humanity as a whole does create "higher-order" tools. A (future) software craft, however, could be expected to give this power to *individuals* instead of the community alone. The one-size-fits-all approach is an understandable consequence of few designers catering to many users --- perhaps due to the necessity to specialise in topics, languages, libraries, and tools. Their complexity is part of the general difficulty of software creation, exacerbated by the one-size-fits-all approach, closing the circle.
+Of course what we *really* want is the ability for people to create *in the way that they think is best* in their particular context --- to equip them to feasibly create the tools that suit them for the thing they want to make. And second-order tools that suit them for making the first-order tools, etc. It would do no good to replace text-imperialism with anything-else-imperialism, which is one interpretation of calls for alternatives. This dream goes beyond familiar senses of what constitutes a "craft", as far as a strong melding of tool and material. Parallels can be drawn with industrialisation and a strong division of labour: the community as a whole produces its higher-order tools, but currently no single person can have the same autonomy.  A (future) software craft could be expected to give this power to *individuals*, instead of the community alone. Whenever there are many small specialties (e.g. languages, tools, or subject areas) each serving many clients, the one-size-fits-all style is the best one can hope for. Adaptation to individual preferences and idiosyncracies is only feasible when those individuals can do it themselves.
 
 What we need is some system that not only lets us create software in a way that is "close to the problem domain" as decided by the user-developer, but also can augment or change itself to adapt to a different "way of creating". Existing systems seem to only have one of these properties without the other. Smalltalk and LISP try to minimise arbitrary commitments of language *semantics* to be adaptable, but their being textual languages is a fairly tough commitment to break out of. And it is not so hard to make a specific, *hard-baked* visual or alternative programming tool --- but it is hard to make it re-programmable *without* having to go back to *its* textual source code.
 
-Again, if someone wants to type out pictures in ASCII, let them --- whether they do it for a challenge, or even if they find that more natural for themselves. But equally, if I want to do it another way, then please give me that affordance. This is how I segue into the software artefact for which I have been attempting to build a natural representation. True, it is a programmer's artefact, but it is still representative of what any normal person has to do, insofar as:
+If someone wants to type out pictures in ASCII, let them --- whether they do it for a challenge, or even if they find that more natural for themselves. But equally, if I want to do it another way, then please give me that affordance. This is how I segue into the software artefact for which I have been attempting to build a natural representation. True, it is a programmer's artefact, but it is still representative of what any normal person has to do, insofar as:
 
 a) Wanting to create a piece of software (for whatever reason)
 b) Having in mind a natural way to represent it as it's being built.
@@ -90,14 +95,15 @@ OROM/SVG more or less realises my desired substrate for implementing OROM. Needl
 > reveals some useful principles. There is more polyfilling (arrows and resizing is not in the
 > SVG substrate itself), but at least it's possible to add those (unlike in HTML)
 
-##  Inevitable Requirements Of Most Software (and the work we must do to meet them)
+## Typical Requirements Of Common Software (and the work we must do to meet them)
+
 As programmers, we have a maxim along the lines of: when you find yourself repeating the same thing over and over again, factor it into a "thing" and let the computer do the duplication. Some consider the "design pattern" to be simply what a "language feature" looks like when it's not part of the syntax.
 
 > The jump from very general abstraction idea to design patterns and language features in the
 > above is not exactly clear - it would be good to help the reader understand why are you
 > talking about this here.
 
-As I developed OROM/SVG I found myself implementing many such patterns. It seems that languages are often at the wrong level of abstraction for the requirements of modern software, necessitating the same boilerplate per project just to get up to basic functionality. This burden either falls on the author, or on the wider community to build and maintain higher-level frameworks, syntax extensions, etc.
+As I developed OROM/SVG I found myself implementing many such patterns. It seems that languages are often at the wrong level of abstraction for the requirements of common software, necessitating the same boilerplate per project just to get up to basic functionality. This burden either falls on the author, or on the wider community to build and maintain higher-level frameworks, syntax extensions, etc.
 
 By contrast, these languages seem much better adapted to e.g. batch-mode printf()-centric applications. That they fail for the *common case* should be concerning. I will now present what seem to be the inevitable demands of this common case.
 
@@ -107,6 +113,18 @@ By contrast, these languages seem much better adapted to e.g. batch-mode printf(
 > I would also be a bit careful about things like "most modern software" below. It would be
 > good to instead characterize what kind of software are you interested in - end-user graphical
 > systems? (a microservice or something like that does not need SVG...)
+
+Clear for e.g. PowerPoint, but eg microservices: diagrams basic classes, dirs
+
+These are what consumers expect, but we want to being prog closer to user domain, not each time special case, but part of substrate
+
+OROM/SVG supposed to exemplify this consistency
+
+use devel homogeneity
+
+remember there's this idea of consistency. here's what ppl actually do with computers.
+
+look at what ppl use, fit OROM to it
 
 ### As A "Mere Consumer"
 I begin by describing expectations of software that even "end-users" hold, consigned as they are to more or less accept what we give them.
