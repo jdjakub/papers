@@ -2,7 +2,9 @@
 
 ## Abstract
 
-There is a one-size-fits-all quality to languages, APIs and even programming itself. This is a source of artificial difficulty in creating, understanding, and modifying software systems, because an author's design needs encoding into a form that does not resemble it. This paper presents an example of a step in the right direction: a Web implementation of a minimal OOP system, developed in a substrate designed to fit it better than plain JavaScript code. The experience of creating such a substrate is analysed, and I suggest tendencies in programming environments that stand in the way of making this commonplace, as well as ways to get around them.
+There is a one-size-fits-all quality to languages, APIs and even programming itself. This is a source of artificial difficulty in creating, understanding, and modifying software systems, because an author's design needs encoding into a form that does not resemble it. This paper presents an example of a step in the right direction: a Web implementation of a minimal OOP system, developed in a substrate designed to fit it better than plain JavaScript code. The experience of creating such a substrate is analysed, and I suggest deficiencies in programming environments that stand in the way of making this practice commonplace, as well as ways to fill in these gaps.
+
+Keywords: substrate visual context domain adaptation
 
 Problem
 Why interesting?
