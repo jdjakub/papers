@@ -2,7 +2,9 @@
 
 ## Abstract
 
-There is a one-size-fits-all quality to languages, APIs and even programming itself. This is a source of artificial difficulty in creating, understanding, and modifying software systems, because an author's design needs encoding into a form that does not resemble it. This paper presents an example of a step in the right direction: a Web implementation of a minimal OOP system, developed in a substrate designed to fit it better than plain JavaScript code. The experience of creating such a substrate is analysed, and I suggest deficiencies in programming environments that stand in the way of making this practice commonplace, as well as ways to fill in these gaps.
+There is a one-size-fits-all quality to languages, APIs and even programming itself. Whether you're making a mobile game or a scientific simulation, you will be using a text-based language with similar devices for structuring your code. This is a source of artificial difficulty in creating, understanding, and modifying software systems. No matter the domain, the author's design needs encoding into a form that does not resemble it.
+
+This paper describes a vision where software can be built in a programming environment that is closer to the domain of the software itself. By doing so, users of the system can use familiar abstractions and tools for adapting it. A step towards this vision is presented: a Web version of a minimal OOP system, developed as an executable version of the diagrams of its design, in a substrate meant to facilitate this. The experience of creating such a substrate is analysed, and I suggest deficiencies in programming environments that stand in the way of making this practice commonplace, as well as ways to fill in these gaps.
 
 Keywords: substrate visual context domain adaptation
 
