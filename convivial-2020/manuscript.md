@@ -36,7 +36,7 @@ Whenever I work on these I feel stuck in a box I know I can never escape from: t
 
 Surely the trick is to *use* coding to build something *better than it*. And then use that, to build something even better. But there is an enormous breadth and depth of philosophies here, along with many failed historical attempts to do better --- or at least, ones that failed to catch on. But even worse than this is that in my very *language* here I am making the same mistake as the text editor --- speaking in unqualified terms of "better" and "worse" as if there really is a one-size-fits-all solution to software creation!
 
-Of course what we *really* want is the ability for people to create *in the way that they think is best* in their particular context --- to equip them to feasibly create the tools that suit them for the thing they want to make. And second-order tools that suit them for making the first-order tools, etc. It would do no good to replace text-imperialism with anything-else-imperialism, which is one interpretation of calls for alternatives. This dream goes beyond familiar senses of what constitutes a "craft", as far as a strong melding of tool and material. Parallels can be drawn with industrialisation and a strong division of labour: the community as a whole produces its higher-order tools, but currently no single person can have the same autonomy.  A (future) software craft could be expected to give this power to *individuals*, instead of the community alone. Whenever there are many small specialties (e.g. languages, tools, or subject areas) each serving many clients, the one-size-fits-all style is the best one can hope for. Adaptation to individual preferences and idiosyncracies is only feasible when those individuals can do it themselves.
+Of course what we *really* want is the ability for people to create *in the way that they think is best* in their particular context --- to equip them to feasibly create the tools that suit them for the thing they want to make. And second-order tools that suit them for making the first-order tools, etc. It would do no good to replace text-imperialism with anything-else-imperialism, which is one interpretation of calls for alternatives. This dream goes beyond the familiar sense of what constitutes a "craft", as far as a strong melding of tool and material. Parallels can be drawn with industrialisation and a strong division of labour: the community as a whole produces its higher-order tools, but currently no single person can have the same autonomy.  A (future) software craft could be expected to give this power to *individuals*, instead of the community alone. Whenever there are many small specialties (e.g. languages, tools, or subject areas) each serving many clients, the one-size-fits-all style is the best one can hope for. Adaptation to individual preferences and idiosyncrasies is only feasible when those individuals can do it themselves.
 
 What we need is some system that not only lets us create software in a way that is "close to the problem domain" as decided by the user-developer, but also can augment or change itself to adapt to a different "way of creating". Existing systems seem to only have one of these properties without the other. Smalltalk and LISP try to minimise arbitrary commitments of language *semantics* to be adaptable, but their being textual languages is a fairly tough commitment to break out of. And it is not so hard to make a specific, *hard-baked* visual or alternative programming tool --- but it is hard to make it re-programmable *without* having to go back to *its* textual source code.
 
@@ -107,7 +107,7 @@ As programmers, we have a maxim along the lines of: when you find yourself repea
 > above is not exactly clear - it would be good to help the reader understand why are you
 > talking about this here.
 
-As I developed OROM/SVG I found myself implementing many such patterns. It seems that languages are often at the wrong level of abstraction for the requirements of common software, necessitating the same boilerplate per project just to get up to basic functionality. This burden either falls on the author, or on the wider community to build and maintain higher-level frameworks, syntax extensions, etc.
+As I developed OROM/SVG I found myself implementing many patterns. It seems that languages are often at the wrong level of abstraction for the requirements of common software, necessitating the same boilerplate per project just to get up to basic functionality. This burden either falls on the author, or on the wider community to build and maintain higher-level frameworks, syntax extensions, etc.
 
 By contrast, these languages seem much better adapted to e.g. batch-mode printf()-centric applications. That they fail for the *common case* should be concerning. I will now present what seem to be the inevitable demands of this common case.
 
@@ -184,6 +184,8 @@ subscribe(object.position, pointer.position);
 ```
 
 (By default, an Observable A responds to a change from Observable B by adopting B's new value.)
+
+MENTION DRIVERS [1](https://prog21.dadgum.com/66.html)
 
 #### Nut-Cracking With Sledgehammers
 Speaking about vector graphics, physics, layout and constraint maintenance might give the impression of high *conceptual* complexity at the heart of even simple software. This is not quite true, which makes it all the worse that there is yet still immense *incidental* or implementation complexity.
@@ -282,7 +284,7 @@ All child elements of a node transform with it, so already SVG has baked in a ba
 Again, I return to how we tend to work things out in the freedom of paper. Co-ordinate systems, here merely positionally displaced, have their origins here and there and have vectors between them. The rods thus far let me visually express relations between global Points; now was a question of expressing one global Point as a displacement from another (the `<g>` transform). New rod Observables `p2_from_p1` and `p1_from_p2` do the vector subtraction, which can then be propagated as local co-ordinates to children. It is nicer to express the relation (as well as see it!) this way --- see Figure ?? above.
 
 #### Context-appropriate ontologies
-Each API has its own conventions, including a way of naming and structuring expressions --- an ontology. The one-size-fits-all approach is exemplified in such interfaces. For example, in SVG we express a rectangle by `<rect x="10" y="10" width="600" height="400">`. The SVG specification *defines* to the user that a rect *is* a top-left corner, a width, and a height --- and that's it. However, this SVG-approved parametrisation of a rectangle is far from the only one(1)[https://www.shift-society.org/salon/papers/2018/critiques/critique-semprola.pdf], and thus is, unsurprisingly, ill-fitted to some contexts.
+Each API has its own conventions, including a way of naming and structuring expressions --- an ontology. The one-size-fits-all approach is exemplified in such interfaces. For example, in SVG we express a rectangle by `<rect x="10" y="10" width="600" height="400">`. The SVG specification *defines* to the user that a rect *is* a top-left corner, a width, and a height --- and that's it. However, this SVG-approved parametrisation of a rectangle is far from the only one[1](https://www.shift-society.org/salon/papers/2018/critiques/critique-semprola.pdf), and thus is, unsurprisingly, ill-fitted to some contexts.
 
 For example, I find it natural to resize boxes by dragging any of their four corners, so I wanted this in OROM/SVG. In this context, a "rectangle" is *seen as* four points: top-left, top-right, bottom-left, bottom-right. Obviously this is not a *minimal* description, since given e.g. the top-left and bottom-right, the other two points can be inferred. But one way or another, to be able to drag any of them, all four points must be present at *some* level. This alternative ontology was polyfilled in the form of a "rect controls" class that can be attached manually to any SVG `<rect>`. The SVG `x` and `y` are subscribed to the top-left Point; `width` and `height` are subscribed to Rod lengths.
 
@@ -312,7 +314,7 @@ Is this a futile effort even for precise mathematical knowledge structures, or c
 #### Extensional Functions
 Time and time again we come across the same pattern of partitioning system state: trees or graphs of dictonaries, a.k.a. Maps, a.k.a. associative arrays. I am talking about filesystem paths `/path/to/some/file`, Python / Java modules `com.example.pkg.subpkg`, JavaScript objects `window.my_obj.component`. The common case is an association of a textual (string) name, to an arbitrary value. I find it useful to see this as a mathematical "function" defined *extensionally* by listing its input/output mappings -- this opposed to an *intensional* definition such as `x \mapsto 2x+3`, or a computer program.
 
-Extensional functions are perhaps the most basic form of Knowledge Representation, and match natural language very well. "The bicycle's wheels' spokes are silver" straightforwardly translates to a function equation `root (bicycle) (wheels) (spokes) (colour) = root (silver)`. That is, whatever object is the output of `silver` in the top-level `root` function, the output of `colour` (in the function on the left) points to the same object. The ability to partition a system in this way enables what (2)[https://github.com/amb26/papers/blob/master/ppig-2016a/ppig2016a.pdf] calls a "natural co-ordinate system" for a piece of software, crucial for understanding and adaptability by others (so long as it is externalised).
+Extensional functions are perhaps the most basic form of Knowledge Representation, and match natural language very well. "The bicycle's wheels' spokes are silver" straightforwardly translates to a function equation `root (bicycle) (wheels) (spokes) (colour) = root (silver)`. That is, whatever object is the output of `silver` in the top-level `root` function, the output of `colour` (in the function on the left) points to the same object. The ability to partition a system in this way enables what [2](https://github.com/amb26/papers/blob/master/ppig-2016a/ppig2016a.pdf) calls a "natural co-ordinate system" for a piece of software, crucial for understanding and adaptability by others (so long as it is externalised).
 
 It seems that this way of expressing the "parts" of a system is an inevitable requirement of any programming substrate. Some languages, such as C, do have static, *compile-time* associative arrays (`struct`s). In my experience this is not enough, and it's necessary to bring in a library or clutter the code with a home-grown approximation. Some parts of the OROM authors' C code were confusing until I realised they were just the guts of a basic associative-array implementation; when I switched to JavaScript, these lines vanished. Perhaps another strength of JavaScript is its low concrete syntax cost for *instances* or *literals* of associative arrays. Writing or reading
 
@@ -348,19 +350,23 @@ In OROM/SVG, I can directly express the model I was thinking of: the vtable box 
 #### Externalisability
 This refers to exposing structured program state to the user. This data can then be saved and used to restore the system at a later date, but it can also be tweaked with corresponding changes reflected in the system.
 
-Externalisability, or its weaker cousin *persistence*, was absolutely necessary to continue OROM/SVG development past a certain point.
+Externalisability, or its weaker cousin *persistence*, was absolutely necessary to continue OROM/SVG development past a certain point. This is related to the fact that, upon discovering a bug and fixing it in the source code, the web page must be refreshed and start anew. In the beginning, when verifying that box drawing with the mouse is working correctly, this is not much of a problem: upon refresh, the blank initial state is restored and I could draw again. But as the system matured, and I began to implement parts of the target system (OROM), the cycle of finding a bug, tearing down the system, refreshing and losing work, and manually building it up again proved frustrating.
+
+Because the system could only be patched externally and restarted, there needed to be some way to persist the changes made by me that *weren't* part of the code, but the DOM substrate. Normally this can be as simple as autosave to the filesystem. But the Web platform is very wary of this^[As anyone who learns WebGL can attest to, when they discover they must run a local Web server to provide image files for textures since any filesystem requests will be rejected for security.], so the solution I turned to was manually copying the markup in the browser's inspector.
+
+(screenshot)
+
+This required a slight change towards an architecture where the all the data required to reconstruct the system's current state is contained in the inspector HTML (plus the OROM/SVG JavaScript source code.) Where previously "boxes" were created first as invisible JavaScript objects responsible for some SVG, now it was the other way round. When a rect is clicked, the system must look at some SVG and interpret it "on demand" as a box (lazily initialising its helper object if so).
+
+
 
 Reference Antranig's stuff on this. How I dealt with event listeners etc
 
-Necessity to development: frustrating to find bug, tear down, refresh, lose work, build it up again!
-
 Inspect Element: copy to save works, arbitrary edits *should* work (cuz it's on demand)
 
-Work required to parse SVG trees into objects "on demand"
-
-Started heavyweight, ended lightweight (generate rods on demand, let SVG move children)
-
 #### Polyfilling
+Throughout this work I have referred to "polyfilling". This means filling in my own implementation of functionality that "should have been there but isn't". Isn't this just what we do anyway in programming? Bringing into existence something we want which isn't already there? Such a consideration stands in the way of a sharp distinction, but there is an 
+
 Very advantageous to permit this e.g. JavaScript
 
 Stupid lack of XYZ in JS or SVG due to come out in the next spec, etc
