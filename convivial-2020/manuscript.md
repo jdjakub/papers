@@ -1,6 +1,6 @@
-# What does it take to create with domain-appropriate tools? A case study on the "OROM" system.
+What does it take to create with domain-appropriate tools? A case study on the "OROM" system.
 
-## Abstract
+# Abstract
 
 There is a one-size-fits-all quality to languages, APIs and even programming itself. Whether you're making a mobile game or a scientific simulation, you will be using a text-based language with similar devices for structuring your code. This is a source of artificial difficulty in creating, understanding, and modifying software systems. No matter the domain, the author's design needs encoding into a form that does not resemble it.
 
@@ -20,7 +20,7 @@ Knowledge: What new facts were uncovered? If the research was not results orient
 Grounding: What argument, feasibility proof, artifacts, or results and evaluation support this work?
 Importance: Why does this work matter?
 
-## Introduction
+# Introduction
 
 As someone who can code, I have already passed the first and most important hurdle for making full use of the potential of my computer. However, even in this supposedly empowered state, I am still far away from feeling the relationship between myself and software as between artisan and material, free to shape it into any form with effort proportional to complexity.
 
@@ -36,7 +36,9 @@ Whenever I work on these I feel stuck in a box I know I can never escape from: t
 
 Surely the trick is to *use* coding to build something *better than it*. And then use that, to build something even better. But there is an enormous breadth and depth of philosophies here, along with many failed historical attempts to do better --- or at least, ones that failed to catch on. But even worse than this is that in my very *language* here I am making the same mistake as the text editor --- speaking in unqualified terms of "better" and "worse" as if there really is a one-size-fits-all solution to software creation!
 
-Of course what we *really* want is the ability for people to create *in the way that they think is best* in their particular context --- to equip them to feasibly create the tools that suit them for the thing they want to make. And second-order tools that suit them for making the first-order tools, etc. It would do no good to replace text-imperialism with anything-else-imperialism, which is one interpretation of calls for alternatives. This dream goes beyond the familiar sense of what constitutes a "craft", as far as a strong melding of tool and material. Parallels can be drawn with industrialisation and a strong division of labour: the community as a whole produces its higher-order tools, but currently no single person can have the same autonomy.  A (future) software craft could be expected to give this power to *individuals*, instead of the community alone. Whenever there are many small specialties (e.g. languages, tools, or subject areas) each serving many clients, the one-size-fits-all style is the best one can hope for. Adaptation to individual preferences and idiosyncrasies is only feasible when those individuals can do it themselves.
+Of course what we *really* want is the ability for people to create *in the way that they think is best* in their particular context --- to equip them to feasibly create the tools that suit them for the thing they want to make. And second-order tools that suit them for making the first-order tools, etc. It would do no good to replace text-imperialism with anything-else-imperialism, which is one interpretation of calls for alternatives.
+
+This dream goes beyond the familiar sense of what constitutes a "craft", as far as a strong melding of tool and material. Parallels can be drawn with industrialisation and a strong division of labour: the community as a whole produces its higher-order tools, but currently no single person can have the same autonomy.  A (future) software craft could be expected to give this power to *individuals*, instead of the community alone. Whenever there are many small specialties (e.g. languages, tools, or subject areas) each serving many clients, the one-size-fits-all style is the best one can hope for. Adaptation to individual preferences and idiosyncrasies is only feasible when those individuals can do it themselves.
 
 What we need is some system that not only lets us create software in a way that is "close to the problem domain" as decided by the user-developer, but also can augment or change itself to adapt to a different "way of creating". Existing systems seem to only have one of these properties without the other. Smalltalk and LISP try to minimise arbitrary commitments of language *semantics* to be adaptable, but their being textual languages is a fairly tough commitment to break out of. And it is not so hard to make a specific, *hard-baked* visual or alternative programming tool --- but it is hard to make it re-programmable *without* having to go back to *its* textual source code.
 
@@ -45,11 +47,11 @@ If someone wants to type out pictures in ASCII, let them --- whether they do it 
 a) Wanting to create a piece of software (for whatever reason)
 b) Having in mind a natural way to represent it as it's being built.
 
-## The OROM system
+# The OROM system
 
 When I first read the paper Open, Reusable Object Models, I was hooked on its idea of a small but expressive starting system that could be self-improved into anything. It describes a late-bound^[Fewer commitments; more things determined by runtime conditions], Smalltalk-style^[OOP with more emphasis on object instances and messaging (methods) as in a distributed system; less emphasis on class hierarchies implementing traditional data structures] objects and messaging environment that the authors call "Id" --- but which I refer to as OROM, for pronunciation and Googleability.
 
-In summary, an object is a key-value mappings of state which can change as a result of messages received by it. A message is sent by first *bind*-ing its name to its implementation, i.e. specific code which is then run in the context of the receiver. "Bind" is accomplished via another message send, this time to the receiver's *vtable*, or "behaviour". This is another object whose state defines a particular way of associating "message name" to "implementation code". This continues up the vtable-chain, and terminates at a base case. The system as a whole is "bootstrapped" into existence by its initialisation code. Each step of this code makes use of any parts of the system set up by the previous steps.
+Essentially, an OROM object is a block of state which can change as a result of messages received by it. A message is sent by first *bind*-ing its name to its implementation, i.e. specific code which is then run in the context of the receiver. "Bind" is accomplished via another message send, this time to the receiver's *vtable*, or "behaviour". This is another object whose state defines a particular way of associating "message name" to "implementation code". This continues up the vtable-chain, and terminates at a base case. The system as a whole is "bootstrapped" into existence by its initialisation code. Each step of this code makes use of any parts of the system set up by the previous steps.
 
 The paper itself consists of mostly prose, several code listings, and full C sources for a sample implementation at the end. It also provides several diagrams. But to understand it, I repeatedly found myself drawing *extra* diagrams. For example, the first acts of the running system boil down to initialising the three or so objects. This consists of allocating memory, interpreting it as a C struct and then filling in fields in a mundane manner. I had great difficulty following the specifics in my head, but when I drew tables in the style of their diagrams I readily saw what what going on. I personally would have preferred these to have been in the paper in the first place, but I am not necessarily representative of those who read it. The "one-size-fits-all" approach is perhaps unavoidable for static media like print.
 
@@ -61,15 +63,19 @@ But further than that --- why can't the system be *built* out of tables in the f
 
 Thus was my natural representation decided. My first attempt to make it a reality was a partial success: a webpage made of HTML tables, evolved via JavaScript.
 
-### OROM as HTML tables
+## OROM as HTML tables
 
-(OROM/HTML screenshot)
+![](orom-html.png)
 
-I was grateful for the browser's management of graphical layout, resizable text fields, and keeping the DOM tree synchronised with what you actually see. This last property enabled me to make the decision to *directly* encode much of the system state in the DOM, achieving basic liveness (the thing on the screen is the actual thing) for the keys and values of obj-dicts. For each obj-dict I used a two-column `<table>` within a `<div>`, matching the diagrams, and gave the rows CSS class names matching the keys for easy lookup. Sending messages relied on the JavaScript console, but existing values in text boxes (such as method implementations) could be edited directly. Also thanks to the browser, I could easily make text boxes and `<div>`s resizable as necessary.
+To emphasise the tendency of OROM objects to be visualised as key-value mappings, I will refer to them as *obj-dicts*. In this implementation, they take the form of HTML tables.
+
+Here, I was grateful for the browser's management of graphical layout, resizable text fields, and keeping the DOM tree synchronised with what one sees. This last property enabled me to make the decision to *directly* encode much of the system state in the DOM, achieving basic liveness^["The thing on the screen is the actual thing"] for the keys and values of obj-dicts.
+
+For each obj-dict I used a two-column `<table>` within a `<div>`, matching the diagrams, and gave the rows CSS class names matching the keys for easy lookup. Sending messages relied on the JavaScript console, but existing values in text boxes (such as method implementations) could be edited directly. Also thanks to the browser, I could easily make text boxes and `<div>`s resizable as necessary.
 
 However, the choice of ordinary HTML as a substrate proved rather two-edged. The browser requires many features to do its job of rendering complex web pages. And sadly, as its client, I could only make use of those capabilities which the W3C had decided, at the time of authorship, were worth the effort exposing in JavaScript. For anything else, the browser is a black box, and this was very frustrating in the following case.
 
-#### The Radical Concept of Arrows That Stay On The Shapes
+### The Radical Concept of Arrows That Stay On The Shapes
 
 A key aspect of the OROM system is that there is an object *graph*. That is, obj-dicts can have entries pointing to other obj-dicts, without restriction to a tree structure. Drawing arrows between things to denote this is a no-brainer, and I wanted it in my substrate for OROM to match the diagrams.
 
@@ -81,15 +87,17 @@ Reluctantly, I stuck with my plan B: each object has a numerical ID and pointers
 
 At this point it was starting to look like a mistake not to have done the whole thing in SVG. I would gain full graphical freedom, though also lose some benefits of the browser's managing it on my behalf. I already knew from experience the surprising complexity of a DIY approach to layout, model-view updates, and interactivity. But such an exercise would be an opportunity to carefully observe this tedium, and crystallise some of my intuitions about why it is so consistently frustrating.
 
-### OROM as files and directories
+## OROM as files and directories
+
+There's a way to take arbitrary domain and give it self-programmability. boundary between
 
 > I would probably put this after the SVG part or perhaps even later once you discuss more
 > general principles (like the idea of polyfilling to make a domain substrate into a programmable
 > system). Then you can give this as another example.
 
-### OROM as SVG trees
+## OROM as SVG trees
 
-(Screenshot of OROM/SVG showing boxes, code and arrows)
+![](orom-svg.png)
 
 In this version, obj-dicts are encoded as nested SVG `<rect>`s and other elements, reminiscent of diSessa's Boxer. This was a significant departure from the table representation, and even though SVG supports (some) nested HTML via `<foreignObject>`, I actually preferred the possibility of multiple levels of nesting.
 
@@ -99,28 +107,16 @@ OROM/SVG more or less realises my desired substrate for implementing OROM. Needl
 > reveals some useful principles. There is more polyfilling (arrows and resizing is not in the
 > SVG substrate itself), but at least it's possible to add those (unlike in HTML)
 
-## Typical Requirements Of Common Software (and the work we must do to meet them)
+# Typical Requirements Of Common Software (and the work we must do to meet them)
+The "common case" of software present in our daily lives shares certain properties, such as being graphical and interactive. Such are expectations that "end-users" hold, consigned as they are to merely *consume* what programmers give them. But if we want to make "programming" more like "using", such expectations on *use* at least need to be acknowledged. In this section, I will present these and other seemingly *inevitable* demands of normal software, exemplified by OROM/SVG. I will comment how our programming platforms measure up to the task of helping us meet them, including my chosen platform of JavaScript and Web technologies.
 
-As programmers, we have a maxim along the lines of: when you find yourself repeating the same thing over and over again, factor it into a "thing" and let the computer do the duplication. Some consider the "design pattern" to be simply what a "language feature" looks like when it's not part of the syntax.
 
-> The jump from very general abstraction idea to design patterns and language features in the
-> above is not exactly clear - it would be good to help the reader understand why are you
-> talking about this here.
-
-As I developed OROM/SVG I found myself implementing many patterns. It seems that languages are often at the wrong level of abstraction for the requirements of common software, necessitating the same boilerplate per project just to get up to basic functionality. This burden either falls on the author, or on the wider community to build and maintain higher-level frameworks, syntax extensions, etc.
-
-By contrast, these languages seem much better adapted to e.g. batch-mode printf()-centric applications. That they fail for the *common case* should be concerning. I will now present what seem to be the inevitable demands of this common case.
-
-> I'm not sure I understand what the above opening is trying to say - I suppose it might
-> be because it is quite high-level/general. What is this section about more specifically?
-> Is it about what certain kind of software consists of and what we need to build that?
-> I would also be a bit careful about things like "most modern software" below. It would be
-> good to instead characterize what kind of software are you interested in - end-user graphical
-> systems? (a microservice or something like that does not need SVG...)
 
 Clear for e.g. PowerPoint, but eg microservices: diagrams basic classes, dirs
 
-These are what consumers expect, but we want to being prog closer to user domain, not each time special case, but part of substrate
+These are what consumers expect, but we want to being prog **closer to user domain**, not each time special case, but part of substrate
+
+dom-spec substrates
 
 OROM/SVG supposed to exemplify this consistency
 
@@ -130,26 +126,21 @@ remember there's this idea of consistency. here's what ppl actually do with comp
 
 look at what ppl use, fit OROM to it
 
-### As A "Mere Consumer"
-I begin by describing expectations of software that even "end-users" hold, consigned as they are to more or less accept what we give them.
+we want programming to be like using, here is what using looks like, hence supporting these will also be necessary for domain-appropriate development.
 
-#### Retained-Mode Vector Graphics
+## Retained-Mode Vector Graphics
 Most software is designed for the subset of people who have a colour display they can perceive. So right away it is going to require ways to draw coloured shapes. There are usually libraries for this (though note: not part of the language), but some only provide *immediate mode*: commands to instantaneously rasterise pixels to a buffer. This is not enough for modern software, as we often expect animation, or at least to see things change as we interact. Most often we wish to see *small changes* to the *same* shapes, rather than completely different shapes altogether; the reification that this requires to persist between frames, is known as *retained mode.*
 
 On this requirement, SVG fits the bill very well. Although it is not part of the JavaScript language *per se*, it is a standard and widely supported technology of the Web *platform*. We can observe that anyone with a browser *in principle* has access to a powerful vector graphics editor --- just one with no GUI. I will return to this later.
 
 The SVG tree keeps the nice properties of the DOM, such as updating the display when shape parameters are changed. This is well-adapted to "I/O-bound" software like mine, where things change only in response to user input. If I wanted animation, this boils down to a regular "advance simulation" signal, and would require setting up some rendering loop. Alternatively, there is the W3C's chosen ontology of CSS animations, but see section ??.
 
-#### Basic Assumptions About Physical Objects
-In any software making use of vector graphics, there is usually some level of "physics" expected by users. This need not be nearly as exhaustive as the word "physics" might imply, as in e.g. physics engines for games; I feel it is important to recognise it for what it is instead of conceiving physics as an inherently complex thing to be found only in specialised simulations.
-
-> People might not find this easy to believe - but I think you can convince them by saying
-> that pretty much all mobile phone apps have some sort of "phone touch physics" (with sliding,
-> opening menus etc.).
+## Basic Assumptions About Physical Objects
+In any software making use of vector graphics, there is usually some level of "physics" expected by users. This need not be nearly as exhaustive as the word "physics" might imply, as in e.g. physics engines for games; I feel it is important to recognise it for what it is instead of conceiving physics as an inherently complex thing to be found only in specialised simulations. For example, pretty much all mobile apps have what could be called "phone touch physics" where menus and screens slide in and out.
 
 All humans learn a basic set of expectations about the things they see around them. Some of these, such as "things fall down", are not generally appropriate to software UIs --- perhaps because the screen has a role in our lives a more of a table work surface rather than a vertical wall, even if it is vertical in real life.
 
-The level of physics in software tends to not involve force, or mass, or very much at all, merely position and space. One thing that all usable software must do, for example, is not crush many visually complex shapes, such as lines of text, into the same region, since it becomes unreadable. Such concepts of "solid objects do not intersect" or "only things at different layers may overlap" are basic rules inherited from the real world of graphical presentation.
+The level of physics in software tends to not involve force, or mass, or very much at all, merely position and space; we could call it "geometric physics". One thing that all usable software must do, for example, is not crush many visually complex shapes, such as lines of text, into the same region, since it becomes unreadable. Such concepts of "solid objects do not intersect" or "only things at different layers may overlap" are basic rules inherited from the real world of graphical presentation.
 
 I feel the need to point this out, because by default the computer does not know even the most obvious things about how space works, so we must laboriously algorithmise this intuitive concept. This is not only true in the case of 2-dimensional visual domains, but even in the 1-dimensional case of memory allocation. The physics of 1D memory are something like this:
 
@@ -159,23 +150,21 @@ I feel the need to point this out, because by default the computer does not know
 
 Hence the boilerplate involved to realise this in any domain with something resembling space. Far from being a niche topic in games and graphics, spatial partitioning algorithms and data structures have surprising relevance to more ordinary software. Both memory allocation and graphical layout are essential to today's; shame that only one of those has been recognised as such and entered the runtime of modern languages.
 
-##### Translationally Rigid Bodies
+### Translationally Rigid Bodies
 When you have both a screen and a pointing device (e.g. touch or mouse), immediately it becomes worth having ways to move things around in at least a minimally realistic way. We can debate the appropriateness of Direct Manipulation (DM) for various situations. But it does make a lot of sense in simple cases, such moving around subdivisions of space (e.g. windows) or elements of a graphical design.
 
 In OROM, the obvious candidate for this is the obj-dicts, plus all nested boxes in OROM/SVG. If I move the top-level rect, then I expect its children to move with it. This is simply the translational physics of rigid bodies: this set of points all move together. Of course, proper rigid bodies might also rotate and have mass, but this is usually undesirable for UI elements.
 
 Translational rigidity can be expressed as the points X and Y always having the same displacement from each other. Or, when one point is moved, the rest also move by the same delta. This is a problem of preserving the relationship over time, which was a significant area of OROM/SVG.
 
-#### Maintaining Relationships Over Time
+## Maintaining Relationships Over Time
 The model of state-mutation present in most imperative languages is what I call "dumb" state. The language provides an affordance to change any part of the state to a new value, but nothing else.
 
 What more could there be? Well, in *every* software system there are certain rules, or "invariants" of internal consistency, such as "translational rigidity" above. Often, changes to any part of the system are permissible, but only if connected or dependent parts of the state change in response.
 
 The job of keeping track of who depends on whom can fall either on the programmer, or the computer. If the programmer has to do this, they can only go so far managing and simulating in their head. As systems grow more complex, it is only natural to try and make the computer more intelligent to do this work. What I am building up to is that whenever we (or I) consider constraints, or "reactive" programming, or the "Observer" pattern as things you only wheel out on special occasions, we only deceive ourselves into doing the same work less explicitly. It seems that such "live state" should be the expected common case for software development.
 
-If a platform does not provide a means to causally link and unlink bits of live state, then this must form part of the standard boilerplate.
-
-Such was the case in OROM/SVG. I implemented the system in an OOP fashion, and the Observable class is the most widely used. It wraps a current value and a list of subscribers, notifying them when it changes. It can be seen that this supplanted JavaScript's own "dumb" state by the frequency of the change() function throughout the code.
+If a platform does not provide a means to causally link and unlink bits of live state, then this must form part of the standard boilerplate. Such was the case in OROM/SVG. I implemented the system in an OOP fashion, and the Observable class is the most widely used. It wraps a current value and a list of subscribers, notifying them when it changes.
 
 Getting an object to follow the mouse pointer, for example when dragging, is conceptually very simple: an "always equal" relation. In OROM/SVG founded on live-state, this can be expressed in much the same way:
 
@@ -185,33 +174,38 @@ subscribe(object.position, pointer.position);
 
 (By default, an Observable A responds to a change from Observable B by adopting B's new value.)
 
-MENTION DRIVERS [1](https://prog21.dadgum.com/66.html)
-
-#### Nut-Cracking With Sledgehammers
+## Nut-Cracking With Sledgehammers
 Speaking about vector graphics, physics, layout and constraint maintenance might give the impression of high *conceptual* complexity at the heart of even simple software. This is not quite true, which makes it all the worse that there is yet still immense *incidental* or implementation complexity.
 
-We are conditioned to only think of these in their most general forms. The vector graphics I use in OROM/SVG are just rects, lines, circles and text; a fraction of the full capability of SVG. The "basic physics" I use is dwarfed by fully general 2D or 3D physics engines. The only layout algorithm I had the patience to implement was a simple way to expand a list of boxes to fit in a new child at the bottom; the affordance to place and size boxes *manually* staves off the rest for the time being! Yet search for material on layout algorithms and it can seem like Fully General Linear Inequality Solvers like Cassowary are all there is.
+We are conditioned to only think of these in their most general forms. The vector graphics I use in OROM/SVG are just rects, lines, circles and text; a fraction of the full capability of SVG. The "geometric physics" I use is dwarfed by fully general 2D or 3D physics engines. The only layout algorithm I had the patience to implement was a simple way to expand a list of boxes to fit in a new child at the bottom; the affordance to place and size boxes *manually* staves off the rest for the time being! Yet search for material on layout algorithms and it can seem like Fully General Linear Inequality Solvers like Cassowary are all there is.
 
 The inevitable requirements I suggest here, do *not* necessitate Fully General anything. In fact, such representations would make it more cumbersome to express what I wanted in OROM. As the old wisdom goes, there's no point expressing a simple regex search as an arbitrary Turing machine; my boxes don't *have* a moment of inertia or a mass and I don't *need* a linear optimisation solver for my space management --- for the time being.
 
 Unfortunately, there doesn't seem to be much interest on the smaller-scale instances of these problems. I suggest the name "geometric physics" for the subset of physics I have mentioned.
 
-> I think the above section talks about 3 things - (i) it describes some of the things that you
-> had to implement for OROM/SVG, (ii) it talks about some general patterns that arise there
-> (like shapes and physics) and (iii) it mentions some implementation details.
-> I found it a bit confusing to have these all mixed together. It reads a bit as if you were
-> jumping from one random topic that you encountered when implementing this - but that makes
-> the section very specific to your implementation. How can we make it clear that there are
-> more general principles here? I think it might be better if you started with some larger
-> example (hypothetical is fine!) to illustrate what kind of things you'd like to build - e.g.
-> imagine you're building PowerPoint in OROM - what would be some of the things you'd need?
-> (for both the end application and the system that you're using to build it). This would then
-> nicely motivate the more specific topics (graphics, physics, relationships).
+# Patterns and Polyfilling
+The message of the previous section is that existing platforms are often at the wrong level of abstraction for the requirements of common software. I recognise that they are reasonably well-adapted to batch mode file I/O tasks, but that they fail for the *common case* is a problem. It necessitates largely the same "boilerplate" setup per project just to get basic functionality:
+- Here is how I shall describe shapes
+- Here is how I make these shapes move together
+- Here is how I maintain internal consistency as the user unpredictably changes things
 
-### As A "Developer"
-I now turn to some things that were perhaps inevitable, in any case useful, as the *implementor* of OROM/SVG.
+This burden either falls on the author, or on the wider community to build and maintain higher-level frameworks, syntax extensions, etc. In this paper, I refer to this process as "polyfilling", with an emphasis on the DIY, individual level.
 
-#### Practicality vs. High Aesthetics
+It is true, we already have a term for bringing into existence some software feature that isn't already there: programming. The difference is that polyfilling is about filling in *boilerplate*, i.e. functionality *that should have been there in the first place, but isn't*. This injects some subjectivity and value judgement into the term. But ultimately, all platforms are designed with certain features "out of the box" and leave other features to be implemented "if needed". And when a problem domain "requires batteries" yet the tools available say "batteries not included", it is quite reasonable to want the batteries to be part of the platform.
+
+This section covers the boilerplate I found myself polyfilling in OROM/SVG.
+
+making something programmable / raising substrate
+
+Is to bring things into the mindset / ontology of the specific software. For example, wrapping the official Web conventions for event handling in the Observable infrastructure, or wrapping DOM nodes with "user data" objects. The latter case, takes advantage of JavaScript's ability to simply "add on" new fields to objects, even objects of Web APIs, to "annotate" the DOM node with a JavaScript helper. Very advantageous to permit this in JavaScript. In another language like C, such would require saving the address in a lookup table elsewhere.
+
+Stupid lack of XYZ in JS or SVG due to come out in the next spec, etc
+
+Syntax sugar (SVG tree ops, vector ops)
+
+objects in JS user data
+
+## Practicality vs. High Aesthetics
 There is the view that insists on provably-correct code written with strange Unicode symbols, and at the opposite end there is the attitude of "get the job done", high style be damned. Each has its merits, but for my task I quickly saw the latter route to be most suitable.
 
 My favourite example of this has been the "encoding" of obj-dicts as DOM trees containing particular arrangements of children. In OROM/HTML, I would gleefully get/set state by calling code like this:
@@ -240,7 +234,7 @@ Another example of practicality was in the issue of positioning and sizing. In S
 > (So rather than trying to make minimal formal calculus that's provably correct, you're trying
 > to make minimal working interaction model that's interesting)
 
-#### Positioning and Sizing
+## Positioning and Sizing
 The simple desire to move and resize boxes with the mouse motivated a lot of the live-state and geometric physics ideas. This problem could be considered a microcosm of OROM/SVG: what's a natural way I *conceive* of this behaviour, and could I implement it that way?
 
 > The above point (moving motivated live state and physics ideas) would be a lot more obvious
@@ -248,13 +242,13 @@ The simple desire to move and resize boxes with the mouse motivated a lot of the
 
 It starts with a consideration of translational rigidity. In its most primitive form, this is a relation between two points. Thus it is natural to draw a line or "rod" between them. It seems that this rod transmits changes in one of its endpoints directly to the other endpoint. Since they both feel the same deltas, the displacement vector between them is preserved.
 
-(Diagram of delta transmission)
+![](delta-transmission.png)
 
 I like to see what I'm doing, so I wanted these rods to be visible and thus somehow *present in the SVG*. This was not hard; in SVG I draw a `<line>`, though the background machinery of the Rod class does all the work. There is also a Point class that is used wherever manipulable points (SVG circles) are intended.
 
 Resizing (of boxes at least) could be achieved through rods that stay horizontal or vertical. In the language of "small differences" spoken by my live-state infrastructure, this is expressed as a rod "transmitting deltas" in the vertical and horizontal, "absorbing" the other component into itself. Mirroring a DOM rect to these rods is as simple as subscribing its width and height to horizontal and vertical rods' length Observables. This way, boxes can be resized from whatever corner is convenient.
 
-(Box demonstrating all three rod types)
+![](delta-transmission.png)
 
 I colour such "half-rigid" rods yellow and fully rigid rods red. The "absorb all endpoint changes" case is coloured green.
 
@@ -271,7 +265,7 @@ I did manage to surmount this through kludging and compromise. But I do not know
 > points about implementation (e.g. your concrete physics system with rods, what you had to
 > 'polyfill')
 
-#### Visible Coordinate Systems
+## Visible Coordinate Systems
 Rigidity in a flat world of sibling shapes is somewhat straightforward. However, rigidity in the SVG world is more involved.
 
 First of all, SVG shapes (e.g. `<rect>`) are strictly leaf nodes, so if I wish to nest boxes within boxes, the visible "box" must be a mere *accessory* to the nestable element, in my case a `<g>` (group). This means that instead of resizing the x, y, width, height attributes of the `<rect>`, only its width and height change along with the transform attribute of its *parent* `<g>`. This was not too bad; just subscribe this attribute, instead of the `<rect>` position, to the top-left Point handle.
@@ -283,7 +277,7 @@ All child elements of a node transform with it, so already SVG has baked in a ba
 
 Again, I return to how we tend to work things out in the freedom of paper. Co-ordinate systems, here merely positionally displaced, have their origins here and there and have vectors between them. The rods thus far let me visually express relations between global Points; now was a question of expressing one global Point as a displacement from another (the `<g>` transform). New rod Observables `p2_from_p1` and `p1_from_p2` do the vector subtraction, which can then be propagated as local co-ordinates to children. It is nicer to express the relation (as well as see it!) this way --- see Figure ?? above.
 
-#### Context-appropriate ontologies
+## Context-appropriate ontologies
 Each API has its own conventions, including a way of naming and structuring expressions --- an ontology. The one-size-fits-all approach is exemplified in such interfaces. For example, in SVG we express a rectangle by `<rect x="10" y="10" width="600" height="400">`. The SVG specification *defines* to the user that a rect *is* a top-left corner, a width, and a height --- and that's it. However, this SVG-approved parametrisation of a rectangle is far from the only one[1](https://www.shift-society.org/salon/papers/2018/critiques/critique-semprola.pdf), and thus is, unsurprisingly, ill-fitted to some contexts.
 
 For example, I find it natural to resize boxes by dragging any of their four corners, so I wanted this in OROM/SVG. In this context, a "rectangle" is *seen as* four points: top-left, top-right, bottom-left, bottom-right. Obviously this is not a *minimal* description, since given e.g. the top-left and bottom-right, the other two points can be inferred. But one way or another, to be able to drag any of them, all four points must be present at *some* level. This alternative ontology was polyfilled in the form of a "rect controls" class that can be attached manually to any SVG `<rect>`. The SVG `x` and `y` are subscribed to the top-left Point; `width` and `height` are subscribed to Rod lengths.
@@ -294,7 +288,23 @@ To start with, the situation is modelled not as a time-varying value changing, b
 
 In OROM/SVG I did not quite want to re-map keys, but I did often want to have things follow the mouse when dragged. In order to do this, I reified the mouse pointer and its position, letting me write `subscribe(point.position, pointer.position)`. The Point has an `is-considering-me?` Observable wrapping `onmouseover`/`onmouseout`, and the LMB^[left mouse button] is reified into `left_mouse_button_is_down` to be explicit. The aforementioned subscription is set up whenever `is-considering-me?` and `left_mouse_button_is_down` become true, and torn down otherwise. I tended to think of this in the form "subscribe to pointer *only when* pointer is-considering-me *and* LMB is down", but I could live with this as a future polyfill in JavaScript.
 
-It takes some frustration and experience to get used to the idea that you have a right to polyfill in an alternative representation. Before I came to this conclusion, I used to twist my head around translating my intention into the `x,y,width,height` parameters, and un-translating when reading back the code I had produced. Once you get used to having to adapt your mental imagery to a single way of doing things (i.e. learning to code), it makes sense to simply expect to see more of it --- especially when you know you are new, surrounded by veterans who see no problem, etc. But nowadays I take the position that these are simply *widespread* failings of our way of doing things, instead of *our* failure to adapt to the way software is.
+The way these things are connected to the browser's event listeners could be called "device drivers". This approach is described in more detail in [13](https://prog21.dadgum.com/66.html). It amounts to translating information from the "unchangeable" Web platform into the worldview of my substrate, as early as possible:
+
+```
+svg.onmousedown = e =>
+  if (e.button === 0) change(left_mouse_button_is_down, true);
+
+svg.onmouseup = e =>
+  if (e.button === 0) change(left_mouse_button_is_down, false);
+
+svg.onmousemove = e => {
+  let r = svg.getBoundingClientRect();
+  let pos = vsub([e.clientX, e.clientY], [r.left, r.top]);
+  change(pointer.position, pos);
+};
+```
+
+It takes some frustration and experience to get used to the idea that you have a right to polyfill in alternative representations. Before I came to this conclusion, I used to twist my head around translating my intention into the `x,y,width,height` parameters, and un-translating when reading back the code I had produced. Once you get used to having to adapt your mental imagery to a single way of doing things (i.e. learning to code), it makes sense to simply expect to see more of it --- especially when you know you are new, surrounded by veterans who see no problem, etc. But nowadays I take the position that these are simply *widespread* failings of our way of doing things, instead of *our* failure to adapt to the way software is.
 
 What would it look like to support multiple ontologies? There are the two answers: anticipate the possibilities ahead of time, or support users adding their own.  The latter seems to imply polyfilling. As for the former: in general, anticipating the diversity of ways someone might look at the world is doomed to fail. But in the case of fairly *formalised* concepts such as geometrical shapes or mathematics, I could suggest that simple *under-specification* is the root of the problem in SVG. Instead of explaining in English that "`x` and `y` are the co-ordinates of the top left-hand corner...", it might be better to make these relations machine-readable or *embodied* in the API. For the rect this might look like:
 
@@ -311,7 +321,7 @@ The hope is that if we then specify enough information --- say, the bot-left and
 
 Is this a futile effort even for precise mathematical knowledge structures, or could enough formalisation of Euclidean geometry in the Web platform put an end to this sort of polyfilling?^[This relates to my intuition that type systems and other auto-reasoning tools are trapped in a doomed quest for "closed-form" AI, representable as a LaTeX formula.]
 
-#### Extensional Functions
+## Extensional Functions
 Time and time again we come across the same pattern of partitioning system state: trees or graphs of dictonaries, a.k.a. Maps, a.k.a. associative arrays. I am talking about filesystem paths `/path/to/some/file`, Python / Java modules `com.example.pkg.subpkg`, JavaScript objects `window.my_obj.component`. The common case is an association of a textual (string) name, to an arbitrary value. I find it useful to see this as a mathematical "function" defined *extensionally* by listing its input/output mappings -- this opposed to an *intensional* definition such as `x \mapsto 2x+3`, or a computer program.
 
 Extensional functions are perhaps the most basic form of Knowledge Representation, and match natural language very well. "The bicycle's wheels' spokes are silver" straightforwardly translates to a function equation `root (bicycle) (wheels) (spokes) (colour) = root (silver)`. That is, whatever object is the output of `silver` in the top-level `root` function, the output of `colour` (in the function on the left) points to the same object. The ability to partition a system in this way enables what [2](https://github.com/amb26/papers/blob/master/ppig-2016a/ppig2016a.pdf) calls a "natural co-ordinate system" for a piece of software, crucial for understanding and adaptability by others (so long as it is externalised).
@@ -341,63 +351,60 @@ The latter is unfortunately still required in JavaScript for extensional functio
 
 The decision to switch from the flat tabular representation in OROM/HTML to the nestable, Boxer-like structure in OROM/SVG permitted extensional (tree) functions in its substrate. True, I could always encode these in flat tables by having them reference each other. But this is like the second listing above: hard to follow. In the case of distinguishing between ordinary state mappings and the "method dictionary" of vtables, I actually stored method mappings with a "-" character to avoid doing this.
 
-(Screenshot showing this)
+![](method-hyphens.png)
 
 In OROM/SVG, I can directly express the model I was thinking of: the vtable box has a `methods` box and that's where the method boxes go.
 
-(Screenshot showing this)
+![](method-boxes.png)
 
-#### Externalisability
+## Persistence
 This refers to exposing structured program state to the user. This data can then be saved and used to restore the system at a later date, but it can also be tweaked with corresponding changes reflected in the system.
 
-Externalisability, or its weaker cousin *persistence*, was absolutely necessary to continue OROM/SVG development past a certain point. This is related to the fact that, upon discovering a bug and fixing it in the source code, the web page must be refreshed and start anew. In the beginning, when verifying that box drawing with the mouse is working correctly, this is not much of a problem: upon refresh, the blank initial state is restored and I could draw again. But as the system matured, and I began to implement parts of the target system (OROM), the cycle of finding a bug, tearing down the system, refreshing and losing work, and manually building it up again proved frustrating.
+Persistence was absolutely necessary to continue OROM/SVG development, past a certain point. This is because, upon discovering a bug and fixing it in the source code, the web page must be refreshed and started anew. In the beginning, when verifying that box drawing with the mouse is working correctly, this is not much of a problem: upon refresh, the blank initial state is restored and I could draw again. But as the system matured, and I began to implement parts of the target system (OROM), the cycle of finding a bug, tearing down the system, refreshing and losing work, and manually building it up again proved frustrating.
 
 Because the system could only be patched externally and restarted, there needed to be some way to persist the changes made by me that *weren't* part of the code, but the DOM substrate. Normally this can be as simple as autosave to the filesystem. But the Web platform is very wary of this^[As anyone who learns WebGL can attest to, when they discover they must run a local Web server to provide image files for textures since any filesystem requests will be rejected for security.], so the solution I turned to was manually copying the markup in the browser's inspector.
 
-(screenshot)
+![](html-inspector.png)
 
 This required a slight change towards an architecture where the all the data required to reconstruct the system's current state is contained in the inspector HTML (plus the OROM/SVG JavaScript source code.) Where previously "boxes" were created first as invisible JavaScript objects responsible for some SVG, now it was the other way round. When a rect is clicked, the system must look at some SVG and interpret it "on demand" as a box (lazily initialising its helper object if so).
 
+Persistence seems to be a weaker cousin of **externalisability** discussed in [1](antranig). As it stands, the system does not quite qualify as externalisable. When making changes to the HTML in the element inspector, the system's behaviour *should* adjust to match, but this is not currently guaranteed in all cases.
 
+# The OROM system as a part of the solution
+The OROM system was designed with a goal of eliminating the "artificial" distinction between implementation language and end-user language, by means of a mostly self-defining, or "meta-circular" object model. This general way of working on a piece of software "by means of itself" is easy to agree with, even if OOP is not to everyone's taste. It is an open question whether OROM's approach could be applied to other programming styles.
 
-Reference Antranig's stuff on this. How I dealt with event listeners etc
+The allure of meta-circularity here is not merely in being "cool", but that it paves the way to end-user empowerment. This is somewhat misleading because in OROM, these "end-users" are actually programmers. However, its purpose is to free a programmer's dependence on some distant and busy language designer, and it seems plausible that this is a stepping stone on the way to enabling programmers to *create* a piece of software which non-programmers do not depend on them for.
 
-Inspect Element: copy to save works, arbitrary edits *should* work (cuz it's on demand)
+I emphasise that this is the *allure* of OROM. However, there are some significant practical issues that must be overcome or clarified first.
 
-#### Polyfilling
-Throughout this work I have referred to "polyfilling". This means filling in my own implementation of functionality that "should have been there but isn't". Isn't this just what we do anyway in programming? Bringing into existence something we want which isn't already there? Such a consideration stands in the way of a sharp distinction, but there is an 
+## Minimal descriptions
+The OROM paper was part of the STEPS project of Alan Kay's VPRI^[Viewpoints Research Institute]. This project argued that the immense level of "accidental complexity" present in software implementation could be reduced, and Kay himself dreams of an end result analogous to a "Maxwell's Equations" of software. That is: the behaviour of electromagnetic fields can be represented in four short equations that fit "on a T-shirt". A self-hosted LISP interpreter fits on a page. Could we aim at a similar "fundamental description of software" that fits on something less than millions of lines of code?
 
-Very advantageous to permit this e.g. JavaScript
+This argument as stated suffers by glossing over an important fact. Maxwell's equations certainly do fit onto a T-shirt, but most people will not be able to explain what they mean. What typically amounts to years of study is compressed into those mathematical symbols, and the learning material involved most certainly does *not* fit on a T-shirt. The obvious *reductio ad absurdudum* is where we encapsulate these equations under a single symbol, M. M is defined as "Maxwell's Equations are true". Ta-da --- this fits on a coin, but good luck doing anything with it.^[In fact, this is almost achieved by the formalism of Geometric Calculus, which reduces them to only one equation.]
 
-Stupid lack of XYZ in JS or SVG due to come out in the next spec, etc
+I say this not to dismiss the argument, but to highlight the actually hard part of getting a "concise description" of some system; defining complexity away into a symbol helps us no more than naming the solution to an equation "x". There is a connection with data compression and Kolmogorov complexity. Perhaps the data is successfully compressed into a smaller file, but the size of the compression *program* should be added as well. What matters is whether the *total* size of these two gets reduced.
 
-Syntax sugar (SVG tree ops, vector ops)
+This is also related to "optimising the common case". One way to compress an ASCII string is by replacing the uniformly 8-bit characters with variable-bit codes. The most frequent letter gets the shortest available code, the next most frequent gets the next, and so on. The idea is that the shortening due to the most common letters beats the lengthening of the less common ones. Encoding the letter X with more bits is permissible, so long as the total message length is reduced.
 
-objects in JS user data
+Using "the right tool for the job" is an instance of this. Instead of insisting on the same language for the entirety of software, expressing domain-specific problems in domain-specific languages lets us do less work to describe *locally* common operations. Piumarta's related paper COLAs expresses the desire to extend this to "arbitrarily small parts of an application" as *mood-specific* languages. Of course, I would add that this is about *representations*, not just languages.
 
-## The OROM system as a part of the solution
-Meta-circularity as empowerment, not just "cool"
+We have a word "re-factoring", but what about the "factoring" in the first place? The previous discussion of "ontologies"
 
-The allure
+Unfortunately, OROM's "minimality" does not necessarily translate into "simplicity". It suffers from the same *cognitive* complexity, or need for study, as Maxwell's Equations. I cannot stress the amount of effort I have put in to wrap my head around the self-referential "vtable vtable" and the task of self-implementation. An overall better system might be one which is easier to pick up or understand, even if the number of formal objects is not as minimal.
+
+### Self-implementation
+This is also cool, but hard.
 
 Other themes e.g. homoiconicity of code and data
-
-Problems: cognitive vs. "official" complexity
-
-Maxwell's eqns metaphor: omits the years of study compressed into the math symbols!
-
-And yet, the allure of the Maxwell's Eqns of Software?
 
 "Taming" SVG - ability to use SVG in a vaguely sane way (vector graphics editor)
 
 Similarly for e.g. 3D OpenGL, Web Audio, sockets ...
 
-### Tensions between philosophies
-#### Stable or emergent? (Antranig against OOP dispatch)
-#### Turing-complete? (Antranig against this)
-#### Messaging vs Read-Write?
+## Tensions between philosophies
+### Stable or emergent? (Antranig against OOP dispatch)
+### Turing-complete? (Antranig against this)
+### Messaging vs Read-Write?
 
-# Misc
-A note about DIY and libraries
-
-My other problem was one of cost-benefit. My aim was to ...
+# Conclusion and future work
+Conclusion: what I have that Maxwell's E doesn't.
