@@ -1,16 +1,16 @@
 \title{What does it take to create with domain-appropriate tools?}
 \subtitle{A case study on the ``OROM'' system}
-\author{Joel Jakubovic}
-\affiliation{University of Kent, Canterbury}
+\author[ ]{Joel Jakubovic}
+\affiliation[ ]{University of Kent, Canterbury}
 
 \maketitle
 
 \newcommand{\joel}[1]{}
 \newcommand{\svgel}[1]{\texttt{\textless{}#1\textgreater{}}}
-\newcommand{\OSFA}{One-Size-Fits-All}
+\newcommand{\OSFA}{One-Size-Fits-All }
 
 \begin{abstract}
-There is a One-Size-Fits-Allquality to languages, APIs and even programming itself. Whether you're making a mobile game or a scientific simulation, you will be using a text-based language with similar devices for structuring your code. This is a source of artificial difficulty in creating, understanding, and modifying software systems. No matter the domain, the author's design needs encoding into a form that does not resemble it.
+There is a One-Size-Fits-All quality to languages, APIs and even programming itself. Whether you're making a mobile game or a scientific simulation, you will be using a text-based language with similar devices for structuring your code. This is a source of artificial difficulty in creating, understanding, and modifying software systems. No matter the domain, the author's design needs encoding into a form that does not resemble it.
 
 This paper describes a vision where software can be built in a programming environment that is closer to the domain of the software itself. By doing so, users of the system can use familiar abstractions and tools for adapting it. A step towards this vision is presented: a Web version of a minimal OOP system, developed as an executable version of the diagrams of its design, in a substrate meant to facilitate this. The experience of creating such a substrate is analysed, and I suggest deficiencies in programming environments that stand in the way of making this practice commonplace, as well as ways to fill in these gaps.
 \end{abstract}
@@ -28,11 +28,11 @@ artisan and material, free to shape it into any form with effort
 proportional to complexity.
 
 One would have thought that software-creation acts like hypothetical
-super-intelligent AI. That is: even though we start from a primitive
-base in the 50s (or even today), there would surely be a recursive
-process of self-improvement, building better software-creation tools
-with the existing ones, until an ``expressivity singularity'' where
-software becomes a workable material as described.
+super-intelligent Artificial Intelligence (AI). That is: even though we
+start from a primitive base in the 50s (or even today), there would
+surely be a recursive process of self-improvement, building better
+software-creation tools with the existing ones, until an ``expressivity
+singularity'' where software becomes a workable material as described.
 
 However, this didn't happen. Or at least, it is happening glacially
 slowly. The brute fact is that whenever you want to create software, you
@@ -75,16 +75,16 @@ Surely the trick is to \emph{use} coding to build something \emph{better
 than it}. And then use that, to build something even better. But there
 is an enormous breadth and depth of philosophies here, along with many
 failed historical attempts to do better --- or at least, ones that
-failed to catch on. But even worse than this is that in my very
+failed to catch on. And even worse than this is that in my very
 \emph{language} here I am making the same mistake as the text editor ---
 speaking in unqualified terms of ``better'' and ``worse'' as if there
-really is a One-Size-Fits-Allsolution to software creation!
+really is a One-Size-Fits-All solution to software creation!
 
 Of course what we \emph{really} want is the ability for people to create
 \emph{in the way that they think is best} in their particular context
 --- to equip them to feasibly create the tools that suit them for the
 thing they want to make. And second-order tools that suit them for
-making the first-order tools, etc. It would do no good to replace
+making the first-order tools, and so on. It would do no good to replace
 text-imperialism with anything-else-imperialism, which is one
 interpretation of calls for alternatives.
 
@@ -96,7 +96,7 @@ single person can have the same autonomy. A (future) software craft
 could be expected to give this power to \emph{individuals}, instead of
 the community alone. Whenever there are many small specialities
 (e.g.~languages, tools, or subject areas) each serving many clients, the
-One-Size-Fits-Allstyle is the best one can hope for. Adaptation to
+One-Size-Fits-All style is the best one can hope for. Adaptation to
 individual preferences and idiosyncrasies is only feasible when those
 individuals can do it themselves.
 
@@ -132,15 +132,15 @@ what any normal person has to do, insofar as:
 \hypertarget{the-orom-system}{%
 \section{The OROM system}\label{the-orom-system}}
 
-When I first read the paper Open, Reusable Object Models, I was hooked
-on its idea of a small but expressive starting system that could be
-self-improved into anything. It describes a late-bound\footnote{Fewer
-  commitments; more things determined by runtime conditions},
-Smalltalk-style\footnote{OOP with more emphasis on object instances and
-  messaging (methods) as in a distributed system; less emphasis on class
-  hierarchies implementing traditional data structures} objects and
-messaging environment that the authors call ``Id'' --- but which I refer
-to as OROM, for pronunciation and Googleability.
+When I first read the paper ``Open, Reusable Object Models''
+\cite{OROM}, I was hooked on its idea of a small but expressive starting
+system that could be self-improved into anything. It describes a
+late-bound\footnote{Fewer commitments; more things determined by runtime
+  conditions}, Smalltalk-style\footnote{OOP with more emphasis on object
+  instances and messaging (methods) as in a distributed system; less
+  emphasis on class hierarchies implementing traditional data structures}
+objects and messaging environment that the authors call ``Id'' --- but I
+shall refer to it as OROM, for pronunciation and Googleability.
 
 Essentially, an OROM object is a block of state which can change as a
 result of messages received by it. A message is sent by first
@@ -165,7 +165,7 @@ the specifics in my head, but when I drew tables in the style of their
 diagrams I readily saw what what going on. I personally would have
 preferred these to have been in the paper in the first place, but I am
 not necessarily representative of those who read it. The
-One-Size-Fits-Allapproach is perhaps unavoidable for static media like
+One-Size-Fits-All approach is perhaps unavoidable for static media like
 print.
 
 Other areas like messaging semantics could still be quite confusing.
@@ -192,7 +192,7 @@ restricted to the finished product?
 
 Thus was my natural representation decided. My first attempt to make it
 a reality was a partial success: a webpage made of HTML tables, evolved
-via JavaScript.
+via JavaScript (JS).
 
 \hypertarget{orom-as-html-tables}{%
 \subsection{OROM as HTML tables}\label{orom-as-html-tables}}
@@ -206,8 +206,8 @@ via JavaScript.
 
 To emphasise the tendency of OROM objects to be visualised as key-value
 mappings, I will refer to them as \emph{obj-dicts}. Figure
-\ref{fig:orom-html} shows the OROM/HTML implementation, in which they
-take the form of HTML tables.
+\ref{fig:orom-html} shows the OROM/HTML implementation \cite{orom-html},
+in which they take the form of HTML tables.
 
 Here, I was grateful for the browser's management of graphical layout,
 resizable text fields, and keeping the DOM tree synchronised with what
@@ -216,16 +216,13 @@ one sees. This last property enabled me to make the decision to
 basic liveness\footnote{``The thing on the screen is the actual thing''}
 for the keys and values of obj-dicts.
 
-For each obj-dict I used a two-column
-\texttt{\textless{}table\textgreater{}} within a
-\texttt{\textless{}div\textgreater{}}, matching the diagrams, and gave
-the rows CSS class names matching the keys for easy lookup. Sending
-messages relied on the JavaScript console, but existing values in text
-boxes (such as method implementations) could be edited directly. Also
-thanks to the browser, I could easily make text boxes and
-\texttt{\textless{}div\textgreater{}}s resizable as necessary.
+I used a two-column \texttt{\textless{}table\textgreater{}} within a
+\texttt{\textless{}div\textgreater{}} for each obj-dict (matching the
+diagrams) and gave the rows CSS class names matching the keys (for easy
+lookup). Sending messages relied on the JS console, but existing values
+in text boxes (such as method implementations) could be edited directly.
 
-However, the choice of ordinary HTML as a substrate proved rather
+This choice of ordinary HTML as a substrate, however, proved rather
 two-edged. The browser requires many features to do its job of rendering
 complex web pages. And sadly, as its client, I could only make use of
 those capabilities which the W3C had decided, at the time of authorship,
@@ -239,17 +236,18 @@ Shapes}\label{the-radical-concept-of-arrows-that-stay-on-the-shapes}}
 
 A key aspect of the OROM system is that there is an object \emph{graph}.
 That is, obj-dicts can have entries pointing to other obj-dicts, without
-restriction to a tree structure. Drawing arrows between things to denote
-this is a no-brainer, and I wanted it in my substrate for OROM to match
-the diagrams.
+restriction to a tree structure. Drawing arrows to denote this is a
+no-brainer (and easy on paper), so I wanted it in my substrate for OROM.
 
 A small problem to surmount first: even though I could hijack the
 \texttt{\textless{}table\textgreater{}} for its display properties, what
 element could I hijack to make arrows between arbitrary points? Luckily,
-there was SVG at my disposal, which could be persuaded to display over
-the HTML. However, another key feature of my intended substrate was to
-be able to rearrange and resize the boxes as desired. So I would also
-need to detect changes to the position and size of an element.
+there were Scalable Vector Graphics (SVG) at my disposal, which could be
+persuaded to display \texttt{\textless{}line\textgreater{}}s over the
+\texttt{\textless{}div\textgreater{}}s. But another key feature of my
+intended substrate was to be able to rearrange and resize the boxes. So
+I would also need to detect changes to the position and size of an
+element.
 
 Bizarrely, there is no such facility provided for HTML elements. This,
 despite the fact the browser \emph{needs} this functionality hence it
@@ -268,56 +266,6 @@ would be an opportunity to carefully observe this tedium, and
 crystallise some of my intuitions about why it is so consistently
 frustrating.
 
-\hypertarget{practicality-vs.-high-aesthetics}{%
-\subsection{Practicality vs.~High
-Aesthetics}\label{practicality-vs.-high-aesthetics}}
-
-There is the view that insists on provably-correct code written with
-strange Unicode symbols, and at the opposite end there is the attitude
-of ``get the job done'', high style be damned. Each has its merits, but
-for my task I quickly saw the latter route to be most suitable.
-
-My favourite example of this has been the ``encoding'' of obj-dicts as
-DOM trees containing particular arrangements of children. In OROM/HTML,
-I would gleefully get/set state by calling code like this:
-
-\begin{lstlisting}[language=JavaScript]
-Entity.prototype.addState = function(key) {
-  let tr = document.createElement('tr');
-  tr.setAttribute('class', key);
-
-  let td = document.createElement('td');
-  td.setAttribute('class', 'key');
-  td.textContent = key;
-  tr.appendChild(td);
-  ...
-\end{lstlisting}
-
-and in OROM/SVG the story is similar. It takes advantage of the powerful
-developer tools included in browsers (e.g.~the DOM inspector), and
-avoids the need to manually synchronise separate Model and View for such
-encoded state. With a little work, it also allowed the system to be
-saved and restored --- see Section \ref{persistence}. I consider this as
-practical, expedient, ``hijacking'' of these substrates because it
-either goes against their intended use (HTML tables for presentation
-rather than semantics) or are simply ``odd'' (using certain arrangements
-of shapes to ``encode'' machine-readable semantics).
-
-Contrast this with an approach that had to re-synthesise bits of the DOM
-whenever something changed. Admittedly this does still happen to a
-certain extent, but at least it was minimised where obvious.
-
-Another example of practicality was in the issue of positioning and
-sizing. In Section \ref{nut-cracking-with-sledgehammers} I mentioned
-that I was able to sidestep some layout work by offloading it to the
-user. While building the system I tended to want to draw boxes into
-existence, and for that my brain's existing aesthetic algorithms can
-decide where they go. There are areas where the machine must be able to
-figure this out itself --- I don't want to be constantly bothered by
-prompts to place boxes as they are allocated by some running code ---
-but for one-offs it is a very convenient way to do a little less
-yak-shearing.
-
 \hypertarget{orom-as-svg-trees}{%
 \subsection{OROM as SVG trees}\label{orom-as-svg-trees}}
 
@@ -325,23 +273,23 @@ yak-shearing.
   \centering
   \includegraphics[width=\textwidth]{../orom-svg.png}
   \caption{OROM/SVG: Obj-dicts are moveable and resizable nested boxes,
-           referencing each other via real arrows.\label{fig:orom-svg}}
+           referencing each other via \emph{real arrows}.\label{fig:orom-svg}}
 \end{figure}
 
-In this version, shown in Figure \ref{fig:orom-svg}, obj-dicts are
-encoded as nested SVG \texttt{\textless{}rect\textgreater{}}s and other
-elements, reminiscent of diSessa's Boxer. This was a significant
-departure from the table representation, and even though SVG supports
-(some) nested HTML via \texttt{\textless{}foreignObject\textgreater{}},
-I actually preferred the possibility of multiple levels of nesting.
+In OROM/SVG, shown in Figure \ref{fig:orom-svg}, obj-dicts are encoded
+as nested SVG \texttt{\textless{}rect\textgreater{}}s and other
+elements, reminiscent of diSessa's Boxer\cite{boxer}. This was a
+significant departure from the table representation, and even though SVG
+supports (some) nested HTML via
+\texttt{\textless{}foreignObject\textgreater{}}, I actually preferred
+the possibility of multiple levels of nesting.
 
-OROM/SVG more or less realises my desired substrate for implementing
-OROM. Needless to say, this version was far more challenging and took
-much longer to reach a satisfactory state. However, it is precisely this
-drudgery that brings me to a better understanding of this paper's
-question: \emph{what has it taken?} I shall discuss this in the form of
-broad patterns or themes that stand out to me from my development
-experience, hammered home by these OROM projects.
+Still, this version was far more challenging and took much longer to
+reach a satisfactory state. Yet it is precisely this drudgery that
+brings me to a better understanding of this paper's question: \emph{what
+has it taken?} I shall discuss this in the form of broad patterns or
+themes that stand out to me from my development experience, hammered
+home by these OROM projects.
 
 \hypertarget{typical-requirements-of-common-software-and-the-work-we-must-do-to-meet-them}{%
 \section{Typical Requirements Of Common Software (and the work we must
@@ -353,11 +301,12 @@ certain properties, such as being graphical and interactive. Such are
 expectations that ``end-users'' hold, consigned as they are to merely
 \emph{consume} what programmers give them. But if we want to make
 ``programming'' more like ``using'', such expectations on \emph{use} at
-least need to be acknowledged. In this section, I will present these and
-other seemingly \emph{inevitable} demands of normal software,
-exemplified by OROM/SVG. I will comment how our programming platforms
-measure up to the task of helping us meet them, including my chosen
-platform of JavaScript and Web technologies.
+least need to be acknowledged.
+
+In this section, I will present these and other seemingly
+\emph{inevitable} demands of normal software, exemplified by OROM/SVG. I
+will comment on how our programming platforms measure up to the task,
+including my chosen platform of JavaScript and Web technologies.
 
 \hypertarget{retained-mode-vector-graphics}{%
 \subsection{Retained-Mode Vector
@@ -378,13 +327,12 @@ On this requirement, SVG fits the bill very well. Although it is not
 part of the JavaScript language \emph{per se}, it is a standard and
 widely supported technology of the Web \emph{platform}. We can observe
 that anyone with a browser \emph{in principle} has access to a powerful
-vector graphics editor --- just one with no GUI. I will return to this
-at the end (Section ??).
+vector graphics editor --- just one with no GUI.
 
-The SVG tree keeps the nice properties of the DOM, such as updating the
+The SVG tree has the nice properties of the DOM, such as updating the
 display when shape parameters are changed. This is well-adapted to
 ``I/O-bound'' software like mine, where things change only in response
-to user input. If I wanted animation, this boils down to a regular
+to user input. If I wanted animation, this would boil down to a regular
 ``advance simulation'' signal, and would require setting up some
 rendering loop. Alternatively, there is the W3C's chosen ontology of CSS
 animations, but see Section \ref{context-appropriate-ontologies}.
@@ -406,16 +354,15 @@ All humans learn a basic set of expectations about the things they see
 around them. Some of these, such as ``things fall down'', are not
 generally appropriate to software UIs --- perhaps because the screen has
 a role in our lives a more of a table work surface rather than a
-vertical wall, even if it is vertical in real life.
+vertical wall, even if it is vertical in real life. The level of physics
+in software tends to not involve force, or mass, or very much at all,
+merely position and space; we could call it ``geometric physics''.
 
-The level of physics in software tends to not involve force, or mass, or
-very much at all, merely position and space; we could call it
-``geometric physics''. One thing that all usable software must do, for
-example, is not crush many visually complex shapes, such as lines of
-text, into the same region, since it becomes unreadable. Such concepts
-of ``solid objects do not intersect'' or ``only things at different
-layers may overlap'' are basic rules inherited from the real world of
-graphical presentation.
+One thing that all usable software must do, for example, is avoid
+crushing many visually complex shapes, such as lines of text, into the
+same (unreadable) region. Such concepts of ``solid objects do not
+intersect'' or ``only things at different layers may overlap'' are basic
+rules inherited from the real world of graphical presentation.
 
 I feel the need to point this out, because by default the computer does
 not know even the most obvious things about how space works, so we must
@@ -427,7 +374,8 @@ something like this:
 \begin{itemize}
 \tightlist
 \item
-  This number range 0000-FFFF is like a space, numbers = points
+  This number range \texttt{0000}--\texttt{FFFF} is like a space,
+  addresses = points
 \item
   Every point has at most one owner block
 \item
@@ -439,7 +387,7 @@ something resembling space. Far from being a niche topic in games and
 graphics, spatial partitioning algorithms and data structures have
 surprising relevance to more ordinary software. Both memory allocation
 and graphical layout are essential to today's; shame that only one of
-those has been recognised as such and entered the runtime of modern
+those has been recognised as such --- and entered the runtime of modern
 languages.
 
 \hypertarget{translationally-rigid-bodies}{%
@@ -449,22 +397,22 @@ Bodies}\label{translationally-rigid-bodies}}
 When you have both a screen and a pointing device (e.g.~touch or mouse),
 immediately it becomes worth having ways to move things around in at
 least a minimally realistic way. We can debate the appropriateness of
-Direct Manipulation (DM) for various situations. But it does make a lot
-of sense in simple cases, such moving around subdivisions of space
+Direct Manipulation for various situations. But it does make a lot of
+sense in simple cases, such moving around subdivisions of space
 (e.g.~windows) or elements of a graphical design.
 
 In OROM, the obvious candidate for this is the obj-dicts, plus all
 nested boxes in OROM/SVG. If I move the top-level rect, then I expect
 its children to move with it. This is simply the translational physics
-of rigid bodies: this set of points all move together. Of course, proper
-rigid bodies might also rotate and have mass, but this is usually
-undesirable for UI elements.
+of \textbf{rigid bodies}: ``this set of points all move together''. Of
+course, proper rigid bodies might also rotate and have mass, but this is
+usually undesirable for UI elements.
 
 Translational rigidity can be expressed as the points X and Y always
 having the same displacement from each other. Or, when one point is
 moved, the rest also move by the same delta. This is a problem of
-preserving the relationship over time, which was a significant area of
-OROM/SVG.
+\textbf{preserving the relationship over time}, which was a significant
+area of OROM/SVG.
 
 \hypertarget{maintaining-relationships-over-time}{%
 \subsection{Maintaining Relationships Over
@@ -475,21 +423,21 @@ I call ``dumb'' state. The language provides an affordance to change any
 part of the state to a new value, but nothing else.
 
 What more could there be? Well, in \emph{every} software system there
-are certain rules, or ``invariants'' of internal consistency, such as
-``translational rigidity'' above. Often, changes to any part of the
-system are permissible, but only if connected or dependent parts of the
-state change in response.
+are certain rules, or ``invariants'' of \textbf{internal consistency},
+such as ``translational rigidity'' above. Often, changes to any part of
+the system are permissible, but only if connected or dependent parts of
+the state change in response.
 
 The job of keeping track of who depends on whom can fall either on the
 programmer, or the computer. If the programmer has to do this, they can
 only go so far managing and simulating in their head. As systems grow
 more complex, it is only natural to try and make the computer more
 intelligent to do this work. What I am building up to is that whenever
-we (or I) consider constraints, or ``reactive'' programming, or the
-``Observer'' pattern as things you only wheel out on special occasions,
-we only deceive ourselves into doing the same work less explicitly. It
-seems that such ``live state'' should be the expected common case for
-software development.
+we (or I) consider constraints, ``reactive'' programming, or the
+``Observer'' pattern as things you only wheel out \emph{on special
+occasions}, we only deceive ourselves into doing the \emph{same work}
+less explicitly. It seems that such ``live state'' should be the
+expected common case for software development.
 
 If a platform does not provide a means to causally link and unlink bits
 of live state, then this must form part of the standard boilerplate.
@@ -497,8 +445,8 @@ Such was the case in OROM/SVG. I implemented the system in an OOP
 fashion, and the Observable class is the most widely used. It wraps a
 current value and a list of subscribers, notifying them when it changes.
 
-Getting an object to follow the mouse pointer, for example when
-dragging, is conceptually very simple: an ``always equal'' relation. In
+Getting an object to follow the mouse pointer (e.g.~when dragging) is
+\emph{conceptually} very simple: an ``always equal'' relation. In
 OROM/SVG founded on live-state, this can be expressed in much the same
 way:
 
@@ -506,8 +454,9 @@ way:
 subscribe(object.position, pointer.position);
 \end{lstlisting}
 
-(By default, an Observable A responds to a change from Observable B by
-adopting B's new value.)
+By default, an Observable A responds to a change from Observable B by
+adopting B's new value. So by subscribing the object's position to the
+pointer's, pointer movements copy the new position to the object.
 
 \hypertarget{nut-cracking-with-sledgehammers}{%
 \subsection{Nut-Cracking With
@@ -517,28 +466,29 @@ Speaking about vector graphics, physics, layout and constraint
 maintenance might give the impression of high \emph{conceptual}
 complexity at the heart of even simple software. This is not quite true,
 which makes it all the worse that there is yet still immense
-\emph{incidental} or implementation complexity.
+\emph{implementation} complexity.
 
 We are conditioned to only think of these in their most general forms.
-The vector graphics I use in OROM/SVG are just rects, lines, circles and
-text; a fraction of the full capability of SVG. The ``geometric
-physics'' I use is dwarfed by fully general 2D or 3D physics engines.
-The only layout algorithm I had the patience to implement was a simple
-way to expand a list of boxes to fit in a new child at the bottom; the
-affordance to place and size boxes \emph{manually} staves off the rest
-for the time being! Yet search for material on layout algorithms and it
-can seem like Fully General Linear Inequality Solvers like Cassowary are
-all there is.
+But the ``vector graphics'' I use in OROM/SVG are just rects, lines,
+circles and text; a fraction of the full capability of SVG. The
+``geometric physics'' I use is dwarfed by fully general 2D or 3D physics
+engines. The only layout algorithm I had the patience to implement was a
+simple way to expand a list of boxes to fit in a new child at the
+bottom. The affordance to place and size boxes \emph{manually} is a
+convenient substitute, when required infrequently. Yet search for
+material on layout algorithms, and it can seem like Fully General Linear
+Inequality Solvers like Cassowary \cite{cassowary} are all there is.
 
 The inevitable requirements I suggest here, do \emph{not} necessitate
-Fully General anything. In fact, such representations would make it
+Fully General anything. In fact, such generality might make it
 \emph{more} cumbersome to express what I wanted in OROM. As the old
 wisdom goes, there's no point expressing a simple regex search as an
 arbitrary Turing machine; my boxes don't \emph{have} a moment of inertia
 or a mass and I don't \emph{need} a linear optimisation solver for my
 space management --- for the time being. Under the theme of
-domain-appropriate tools, it is worth designing interfaces for
-smaller-scale instances of these areas and exploring their capabilities.
+domain-appropriate tools, I think it is worth designing interfaces for
+\emph{smaller-scale} instances of these areas and exploring what they
+can express.
 
 \hypertarget{patterns-and-polyfilling}{%
 \section{Patterns and Polyfilling}\label{patterns-and-polyfilling}}
@@ -547,8 +497,8 @@ The message of the previous section is that existing platforms are often
 at the wrong level of abstraction for the requirements of common
 software. I recognise that they are reasonably well-adapted to batch
 mode file I/O tasks, but that they fail for the \emph{common case} is a
-problem. It necessitates largely the same ``boilerplate'' setup per
-project just to get basic functionality:
+problem. There is largely the same setup per project just to get basic
+functionality:
 
 \begin{itemize}
 \tightlist
@@ -572,22 +522,48 @@ is that polyfilling is about filling in \emph{boilerplate},
 i.e.~functionality \emph{that should have been there in the first place,
 but isn't}. This injects some subjectivity and value judgement into the
 term. But ultimately, all platforms are designed with certain features
-``out of the box'' and leave other features to be implemented ``if
-needed''. And when a problem domain ``requires batteries'' yet the tools
-available say ``batteries not included'', it is quite reasonable to want
-the batteries to be part of the platform.
+``out of the box'' and leave other features for us to implement ``if
+needed''.
 
-This section covers the boilerplate I found myself polyfilling in
-OROM/SVG.
+When the \emph{normal} problem domain ``requires batteries'', yet the
+tools available say ``batteries not included'', it is quite reasonable
+to want the batteries to be part of the platform. This section details
+the ``batteries not included'' I found myself polyfilling in OROM/SVG.
 
-Is to bring things into the mindset / ontology of the specific software.
-For example, wrapping the official Web conventions for event handling in
-the Observable infrastructure, or wrapping DOM nodes with ``user data''
-objects. The latter case, takes advantage of JavaScript's ability to
-simply ``add on'' new fields to objects, even objects of Web APIs, to
-``annotate'' the DOM node with a JavaScript helper. Very advantageous to
-permit this in JavaScript. In another language like C, such would
-require saving the address in a lookup table elsewhere.
+\hypertarget{wrapping-and-user-data}{%
+\subsection{Wrapping and ``user data''}\label{wrapping-and-user-data}}
+
+The classic example of polyfilling is finding that JavaScript arrays do
+not support some familiar operation. For example, this used to be the
+case with the \texttt{map} function. Yet JavaScript lets you
+\emph{directly augment} the \texttt{Array} class with the new operation,
+even though \texttt{Array} is ``part of the language'':
+
+\begin{lstlisting}
+Array.prototype.map = function() { ... }
+\end{lstlisting}
+
+One can do this to all objects, even those of Web APIs. For example, I
+use it to connect SVG nodes to the OROM system: when a
+\texttt{\textless{}rect\textgreater{}} is created, it is ``annotated''
+with a \texttt{userData} pointer to the box that it is part of. Then,
+when clicked, the box can be found immediately.
+
+This could be described as the box ``wrapping'' the
+\texttt{\textless{}rect\textgreater{}}, but risks impliying that the
+\texttt{\textless{}rect\textgreater{}} merely needs to \emph{live
+inside}, or \emph{be referenced by}, the box. In this case, the
+\emph{reverse} association is also needed, because clicks can only enter
+the system \emph{through} SVG in the first place. What is significant
+here is that JavaScript lets us add such a link to an entity that
+\emph{we did not design}.
+
+This term, ``user data'', often crops up in libraries with the same
+idea: to associate arbitrary data with an API object. But in languages
+that do not permit such ``annotation'', this has to be explicitly
+\emph{designed in} ahead of time. If it wasn't, then it has to be done
+in a roundabout way --- for example, a separate \texttt{userData} lookup
+table, indexed by the memory address of the API object.
 
 \hypertarget{positioning-and-sizing}{%
 \subsection{Positioning and Sizing}\label{positioning-and-sizing}}
@@ -630,7 +606,7 @@ boxes can be resized from whatever corner is convenient.
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.75\textwidth]{../rods.png}
+  \includegraphics[width=\textwidth]{../rods.png}
   \caption{The yellow rods on the box border are ``half-rigid'': they transmit horizontal or vertical changes, but not both. The green rod in the top-left absorbs all changes from an endpoint into itself, visualising the displacement vector of the child box from its parent. The remaining red rods are fully rigid. A line of CSS can show this ``scaffolding'' which is normally hidden for users. \label{fig:rods}}
 \end{figure}
 
@@ -644,10 +620,11 @@ loop), led to duplicate deltas applied twice and other nightmares. This
 is the tip of an entire research iceberg stretching from Functional
 Reactive Programming to internet routing and distributed algorithms.
 
-I did manage to surmount this through kludging and compromise. But I do
-not know whether these problems are merely a consequence of some design
-decision I could change to escape it, or if they are intrinsic to my
-(modest) UI goal.
+I had to shelve this investigation in the interest of continuing with
+the rest of the system, but I did manage to surmount this through
+kludging and compromise. So I do not know whether these problems are
+merely a consequence of some design decision I could change to escape
+it, or if they are intrinsic to my (modest) UI goal.
 
 \hypertarget{visible-coordinate-systems}{%
 \subsection{Visible Coordinate
@@ -672,19 +649,15 @@ handle.
 
 All child elements of a node transform with it, so already SVG has baked
 in a basic facility for translational rigidity. This is only available
-as a tree hierarchy, but it is still useful. However, it conflicts with
-my early decision to have Point objects all share the global co-ordinate
-system (this was to ensure that simple relations, such as a point
-following the mouse pointer, are not infuriating to express.) Still, it
-was necessary in the case of certain elements --- especially those which
-must transcend the tree structure altogether, like arrows between boxes
---- to bite this bullet, one way or another.
-
-\begin{quote}
-Maybe mention that this is caused by the mismatch between the substrate
-and the programming system (substrate is tree, but programming is
-graphs)?
-\end{quote}
+as a tree hierarchy\footnote{This highlights the mismatch between the
+  tree-based DOM and any system that is graph-structured.}, but it is
+still useful. However, it conflicts with my early decision to have Point
+objects all share the global co-ordinate system (this was to ensure that
+simple relations, such as a point following the mouse pointer, are not
+infuriating to express.) Still, it was necessary in the case of certain
+elements --- especially those which must transcend the tree structure
+altogether, like arrows between boxes --- to bite this bullet, one way
+or another.
 
 Again, I return to how we tend to work things out in the freedom of
 paper. Co-ordinate systems, here merely positionally displaced, have
@@ -694,7 +667,7 @@ was a question of expressing one global Point as a displacement from
 another (the \texttt{\textless{}g\textgreater{}} transform). New rod
 Observables \texttt{p2\_from\_p1} and \texttt{p1\_from\_p2} do the
 vector subtraction, which can then be propagated as local co-ordinates
-to children. It is nicer to express the relation (as well as see it!)
+to children. It is nice to express the relation (as well as see it!)
 this way (Figure \ref{fig:rods}).
 
 \hypertarget{context-appropriate-ontologies}{%
@@ -702,15 +675,14 @@ this way (Figure \ref{fig:rods}).
 ontologies}\label{context-appropriate-ontologies}}
 
 Each API has its own conventions, including a way of naming and
-structuring expressions --- an ontology. The One-Size-Fits-Allapproach
-is exemplified in such interfaces. For example, in SVG we express a
-rectangle by
+structuring expressions --- an ontology \cite{crit-semprola}. The
+One-Size-Fits-All approach is exemplified in such interfaces. For
+example, in SVG we express a rectangle by
 \texttt{\textless{}rect x="10" y="10" width="600" height="400"\textgreater{}}.
-The SVG specification \emph{defines} to the user that a rect \emph{is} a
-top-left corner, a width, and a height --- and that's it. However, this
-SVG-approved parametrisation of a rectangle is far from the only
-one\href{https://www.shift-society.org/salon/papers/2018/critiques/critique-semprola.pdf}{1},
-and thus is, unsurprisingly, ill-fitted to some contexts.
+The SVG specification \emph{defines} to the user that a rect simply
+\textbf{is} a top-left corner, a width, and a height --- and that's it.
+However, this SVG-approved parametrisation of a rectangle is far from
+the only one, and thus is, unsurprisingly, ill-fitted to some contexts.
 
 For example, I find it natural to resize boxes by dragging any of their
 four corners, so I wanted this in OROM/SVG. In this context, a
@@ -731,21 +703,22 @@ to Rod lengths.
 
 Another example is to be found in the DOM's event listener model.
 Conceptually, many ``events'' are in fact changes to the state of some
-physical (or conceptual) device. And both keyboard keys and mouse
-buttons, for example, have two states --- pressed, not pressed --- which
-ought to make them \emph{interchangeable} to this extent. This is the
-logic behind ``key mapping''\footnote{For example, the player can
+physical device. And both keyboard keys and mouse buttons, for example,
+have two states --- pressed, not pressed --- which ought to make them
+\emph{interchangeable} to some extent. Indeed, this is why there is such
+a thing as ``key mapping''\footnote{For example, the player can
   re-assign the action ``shoot'' from its default mouse button to a
   keyboard key, or another action from keyboard to mouse, as it suits
   them.} in PC games. But the official ontology of the Web makes it
 nontrivial to do this.
 
-To start with, the situation is modelled not as a time-varying value
-changing, but instead as a sort of Cartesian product of event listeners.
-Rather than, say, a piece of live-state for the left mouse button (LMB),
-we get \texttt{onmousedown} and \texttt{onmouseup}. Thankfully we do not
-have \texttt{onAdown}/\texttt{onAup}, \texttt{onBdown/onBup}, \ldots{}
-all the way to \texttt{onZdown}/\texttt{onZup}, but only
+To start with, the situation is modelled not as the \emph{changing} of
+some time-varying property, but instead as a sort of Cartesian product
+of event listeners. Rather than, say, a piece of live-state for the left
+mouse button (LMB), we get \texttt{onmousedown} and \texttt{onmouseup}.
+Thankfully we do not have \texttt{onAdown}/\texttt{onAup},
+\texttt{onBdown/onBup}, \ldots{} all the way to
+\texttt{onZdown}/\texttt{onZup}, but only
 \texttt{onkeydown}/\texttt{onkeyup}. Yet this is just one of the many
 possible ways to slice this 3-dimensional\footnote{Device (mouse,
   keyboard), sub-device (button, key), state (up, down)} space.
@@ -761,14 +734,13 @@ aforementioned subscription is set up whenever
 \texttt{is-considering-me?} and \texttt{left\_mouse\_button\_is\_down}
 become true, and torn down otherwise. I tended to think of this in the
 form ``subscribe to pointer \emph{only when} pointer is-considering-me
-\emph{and} LMB is down'', but I could live with this as a future
-polyfill in JavaScript.
+\emph{and} LMB is down'', but I could live with this notation as a
+future polyfill in JavaScript.
 
 The way these things are connected to the browser's event listeners
-could be called ``device drivers''. This approach is described in more
-detail in \href{https://prog21.dadgum.com/66.html}{13}. It amounts to
-translating information from the ``unchangeable'' Web platform into the
-worldview of my substrate, as early as possible:
+could be called ``device drivers'' --- an approach described in
+\cite{prog21-bbox}. It amounts to translating information from the Web's
+ontology into that of my substrate, as early as possible:
 
 \begin{lstlisting}
 svg.onmousedown = e =>
@@ -796,25 +768,25 @@ veterans who see no problem, and so on. Nowadays, I take the position
 that these are simply \emph{widespread} failings of our way of doing
 things, instead of \emph{our} failure to adapt to the way software is.
 
-What would it look like to support multiple ontologies? There are the
-two answers: anticipate the possibilities ahead of time, or support
-users adding their own. It is unclear if we can do better on the latter
-than simply ``support polyfilling''. As for the former: in general,
-anticipating the diversity of ways someone might look at the world is
-doomed to fail. But in the case of fairly \emph{formalised} concepts
-such as geometrical shapes or mathematics, I could suggest that simple
-\emph{under-specification} is the root of the problem in SVG. Instead of
-explaining in English that ``\texttt{x} and \texttt{y} are the
-co-ordinates of the top left-hand corner\ldots{}'', it might be better
-to make these relations machine-readable or \emph{embodied} in the API.
-For the rect this might look like:
+What would it look like to support multiple ontologies? There are
+perhaps two answers: anticipate the possibilities ahead of time, or
+support users adding their own. It is unclear if we can do better on the
+latter than simply ``support polyfilling''. As for the former: in
+general, anticipating the diversity of ways someone might look at the
+world is doomed to fail. But in the case of fairly \emph{formalised}
+concepts such as geometrical shapes or mathematics, I could suggest that
+simple \emph{under-specification} is the root of the problem in SVG.
+Instead of the specification explaining in English that ``\texttt{x} and
+\texttt{y} are the co-ordinates of the top left-hand corner\ldots{}'',
+it might be better to make these relations machine-readable or
+\emph{embodied} in the API. For the rect this might look like:
 
 \noindent A \texttt{rect} is\ldots{}
 
 \begin{itemize}
 \tightlist
 \item
-  a \texttt{polygon} (defined elsewhere)
+  a \texttt{polygon} (to be defined elsewhere)
 \item
   defined by 4 \emph{degrees of freedom} \texttt{x\ y\ width\ height}
   (internal representation)
@@ -824,13 +796,13 @@ For the rect this might look like:
   \begin{itemize}
   \tightlist
   \item
-    \texttt{{[}x,y{]}} ``top-left''
+    \texttt{{[}x,y{]}} called \texttt{top-left}
   \item
-    \texttt{{[}x+width,y{]}} ``top-right''
+    \texttt{{[}x+width,y{]}} called \texttt{top-right}
   \item
-    \texttt{{[}x,y+height{]}} ``bot-left''
+    \texttt{{[}x,y+height{]}} called \texttt{bot-left}
   \item
-    \texttt{{[}x+width,y+height{]}} ``bot-right''
+    \texttt{{[}x+width,y+height{]}} called \texttt{bot-right}
   \end{itemize}
 \end{itemize}
 
@@ -842,11 +814,10 @@ In a crude sense, I have successfully anticipated the most obvious
 ontologies of a rectangle here. However, I missed out the ``centre plus
 half-width and half-height'' formulation, among others. Is this a futile
 effort even for precise mathematical knowledge structures, or could
-enough formalisation of Euclidean geometry in the Web platform put an
-end to this sort of polyfilling?\footnote{This relates to my intuition
-  that type systems and other auto-reasoning tools are trapped in a
-  doomed quest for ``closed-form'' AI, representable as a
-  \LaTeX formula.}
+enough formalisation\footnote{A related question is whether type systems
+  and other auto-reasoning formalisms are trapped in a doomed quest for
+  ``closed-form'' AI, representable as a \LaTeX~formula.} of Euclidean
+geometry in the Web platform put an end to this sort of polyfilling?
 
 \hypertarget{extensional-functions}{%
 \subsection{Extensional Functions}\label{extensional-functions}}
@@ -857,25 +828,26 @@ associative arrays. I am talking about filesystem paths
 \texttt{/path/to/some/file}, Python / Java modules
 \texttt{com.example.pkg.subpkg}, JavaScript objects
 \texttt{window.my\_obj.component}. The common case is an association of
-a textual (string) name, to an arbitrary value. I find it useful to see
-this as a mathematical ``function'' defined \emph{extensionally} by
-listing its input/output mappings --- this opposed to an
-\emph{intensional} definition such as \(x \mapsto 2x+3\), or a computer
-program.
+a textual name to an arbitrary value. I find it useful to see this as a
+mathematical ``function'' defined \emph{extensionally} by listing its
+input/output mappings --- this opposed to an \emph{intensional}
+definition such as \(x \mapsto 2x+3\), or a computer program.
 
 Extensional functions are perhaps the most basic form of Knowledge
 Representation, and match natural language very well. ``The bicycle's
 wheels' spokes are silver'' straightforwardly translates to a function
 equation
-\texttt{root\ (bicycle)\ (wheels)\ (spokes)\ (colour)\ =\ root\ (silver)}.
+
+\begin{lstlisting}
+root (bicycle) (wheels) (spokes) (colour) = root (silver)
+\end{lstlisting}
+
 That is, whatever object is the output of \texttt{silver} in the
 top-level \texttt{root} function, the output of \texttt{colour} (in the
 function on the left) points to the same object. The ability to
-partition a system in this way enables what
-\href{https://github.com/amb26/papers/blob/master/ppig-2016a/ppig2016a.pdf}{2}
-calls a ``natural co-ordinate system'' for a piece of software, crucial
-for understanding and adaptability by others (so long as it is
-externalised).
+partition a system in this way enables what \cite{externalise} calls a
+``natural co-ordinate system'' for a piece of software, crucial for
+understanding and adaptability by others.
 
 It seems that this way of expressing the ``parts'' of a system is an
 inevitable requirement of any programming substrate. Some languages,
@@ -911,8 +883,8 @@ a.get('b2').set('c3', x);
 a.get('b2').set('c4', w);
 \end{lstlisting}
 
-The latter is unfortunately still required in JavaScript for extensional
-functions with \emph{non-string} inputs.
+The latter style is unfortunately still required in JavaScript for
+extensional functions with \emph{non-string} inputs.
 
 The decision to switch from the flat tabular representation in OROM/HTML
 to the nestable, Boxer-like structure in OROM/SVG permitted extensional
@@ -923,7 +895,8 @@ between ordinary state mappings and the ``method dictionary'' of
 vtables, I actually stored method mappings with a ``-'' character to
 avoid doing this (Figure \ref{fig:method-hyphens}). In OROM/SVG, I can
 directly express the model I was thinking of (Figure
-\ref{fig:method-boxes}).
+\ref{fig:method-boxes}). So we can see this as polyfilling a mistake in
+the design of my substrate, rather than the Web platform underneath it.
 
 \begin{figure}[h]
   \centering
@@ -955,8 +928,8 @@ substrate matured, and I began to implement parts of the target system
 (OROM) --- the cycle of finding a bug, tearing down the system,
 refreshing and losing work, and manually building it up again, proved
 frustrating. Because the system could only be patched externally and
-restarted, there needed to be some way to persist changes that
-\emph{weren't} part of the code, but the DOM instead.
+restarted, there needed to be some way to persist changes which live in
+the DOM, rather than the source files.
 
 Normally, this can be as simple as autosave to the filesystem. But the
 Web platform is very wary of this\footnote{As anyone who learns WebGL
@@ -974,17 +947,19 @@ copying the markup in the browser's inspector (Figure
 
 This required a slight change towards an architecture where the all the
 data required to reconstruct the system's current state is contained in
-the inspector HTML (plus the OROM/SVG JavaScript source code.) Where
-previously ``boxes'' were created first as invisible JavaScript objects
-responsible for some SVG, now it was the other way round. When a rect is
-clicked, the system must look at some SVG and interpret it ``on demand''
-as a box (lazily initialising its helper object if so).
+the inspector HTML (as well as the OROM/SVG JavaScript source code, of
+course.) Where previously ``boxes'' were created first as invisible JS
+objects responsible for some SVG, now it was the other way round. When a
+rect is clicked, the system must look at some SVG and interpret it ``on
+demand'' as a box (lazily initialising its helper object if so).
 
 Persistence seems to be a weaker cousin of \textbf{externalisability},
-defined in \href{antranig}{1}. As it stands, the system does not quite
+defined in \cite{externalise}. As it stands, the system does not quite
 qualify as externalisable. When making changes to the HTML in the
-element inspector, the system's behaviour \emph{should} adjust to match,
-but this is not currently guaranteed in all cases.
+element inspector, the system's behaviour \emph{ought} to adjust to
+match, but this is not currently guaranteed. Depending on the ability to
+listen for changes in node attributes or children, this may remain the
+case.
 
 \hypertarget{the-orom-system-as-a-part-of-the-solution}{%
 \section{The OROM system as a part of the
@@ -1002,10 +977,11 @@ The allure of meta-circularity here is not merely in being ``cool'', but
 that it paves the way to end-user empowerment. This is somewhat
 misleading because in OROM, these ``end-users'' are actually
 programmers. However, its purpose is to free a programmer's dependence
-on some distant and busy language designer, and it seems plausible that
-this is a stepping stone on the way to enabling programmers to
-\emph{create} a piece of software which non-programmers do not depend on
-them for.
+on some distant and busy\footnote{Not to mention unelected? ``Take Back
+  Control!'' (jokes aside, in this context it makes a lot of sense.)}
+language designer. It seems plausible that this is a step on the way to
+enabling \emph{creation} of a piece of software which non-programmers do
+not depend on us for.
 
 I emphasise that this is the \emph{allure} of OROM. However, there are
 some significant practical issues that must be overcome or clarified
@@ -1020,9 +996,11 @@ the immense level of ``accidental complexity'' present in software
 implementation could be reduced, and Kay himself dreams of an end result
 analogous to a ``Maxwell's Equations'' of software. That is: the
 behaviour of electromagnetic fields can be represented in four short
-equations that fit ``on a T-shirt''. A self-hosted LISP interpreter fits
-on a page. Could we aim at a similar ``fundamental description of
-software'' that fits on something less than millions of lines of code?
+equations that fit ``on a T-shirt''.
+
+A self-hosted LISP interpreter fits on a page. Could we aim at a similar
+``fundamental description of software'' that fits on something less than
+millions of lines of code?
 
 This argument as stated suffers by glossing over an important fact.
 Maxwell's equations certainly do fit onto a T-shirt, but most people
@@ -1044,47 +1022,107 @@ if the data successfully compressed into a smaller file, the size of the
 compression \emph{program} should be added as well. What matters is to
 reduce the \emph{combined} size of notation and platform.
 
-We have a word ``re-factoring'', but what about the ``factoring'' in the
-first place? The previous discussion of ``ontologies''
-
 Further, there is perhaps a risk of optimising for \emph{formal} rather
 than \emph{practical} minimality (e.g.~the Turing machine). OROM's
-``minimality'' does not necessarily translate into ``simplicity''; it
+``minimality'' does not necessarily translate into ``simplicity''. It
 suffers from the same \emph{cognitive} complexity, or need for study, as
-Maxwell's Equations. I cannot stress the amount of effort I have put in
-to wrap my head around the self-referential ``vtable vtable'' and the
-task of self-implementation. An overall better system might be one which
-is easier to pick up or understand, even if the number of formal objects
-is not as minimal.
+Maxwell's Equations; I cannot stress enough the amount of effort I have
+put in to wrap my head around the self-referential ``vtable vtable'' and
+the task of self-implementation. An overall better system might be one
+which is easier to pick up or understand, even if the number of formal
+objects is not as minimal.
+
+Much to their credit, in the conclusion of \cite{OROM}, the authors note
+that ``it is not necessarily a friendly model for hand-written code'',
+suggesting its use as a compilation target. In a similar vein, it could
+function as the kernel of a much more familiar system (on the surface)
+--- it is, after all, supposed to be a vehicle that other things sit on,
+rather than the final user interface itself.
 
 \hypertarget{self-implementation}{%
 \subsection{Self-implementation}\label{self-implementation}}
 
-This is also cool, but hard.
+The related paper \cite{COLAs} expands on OROM, giving it a
+``structural'' role complemented by a LISP-like programming language.
+Section 6.1 sketches out the intended ``bootstrapping'' process, ending
+with a self-sufficent, self-hosting version of the system.
 
-Other themes e.g.~homoiconicity of code and data
+However, this task again suffers from the same cognitive complexity as
+any other self-referential circle. This is even more so, having made the
+complexity of graphics and interaction somehow still ``part of the
+system''. Figuring out exactly how the authors' bootstrapping process of
+their wholly \emph{language-based} system maps on to my task is full of
+unknowns at this point.
 
-``Taming'' SVG - ability to use SVG in a vaguely sane way (vector
-graphics editor)
+Finally, in \cite{crit-semprola}, there is a warning against ``obsession
+with completely homogenous systems'' written in themselves. If this
+approach is doomed then obviously I want to take a different one, but
+the argument against it seems to hinge on what constitutes ``failure''.
+It considers Smalltalk and LISP as ``unsuitable'', yet the authors of
+OROM clearly think the opposite. The disagreement probably hinges on
+``unsuitable for \emph{what}?'' and it would be clearer if the following
+two questions were answered:
 
-Similarly for e.g.~3D OpenGL, Web Audio, sockets \ldots{}
-
-\hypertarget{tensions-between-philosophies}{%
-\subsection{Tensions between
-philosophies}\label{tensions-between-philosophies}}
-
-\hypertarget{stable-or-emergent-antranig-against-oop-dispatch}{%
-\subsubsection{Stable or emergent? (Antranig against OOP
-dispatch)}\label{stable-or-emergent-antranig-against-oop-dispatch}}
-
-\hypertarget{turing-complete-antranig-against-this}{%
-\subsubsection{Turing-complete? (Antranig against
-this)}\label{turing-complete-antranig-against-this}}
-
-\hypertarget{messaging-vs-read-write}{%
-\subsubsection{Messaging vs Read-Write?}\label{messaging-vs-read-write}}
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Is there a difference in (final, intermediate) goals between the two
+  views?
+\item
+  Could systems like OROM and COLAs plausibly succeed at their own
+  stated goals?
+\end{enumerate}
 
 \hypertarget{conclusion-and-future-work}{%
 \section{Conclusion and future work}\label{conclusion-and-future-work}}
 
-Conclusion: what I have that Maxwell's E doesn't.
+It takes a lot of work to create in a substrate that feels suited to the
+domain. Much of this work involves filling in the machinery necessary to
+an awful lot of software, rather than the ways one's domain
+\emph{differs from} this common case. I have explicitly highlighted the
+obstacles one is likely to meet when starting from an ordinary
+programming platform. I also showed how I overcame them with solutions
+intended to be domain-appropriate to their use, within the limits of the
+implementation language.
+
+OROM/SVG more or less realises my desired substrate for implementing
+OROM. However, there is one major area I failed to make
+domain-appropriate. Despite representing the ``data'' parts of the
+system as I wanted, the \emph{computational} parts of OROM were just
+transplanted into the text boxes as source code. I will reiterate that
+this is \emph{sometimes} suitable, but not always, and it would be worth
+exploring alternative ways to express some of it in the substrate I
+have. Having JavaScript code that the user can modify also seems to mess
+up the browser's debugger when stepping through it.
+
+Still, in this mostly-suitable substrate for OROM, I can continue with
+my project of seeing whether the \emph{allure} of \cite{COLAs} can be
+saved from the text-based ``hidden world'' limitation that pervades it.
+The obvious next step is attempting ``self-implementation''. This is
+desirable is because I still have not escaped my text editor. Any
+changes to my OROM/SVG substrate (of nested box drawing) require going
+back to the script files; I still cannot take advantage of the system I
+have developed, to ease its own development. In the words of
+\cite{COLAs}, I wish to make it so that the original JavaScript files
+can be ``jettisoned without remorse''.
+
+In Section \ref{retained-mode-vector-graphics}, I touched on how
+everyone with a browser has access to a powerful vector graphics editor
+(SVG) locked behind a completely inappropriate UI (the JS Console). It
+is similar for 3D graphics (WebGL), and sound and music (Web Audio).
+Similar observations are made about ``native'' OS apps in
+\cite{prog21-dyn}. But even the interactive JS Console is a step above
+batch-mode compilation, which is the interface that unlocks your
+operating system's range of functionalities. So I single out the far
+more ubiquitous Web platform as having more ``wasted potential''.
+
+I hope to use OROM/SVG to ``tame'' SVG and other JavaScript APIs, with
+some minimal on-demand visualisation in the large portion of the screen
+adjacent to the JS console. This is an attempt to generalise the ``rect
+controls'', which allow the obvious geometric properties of a
+\texttt{\textless{}rect\textgreater{}} to be directly manipulated
+(Section \ref{context-appropriate-ontologies}). Giving OROM access to
+Web technologies in this way is essential for evolving it into a
+\emph{fully-featured} self-changeable software environment, which could
+allow as much domain-specifc representation as its user wishes.
