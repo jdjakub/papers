@@ -1,0 +1,165 @@
+CHECKS: hear me, see me, see window, see cursor
+
+I'm Joel, a first-year PhD student under Tomas Petricek at Kent. This talk is going to center around two demos of a system I've built. But before I show them, it's important to sketch the motivations that led me to make it in the first place. After showing the system, there'll be enough context for discussing the challenges I faced in building it.
+
+I just want to note that this talk was originally an hour long and I've stripped it down to half an hour. So naturally about half of the details have been pushed out, but I'm happy to elaborate on anything in the Q and A at the end.
+
+So to start off, in software engineering we often say: Use the Right Tool For The Job. But ... as opposed to what, exactly? What's at the other end of that scale? Well, the opposite of tailoring your tools to the circumstances, would be using the same tools REGARDLESS of the problem domain. This can be called the One Size Fits All approach.
+
+I think the easiest example of this is the way we code. In order to bring ANYTHING to life, we typically have no choice but to write text. And make no mistake: this might be perfectly OK for SOME (or even most) situations, but the cases where it's not are quite frustrating.
+
+The obvious failure mode is anything in the visual domain -- anyone who's had to describe a picture with a sequence of drawing commands or XML markup, will respond to this point. The most domain-appropriate way to describe a picture is usually to just draw it. And you can draw static pictures and animations on a computer, but when you want behaviour to be dynamic, you're still stuck with code. We shouldn't expect any medium to be equally suited to all possible tasks. [01:30]
+
+Now, one way to go beyond one-size-fits-all coding, is to make DEVELOPING more like USING. There's already a huge diversity of ways of using software, which ought to give rise to a diversity of ways of developing it.
+
+This is the idea behind end-user programming. If just being familiar with the de-facto standard GUI, could suffice for programming anything you could think of, then this would free the vast majority from their passive role as mere consumers of software.
+
+But isn't that too broad a scope? Spreadsheets and paint applications both use GUIs, but they're still very different domains of use. Can we conclude that Excel should be programmable via some sort of spreadsheet? It might work for simple tasks like adding a menu item, if Excel can display the menus as spreadsheet columns then maybe it's as simple as filling in a new cell ...
+
+But the devil's in the details, and it certainly doesn't generalise well to the case of paint applications. Is the program behaviour somehow represented as coloured pixels? There is actually a programming language called Piet which works in exactly this way. But as you can probably tell, it's an esoteric language meant for amusement and challenge. If bringing development closer to use gives you an even MORE confusing representation than text, then there's no point doing it. [02:45]
+
+On the other hand, we have to notice that there are domains that already do work this way. Text editors themselves are software, and programming happens via text editors, so ... development of these tools does rely heavily on text editing skills, not to mention  general literacy. This is even more pronounced with scriptable editors, like Vim or Emacs.
+
+There's also the fact that creating software is one of the uses of your operating system and all of its applications taken together -- in short, evolving how your computer works is indeed done by means of your computer.
+
+And finally, while we've seen this approach is a bit odd for things that aren't designed for programming, like Excel, it does work for actual programming languages.
+
+So this brings me to the specific event that first got me thinking about development as use. It was a paper I read, called Open, Reusable Object Models. It sets out the design of an Object-Oriented programming environment called Id, built around two main properties:
+1) It's meta-circular, or self-describing. You can change anything about the system using itself. So in addition to all the uses of Object-Oriented languages in general, you can also evolve the underlying platform, without having to know the original implementation language, like C++.
+2) That it's small, so in some sense the minimal necessary structure to be able to kick off a self-improvable software system. (The problem with Smalltalk and others is that they tend to be big and complex, so Id is just trying to distill the "essence" of the first point.)
+
+In order to better understand Id, I wanted to try out and explore a running version. At the end of the paper, there are a few pages of C code for a reference implementation. But this was a purely "in-memory" version of the system; not even a command-line interface is there, so the only way to explore with it would be in a debugger.
+
+Rather than adding command-line code myself, I thought this would be a good opportunity to do much better than that. From my perspective, I'd just been through a paper chock full of diagrams like this, and even drawn my own. I took this as a sign that my mind found the diagram representation particularly appropriate, and I resolved to implement Id in a way that was as close as possible to drawing the diagrams on paper. And hence, use it in the same form. I wanted RUNNABLE diagrams.
+
+And that is what I'll show you now. [05:10]
+
+Here is the Id system as runnable diagrams. It's built on top of a more primitive substrate of nested boxes. Each box has a name in the top-left, and the whole thing forms a hierarchical tree. I can now use it to quickly show you how Id works.
+
+It's an Object-Oriented system, so its central concept is the object. But only some of these boxes count as objects in Id. The rest are just plain "boxes" in this box substrate that I've built Id on top of.
+
+If I create a box here, and call it my-obj, then at the moment it's just an empty box. To get it to qualify as an object, I just have to say what its class is. Only in Id, they call this a "vtable" instead of a class. So I create this vtable field ... enter arrow mode ... and then point the vtable to this box here. This is the object-vtable, it's a bit like the Object class in Java, it's just the general default root class everything delegates to.
+
+So now that this is an object, I can invoke methods on it, or in other words, "send messages to it". The methods available live here, in the "methods" box of its vtable. There's only one: say-hello, and it contains JavaScript code.
+
+I'm going to write the code to send a message, by first creating a new box...
+
+First, I have the minor inconvenience of getting a JavaScript reference to the object. But now I have it, I can type orom.send(obj, 'say-hello'), and press Ctrl+Enter to execute the code.
+
+In the JS Console over here, we see that this code printed a string involving the name of our object. It might be a bit more visible, if I change this to show a popup instead ... I'll run it again. There we go. This proves that it ran that JavaScript code in the box, in the context of the object we sent the message.
+
+So to dig in to exactly what steps it took, the first one is to consult the vtable. That takes us to the object vtable. Notice that it actually has a vtable pointer itself; a vtable, or class, is an object in its own right. And once we're here, the next step is to find the code corresponding to the string "say-hello". Now, this could be hard-coded, but in Id this is actually accomplished by another, recursive message send!
+
+What we do is we send a message called "lookup" to this object vtable. We say: "lookup say-hello". So again, step 1 is to follow the vtable, and we end up here -- notice the code for "lookup" in its methods box.
+
+This is the vtable-vtable, sort of the class describing how classes behave, including itself -- as you can see, the vtable points to itself. It's entirely possible in Id to have multiple vtable-vtables which implement the "class" concept in different ways, such as by looking up methods differently or having different internal structure.
+
+Anyway, at this point the search is stopped (otherwise there'd be an infinite recursion as we keep sending lookups that follow this pointer). We return the code for lookup, that code is applied to the object-vtable, that returns the code for say-hello, and that's applied to the original object.
+
+All these steps are explicit and editable down here -- this pair of functions "send" and "bind". And that's the Id system in a nutshell.
+
+Of course, there's also this big block down the side. The system starts in an emptier state and this just initialises it; I can't go into it now but if anyone's interested later I can explain it. [11:20]
+
+(slides) In summary, what's happened is that I came across an interesting paper and I wished to explore the system in it. This paper had already picked a representation that seemed more appropriate than anything else, so I plugged the obvious gap and made runnable diagrams to model the system.
+
+Now, the visual substrate of nested boxes that Id sits on top of, can be used independently of it, and at a higher level. So if this demo of a general Object-Oriented platform felt a bit obscure or technical, then I have here another example of bringing programming closer to use, in the same skin.
+
+(Text layout demo)
+
+We have some word boxes here that you can move individually. They have been placed in their positions by the code in this box. This is a text layout algorithm, and naturally it has certain parameters, like the amount of space between words, or lines, or where the first word is placed. These somewhat arbitrary constants are inherently VISUAL -- the way you figure out what value they should have is by tweaking them and seeing if it looks right. So they seem like good candidates for lifting out of the code here, and making more visible and tangible.
+
+So this code actually gets the values for spacing from these "control" boxes here. So if I increase the spacing between these two -- what could be called, "abstract" words, here, and re-run ... it uses the new spacing. Similarly for line spacing. And if I re-position the first word, then layout begins at the new point.
+
+Some obvious extensions to this scheme would be right-to-left or vertical text direction from the relative positions of the boxes. I'm just trying to show a small example of automation closer to use, in an application that the box representation naturally lends itself to -- i.e. the laying out of words.
+
+So this nested box substrate came about as a domain-appropriate tool for implementing Id, however it's also well-suited to other problems. This is all well and good, but it didn't come for free. I'll now turn to the question of "what it took" for me to obtain this domain-appropriate tool. What was the cost? [14:10]
+
+Well, it certainly felt like it took too much work to achieve something as conceptually simple as movable, nested boxes. I kept finding myself filling in functionality that wasn't particularly unique to my use case, otherwise known as BOILERPLATE. There was a huge gap between the technology I could start with (JavaScript and Web APIs like SVG, Scalable Vector Graphics), and my end-result.
+
+The term "polyfilling" seems appropriate for this. The classic example of polyfilling I know, is from back when JavaScript arrays didn't have a map operation. But what JavaScript lets you do is just augment the Array class with your own implementation. So JavaScript supports polyfilling, this is a good thing, polyfilling itself is still work the user has to do, they have to fill in something that should have already been there.
+
+A lot of the things I had to polyfill in, can be collected under the umbrella of what I call User Interface Physics. This includes things like being able to treat shapes as rigid bodies, except you don't need to account for rotation. You find this behaviour in any desktop windowing system, which lets you treat these rectangular regions as movable bodies. Obviously I wanted this "translational rigidity" for my boxes.
+
+Another thing I wanted was to resize boxes, another parallel with window systems. And as a final example, there's the common-sense notion that solid objects don't intersect each other. In the text layout demo, any acceptable layout of words has to obey this property; if they didn't, we'd reject it and fix the algorithm. So this physics knowledge is implicitly encoded in the design of the algorithm.
+
+And there's one key piece of functionality that makes these three behaviours possible. So if I go back to the demo, you can see these arrows that you can draw between boxes. But a key thing is [move boxes] they need to stay pointing between the boxes, if the boxes move. And this relies on being able to listen for changes in the global position of boxes. You'd expect this to be provided by HTML or SVG, but bizarrely, they don't seem to provide such a service.
+
+And I partly see this as a shortcoming of the JavaScript language. It's an imperative language, but it only supports what I call "dumb" state. You can set anything to any value and that's it. But in any software system, especially graphical or interactive ones, there are certain rules of "internal consistency". If I move a corner handle of a box, then the dumb state behaviour is where it just separates from the box. What I want instead is for the handle and the box corner to be coupled, I want an invariant to be preserved over time: the invariant would be "these two things always occupy the same position".
+
+So to polyfill in this missing functionality, I basically had to have my own network of pieces of "live" state, that could notify others when they change, and then hook these up to the relevant SVG attributes.
+
+You may recognise this as the "observer" pattern, and it's related to "reactive" programming. But I'd previously thought of these as niche patterns or paradigms that you only get out in special circumstances. Now I find all this infrastructure unavoidable; I suppose I'm surprised that live-state or the Observer pattern isn't built into the JavaScript language itself, given how it's necessary for so much commonplace behaviour. [18:30]
+
+It reminds me of Design Patterns, and how what is a "pattern" in one language can just be a "language feature" in another. In old versions of Java, you had to "write an implementation" of first-class functions yourself as the Strategy pattern, whereas in modern JavaScript it's just a language construct with very light syntax.
+
+So, I've been talking about maintaining invariants over time, and one example that I want to show you is the translational rigidity I mentioned. So here, if I move this box, then I expect all its children to move with it. And luckily for me, SVG does provide this, at least between parents and children in the document tree structure.
+
+However, this tree structure, is the ONLY context where it provides translational rigidity. But I've got a requirement that doesn't fit within a tree structure: for all these arrows, I need both endpoints to move with the boxes they're attached to. And these arrows can't be children of either of the boxes, because then they wouldn't display over the top.
+
+So my polyfill for this, can be revealed if I set to visible something that's hidden by default... now all this "scaffolding" has shown up.
+
+I thought the simplest way to express that two points are always a fixed displacement from each other, is to have a rigid "rod" between them. When I move an endpoint, the change in position is transmitted to the other endpoint. (And if I click on this other box, you can see that it has control of the other endpoint.)
+
+I also had a modified variant of these rods to implement resizing of boxes, seen here in the yellow rods. These are "half-rigid", because they transmit changes horizontally and absorb changes vertically, or vice versa.
+
+I also tried surrounding boxes with red, fully rigid rods, so that I could move them by dragging any corner. Unfortunately, this turned out to contain the most frustrating technical challenge of the entire project.
+
+These four border rods are like edges of a graph, but it's an undirected graph, so there's a cycle here. And what seemed like an innocuous loop that says "notify all my subscribers" when a point or a rod changes, actually committed me to a depth-first traversal that covers this graph twice.
+
+So if I move this corner, the change would get propagated around once -- and then I'd want it to stop, because each point has felt the effect and the box has moved. But then it'd continue back round the other way, because both these rods listen to this point. So the changes end up getting applied twice, and this distorts the box.
+
+So just in the desire to have this modest concept of boxes you can drag, I ended up at the tip of an entire research iceberg stretching all the way from functional reactive programming to internet routing. It's about propagating messages round graphs in a sensible manner. And I didn't have the time or scope to just delve into this, but there are potential solutions, like making updates idempotent. [22:25]
+
+So those were my observations on polyfilling UI physics. The other broad theme I want to discuss is how APIs and libraries commit you to a single way of representing things.
+
+So take this rectangle. How can we describe it? We could say it's a top-left corner, a width, and a height. Or any of the 4 corners, a width, and a height.
+
+We could also say where the centre is, and provide a helf-width and half-height. We could even ditch width and height altogether, and say the rectangle extends from this corner, to this corner.
+
+We could even just give all four corners of the rectangle, even though this is redundant: once you know these two opposites, you can infer the others. And this representation was ideal for my use case, where I really do need 4 movable point handles to let the user resize a box from any corner.
+
+But the important point is, there are a lot of different ways to describe the same thing. A simple rectangle has many "ontologies" associated with it.
+
+But my chosen platform, SVG, doesn't recognise or support this fact. Instead, the SVG specification essentially *defines* a rectangle as an x, y, width, height. It says that's just what a rectangle IS.
+
+They picked just one of those many ontologies, and committed all users to it. This is the One-Size-Fits-All approach rearing its ugly head again!
+
+Faced with this fact, there's pressure to just work in this representation, doing constant mental work translating whatever representation you're thinking in, into x y width height.
+
+But in my case, I was determined to use the ontology that made most sense to me. I ended up polyfilling support for the four-corners view of a rectangle, in the form of a "rectangle controls" object with which you can decorate any SVG rect. The rectangle controls are operated by the user when they resize boxes, and they're also accessed programmatically to lay out boxes with some spatial relationship, like in the text demo. [24:30]
+
+There's also another significant example of a forced ontology in Web development, which is the event listener model. Many "events" like mouse button events, keyboard events, and the like, these represent changes to the state of some physical device.
+
+And keyboard keys and mouse buttons are really the same type of thing -- they're both buttons, they just live on different devices.
+
+But what this means is they really ought to be INTERCHANGEABLE -- it shouldn't take too much work to substitute a keyboard key for a mouse button or vice versa. And this happens all the time in PC games, where there's typically a screen that lets you do "re-mapping" of keys or buttons to commands in the game. [25:20]
+
+But the official ontology of the Web makes it nontrivial to do this. Instead of modelling the situation as the explicit changing of a piece of live-state called "left mouse button", we just get two separate functions called onmousedown and onmouseup. And similarly for keydown and keyup. But this is just one of many ways to slice up this 3D space of possibilities.
+
+This example of keyboard-mouse interchangeability isn't something I actually needed in my system, but one thing I did want was for things to follow the mouse when dragged.
+
+So my polyfill for this was a piece of live-state called "left mouse button is down", along with another called "pointer position". Then, to get something to follow the pointer until further notice, all I have to say is subscribe(object.position, pointer.position).
+
+As a result of this, one region of the code essentially ended up being a bunch of "device drivers" which translate the Web's ontology into mine.
+
+The whole business of APIs fixing the way you express things is pretty normal, but I just think it's a sub-optimal norm. The ability to support multiple ontologies at the same time is a definite research area in programming languages.
+
+And it's worth admitting, that all I managed to do here was force my own ontology to replace the existing one. But this is far from a world where they can just coexist instead of compete with each other. I'd solved my immediate problem, but if another person wanted to work on this, they'd just find themselves stuck with my ontology, and have to polyfill their own.
+
+What stood out to me about the rectangle example is how the SVG specification is all in English. So it becomes the human's burden to interpret the x, y, width, height fields.
+
+But if the computer had enough information about how the different parts of a rectangle relate to each other, then it would be able to figure out the x y width height from whatever information you give it.
+
+And further down in the specification, I found this bit, which is literally spelling out how you draw a rect using the more general path concept. It's essentially telling you what the x y width height mean -- how they relate to what you end up drawing, it's even got all four corners expressed in those terms. It's so close to being machine-readable, and it'd be nice if this code could be run in the API instead of in the developer's head. [28:20]
+
+Right, so I've run you through my motivations, what I did and how I did it, so I'll finish off with a sketch of where I want to take this project.
+
+In the abstract to the Id paper, there is this pithy summary of the main point: Id is supposed to allow the user to uproot and surpass ANY design decisions made by its author. Whereas, in a conventional platform, if there's some unwise or otherwise disliked design decision, all the designer can do is say "I'm sorry" and either change it for all users, or not at all, and the users have to just wait for something to happen.
+
+This is even more the case for end-user software, and the analogous vision would be to relax this exalted position of "author" or "designer" to merely "original author", or author of the initial version -- and have users of the software just be further authors themselves.
+
+And I really think this relies on getting rid of this total separation between development and use. And in my particular research direction, this looks a lot like escaping my text editor. Currently, if I add a new feature or come up with new notation, then I can make use of this in my system, but I can't make use of it inside my text editor working in the source file.
+
+Whereas, if I can just expose most of that code in the boxes, and leave behind only a minimal kernel in the files, then at that point, any innovation in the system can play a part in further improvement of the system. And then this piece of software could finally be worked on solely by means of itself, developed in the same way it's used.
+
+That's the end of my talk, thanks for your time. [30:30]
