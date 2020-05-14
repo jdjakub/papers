@@ -181,16 +181,18 @@ the previous steps.
 The paper itself consists of mostly prose, several code listings, and
 full C sources for a sample implementation at the end. It also provides
 several diagrams. But to understand it, I repeatedly found myself
-drawing \emph{extra} diagrams. For example, the first acts of the
-running system boil down to initialising the three or so objects. This
-consists of allocating memory, interpreting it as a C struct and then
-filling in fields in a mundane manner. I had great difficulty following
-the specifics in my head, but when I drew tables in the style of their
-diagrams I readily saw what what going on. I personally would have
-preferred these to have been in the paper in the first place, but I am
-not necessarily representative of those who read it\footnote{Besides
-  that, the One-Size-Fits-All{} approach is perhaps unavoidable for
-  static print media.}.
+drawing \emph{extra} diagrams.
+
+For example, the first acts of the running system boil down to
+initialising the three or so objects. This consists of allocating
+memory, interpreting it as a C struct and then filling in fields in a
+mundane manner. I had great difficulty following the specifics in my
+head, but when I drew tables in the style of their diagrams I readily
+saw what what going on. I personally would have preferred these to have
+been in the paper in the first place, but I am not necessarily
+representative of those who read it\footnote{Besides that, the
+  One-Size-Fits-All{} approach is perhaps unavoidable for static print
+  media.}.
 
 At any rate, in order to solidify my understanding, there was no better
 way than to run the thing and explore it. And yet, having already
@@ -221,15 +223,16 @@ tables}{ as HTML tables}}\label{as-html-tables}}
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=\textwidth]{../orom-html.png}
-  \caption{Id{}/HTML: Obj-dicts are rendered as resizable tables, which reference
+  \includegraphics[width=\textwidth]{../orom-html-cropped.png}
+  \caption{Part of Id{}/HTML: Obj-dicts are rendered as resizable tables, which reference
            each other through numerical IDs. \label{fig:orom-html}}
 \end{figure}
 
 To emphasise the tendency of Id{} objects to be visualised as key-value
-mappings, I will refer to them as \emph{obj-dicts}. Figure
-\ref{fig:orom-html} shows the Id{}/HTML implementation \cite{orom-html},
-in which they take the form of HTML tables.
+mappings, I will refer to them as \emph{obj-dicts}.
+Figure\textasciitilde{}\ref{fig:orom-html} shows the Id{}/HTML
+implementation \cite{orom-html}, in which they take the form of HTML
+tables.
 
 Here, I was grateful for the browser's management of graphical layout,
 resizable text fields, and keeping the DOM tree synchronised with what
@@ -291,18 +294,18 @@ trees}{ as SVG trees}}\label{as-svg-trees}}
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=\textwidth]{../orom-svg.png}
-  \caption{Id{}/SVG: Obj-dicts are moveable and resizable nested boxes,
+  \includegraphics[width=\textwidth]{../orom-svg-cropped.png}
+  \caption{Part of Id{}/SVG: Obj-dicts are moveable and resizable nested boxes,
            referencing each other via \emph{real arrows}.\label{fig:orom-svg}}
 \end{figure}
 
-In Id{}/SVG, shown in Figure \ref{fig:orom-svg}, obj-dicts are encoded
-as nested SVG \texttt{\textless{}rect\textgreater{}}s and other
-elements, reminiscent of diSessa's Boxer \cite{boxer}. This was a
-significant departure from the table representation, and even though SVG
-supports (some) nested HTML via
-\texttt{\textless{}foreignObject\textgreater{}}, I actually preferred
-the possibility of multiple levels of nesting.
+In Id{}/SVG, shown in Figure\textasciitilde{}\ref{fig:orom-svg},
+obj-dicts are encoded as nested SVG
+\texttt{\textless{}rect\textgreater{}}s and other elements, reminiscent
+of diSessa's Boxer \cite{boxer}. This was a significant departure from
+the table representation, and even though SVG supports (some) nested
+HTML via \texttt{\textless{}foreignObject\textgreater{}}, I actually
+preferred the possibility of multiple levels of nesting.
 
 Still, this version was far more challenging and took much longer to
 reach a satisfactory state. Yet it is precisely this drudgery that
@@ -334,14 +337,14 @@ Graphics}\label{retained-mode-vector-graphics}}
 
 Most software is designed for the subset of people who have a colour
 display they can perceive. So right away it is going to require ways to
-draw coloured shapes. There are usually libraries for this (though note:
-not part of the language), but some only provide \emph{immediate mode}:
-commands to instantaneously rasterise pixels to a buffer. This is not
-enough for modern software, as we often expect animation, or at least to
-see things change as we interact. Most often we wish to see \emph{small
-changes} to the \emph{same} shapes, rather than completely different
-shapes altogether; the reification that this requires to persist between
-frames, is known as \emph{retained mode.}
+draw coloured shapes. There are usually libraries for this (though they
+aren't always \emph{standard} libraries), but some only provide
+\emph{immediate mode}: commands to instantaneously rasterise pixels to a
+buffer. This is not enough for modern software, as we often expect
+animation, or at least to see things change as we interact. Most often
+we wish to see \emph{small changes} to the \emph{same} shapes, rather
+than completely different shapes altogether; the reification that this
+requires to persist between frames, is known as \emph{retained mode.}
 
 On this requirement, SVG fits the bill very well. Although it is not
 part of the JavaScript language \emph{per se}, it is a standard and
@@ -355,7 +358,8 @@ display when shape parameters are changed. This is well-adapted to
 to user input. If I wanted animation, this would boil down to a regular
 ``advance simulation'' signal, and would require setting up some
 rendering loop. Alternatively, there is the W3C's chosen ontology of CSS
-animations, but see Section \ref{context-appropriate-ontologies}.
+animations, but see
+Section\textasciitilde{}\ref{context-appropriate-ontologies}.
 
 \hypertarget{basic-assumptions-about-physical-objects}{%
 \subsection{Basic Assumptions About Physical
@@ -602,7 +606,8 @@ primitive form, this is a relation between two points. Thus it is
 natural to draw a line or ``rod'' between them. It seems that this rod
 transmits changes in one of its endpoints directly to the other
 endpoint. Since they both feel the same deltas, the displacement vector
-between them is preserved (Figure \ref{fig:delta-transmission}).
+between them is preserved
+(Figure\textasciitilde{}\ref{fig:delta-transmission}).
 
 \begin{figure}[h]
   \centering
@@ -620,10 +625,10 @@ Resizing of boxes could be achieved through rods that stay horizontal or
 vertical. In the language of ``small differences'' spoken by the
 live-state infrastructure, this is expressed as a rod ``transmitting
 deltas'' in the vertical and horizontal, ``absorbing'' the other
-component into itself (Figure \ref{fig:rods}). Mirroring a DOM rect to
-these rods is as simple as subscribing its width and height to
-horizontal and vertical rods' \texttt{length} Observables. This way,
-boxes can be resized from whatever corner is convenient.
+component into itself (Figure\textasciitilde{}\ref{fig:rods}). Mirroring
+a DOM rect to these rods is as simple as subscribing its width and
+height to horizontal and vertical rods' \texttt{length} Observables.
+This way, boxes can be resized from whatever corner is convenient.
 
 \begin{figure}[h]
   \centering
@@ -689,31 +694,32 @@ another (the \texttt{\textless{}g\textgreater{}} transform). New rod
 Observables \texttt{p2\_from\_p1} and \texttt{p1\_from\_p2} do the
 vector subtraction, which can then be propagated as local co-ordinates
 to children. It is nice to express the relation (as well as see it!)
-this way (Figure \ref{fig:rods}).
+this way (Figure\textasciitilde{}\ref{fig:rods}).
 
 \hypertarget{context-appropriate-ontologies}{%
 \subsection{Context-appropriate
 ontologies}\label{context-appropriate-ontologies}}
 
 Each API has its own conventions, including a way of naming and
-structuring expressions---an ontology \cite{crit-semprola}. The
-One-Size-Fits-All{} approach is exemplified in such interfaces. For
-example, in SVG we express a rectangle by
+structuring expressions: an \emph{ontology} \cite{crit-semprola}. The
+One-Size-Fits-All{} approach is exemplified in such interfaces.
+
+In SVG, we express a rectangle by
 \texttt{\textless{}rect x="10" y="10" width="600" height="400"\textgreater{}}.
 The SVG specification \emph{defines} to the user that a rect simply
 \textbf{is} a top-left corner, a width, and a height---and that's it.
 However, this SVG-approved parametrisation of a rectangle is far from
 the only one, and thus is, unsurprisingly, ill-fitted to some contexts.
 
-For example, I find it natural to resize boxes by dragging any of their
-four corners, so I wanted this in Id{}/SVG. In this context, a
-``rectangle'' is \emph{seen as} four points: top-left, top-right,
-bottom-left, bottom-right. Obviously this is not a \emph{minimal}
-description, since given e.g.~the top-left and bottom-right, the other
-two points can be inferred. But one way or another, to be able to drag
-any of them, all four points must be present at \emph{some} level. This
-alternative ontology was polyfilled in the form of a ``rect controls''
-class that can be attached manually to any SVG
+I find it natural to resize boxes by dragging any of their four corners,
+so I wanted this in Id{}/SVG. In this context, a ``rectangle'' is
+\emph{seen as} four points: top-left, top-right, bottom-left,
+bottom-right. Obviously this is not a \emph{minimal} description, since
+given e.g.~the top-left and bottom-right, the other two points can be
+inferred. But one way or another, to be able to drag any of them, all
+four points must be present at \emph{some} level. This alternative
+ontology was polyfilled in the form of a ``rect controls'' class that
+can be attached manually to any SVG
 \texttt{\textless{}rect\textgreater{}}. The \texttt{x} and \texttt{y}
 are subscribed to the top-left Point\footnote{In the usual case where
   the \texttt{\textless{}rect\textgreater{}} is part of a box, the
@@ -790,7 +796,7 @@ veterans who see no problem, and so on. Nowadays, I take the position
 that these are simply \emph{widespread} failings of our way of doing
 things, instead of \emph{our} failure to adapt to the way software is.
 
-What would it look like to support multiple ontologies? Na"ively, there
+What would it look like to support multiple ontologies? Naïvely, there
 are two answers: anticipate the possibilities ahead of time, or support
 users adding their own. It is unclear if we can do better on the latter
 than simply ``support polyfilling''. As for the former, anticipating the
@@ -954,23 +960,19 @@ between these, I actually stored method mappings with an ad-hoc ``-''
 character (Figure\textasciitilde{}\ref{fig:method-hyphens}).
 
 By contrast, after switching to the fully nestable box substrate in
-Id{}/SVG, I could directly express the model I was thinking of (Figure
-\ref{fig:method-boxes}). If I had stayed in HTML, there is a good chance
-I would have had to polyfill in extensional functions---whether through
-nested \texttt{\textless{}table\textgreater{}} elements, additional
-``-'' characters or something else.
+Id{}/SVG, I could directly express the model I was thinking in. Quite
+simply, the \texttt{vtable} box has a \texttt{methods} box, and that's
+where the method boxes go (Figure\textasciitilde{}\ref{fig:orom-svg}).
+If I had stayed in HTML, there is a good risk I would have had to
+polyfill in extensional functions---whether through nested
+\texttt{\textless{}table\textgreater{}} elements, additional ``-''
+characters, or something else.
 
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.5\textwidth]{../method-hyphens.png}
   \caption{Id{}/HTML: use of hyphenated \texttt{-lookup} to signify a \emph{method} called
            \texttt{lookup} instead of a property like \texttt{vtable}. \label{fig:method-hyphens}}
-\end{figure}
-
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=0.5\textwidth]{../method-boxes.png}
-  \caption{Id{}/SVG: the \texttt{vtable} box has a \texttt{methods} box, and that's where the method boxes go. \label{fig:method-boxes}}
 \end{figure}
 
 \hypertarget{persistence}{%
@@ -998,8 +1000,8 @@ Web platform is very wary of this\footnote{As anyone who learns WebGL
   can attest to, when they discover they must run a local Web server to
   provide image files for textures since any filesystem requests will be
   rejected for security.}, so the solution I turned to was manually
-copying the markup in the browser's inspector (Figure
-\ref{fig:html-inspector}).
+copying the markup in the browser's inspector
+(Figure\textasciitilde{}\ref{fig:html-inspector}).
 
 \begin{figure}[h]
   \centering
@@ -1071,11 +1073,11 @@ will not be able to explain what they mean. What typically amounts to
 years of study is compressed into those mathematical symbols, and the
 learning material involved most certainly does \emph{not} fit on a
 T-shirt. The obvious \emph{reductio ad absurdum} is where we encapsulate
-these equations under a single symbol, \(\mathcal{M}\). \(\mathcal{M}\)
-is defined as ``Maxwell's Equations are true''. Ta-da---this fits on a
-coin, but good luck doing anything with it.\footnote{In fact, this is
-  almost achieved by the formalism of Geometric Calculus, which reduces
-  them to only one equation.}
+these equations under a single symbol\footnote{In fact, this is almost
+  achieved by the formalism of Geometric Calculus, which reduces them to
+  only one equation.}, \(\mathcal{M}\). \(\mathcal{M}\) is defined as
+``Maxwell's Equations are true''. Ta-da---this fits on a coin, but good
+luck doing anything with it.
 
 I say this not to dismiss the argument, but to highlight the
 \emph{actually hard part} of getting a ``concise description'' of some
@@ -1108,9 +1110,10 @@ out in the related paper \cite{COLAs}.
 \subsection{Self-implementation}\label{self-implementation}}
 
 Said related ``COLAs'' paper expands on Id{}, giving it a ``structural''
-role complemented by a LISP-like programming language. Section 6.1
-sketches out the intended ``bootstrapping'' process, ending with a
-self-sufficent, self-hosting version of the system.
+role complemented by a LISP-like programming language.
+Section\textasciitilde{}6.1 sketches out the intended ``bootstrapping''
+process, ending with a self-sufficent, self-hosting version of the
+system.
 
 However, this task again suffers from the same cognitive complexity as
 any other self-referential circle. This is even more so for me, having
@@ -1227,22 +1230,22 @@ have developed, to ease its own development. In the words of
 \cite{COLAs}, I wish to make it so that the original JavaScript files
 can be ``jettisoned without remorse''.
 
-In Section \ref{retained-mode-vector-graphics}, I touched on how
-everyone with a browser has access to a powerful vector graphics editor
-(SVG) locked behind a completely inappropriate UI (the JS Console). It
-is similar for 3D graphics (WebGL), and sound and music (Web Audio).
-Similar observations are made about ``native'' OS apps in
+In Section\textasciitilde{}\ref{retained-mode-vector-graphics}, I
+touched on how everyone with a browser has access to a powerful vector
+graphics editor (SVG) locked behind a completely inappropriate UI (the
+JS Console). It is similar for 3D graphics (WebGL), and sound and music
+(Web Audio). Similar observations are made about ``native'' OS apps in
 \cite{prog21-dyn}. Unfortunately for that domain, the interface that
 unlocks your operating system's range of functionalities---batch-mode
 compilation---is quite far from the affordances of the (interactive) JS
 Console.
 
-I hope to use Id{}/SVG to ``tame'' SVG and other JavaScript APIs, with
+I intend to use Id{}/SVG to ``tame'' SVG and other JavaScript APIs, with
 some minimal on-demand visualisation in the large portion of the screen
 next to the JS console. This is an attempt to generalise the ``rect
 controls'', which allow the obvious geometric properties of a
 \texttt{\textless{}rect\textgreater{}} to be directly manipulated
-(Section \ref{context-appropriate-ontologies}). Giving Id{} access to
-Web technologies in this way is essential for evolving it into a
-\emph{fully-featured} self-changeable software environment, which could
-allow as much domain-specifc representation as its user wishes.
+(Section\textasciitilde{}\ref{context-appropriate-ontologies}). Giving
+Id{} access to Web technologies in this way is essential for evolving it
+into a \emph{fully-featured} self-changeable software environment, which
+could allow as much domain-specifc representation as its user wishes.

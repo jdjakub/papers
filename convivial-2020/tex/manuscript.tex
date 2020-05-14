@@ -21,6 +21,8 @@ style=alphabetic
   %\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 
 \begin{document}
+% The following ONLY works after the \begin{document}!!
+\renewcommand{\textasciitilde}{~}% Don't want Pandoc's BS with the ~ space
 
 \paperdetails{
   perspective=art,
