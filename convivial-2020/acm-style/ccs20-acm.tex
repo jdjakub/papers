@@ -1,0 +1,57 @@
+\documentclass[sigconf,screen]{acmart}
+\usepackage{listings}
+
+\citestyle{acmauthoryear}
+
+\lstdefinelanguage{JavaScript}{
+  keywords={break, case, catch, continue, debugger, default, delete, do, else,
+  finally, for, function, if, in, instanceof, new, return, switch, this, throw,
+  try, typeof, var, void, while, with, let, false, true},
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]",
+  sensitive=true
+}
+\lstset{language=JavaScript, numbers=none}
+
+\providecommand{\tightlist}{}% Don't want Pandoc's tight lists
+  %\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+\setcopyright{acmlicensed}
+\acmPrice{15.00}
+\acmDOI{10.1145/3397537.3397549}
+\acmYear{2020}
+\copyrightyear{2020}
+\acmSubmissionID{prog20ccs-id8-p}
+\acmISBN{978-1-4503-7507-8/20/03}
+\acmConference[<Programming'20> Companion]{Companion Proceedings of the 4th International Conference on the Art, Science, and Engineering of Programming}{March 23--26, 2020}{Porto, Portugal}
+\acmBooktitle{Companion Proceedings of the 4th International Conference on the Art, Science, and Engineering of Programming (<Programming'20> Companion), March 23--26, 2020, Porto, Portugal}
+
+\begin{document}
+% The following ONLY works after the \begin{document}!!
+\renewcommand{\textasciitilde}{~}% Don't want Pandoc's BS with the ~ space
+
+\begin{CCSXML}
+<ccs2012>
+   <concept>
+       <concept_id>10011007.10011006.10011050.10011017</concept_id>
+       <concept_desc>Software and its engineering~Domain specific languages</concept_desc>
+       <concept_significance>500</concept_significance>
+       </concept>
+   <concept>
+       <concept_id>10011007.10011006.10011050.10011058</concept_id>
+       <concept_desc>Software and its engineering~Visual languages</concept_desc>
+       <concept_significance>300</concept_significance>
+       </concept>
+ </ccs2012>
+\end{CCSXML}
+
+\ccsdesc[500]{Software and its engineering~Domain specific languages}
+\ccsdesc[300]{Software and its engineering~Visual languages}
+
+\input{manuscript-acm.tex}
+
+\bibliography{../refs.bib}
+
+\end{document}

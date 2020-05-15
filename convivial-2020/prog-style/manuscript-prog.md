@@ -9,15 +9,13 @@
 \newcommand{\OSFA}{One-Size-Fits-All}
 \newcommand{\xywh}{\texttt{x},\texttt{y},\texttt{width},\texttt{height}}
 
-\joel{ \maketitle \joel{ <-- here for <programming> style } }
+\maketitle
 
 \begin{abstract}
 There is a \OSFA{} quality to languages, APIs and even programming itself. Whether you're making a mobile game or a scientific simulation, you will be using a text-based language with similar devices for structuring your code. This is a source of artificial difficulty in creating, understanding, and modifying software systems. No matter the domain, the author's design needs encoding into a form that does not resemble it.
 
 This paper describes a vision where software can be built in a programming environment that is closer to the domain of the software itself. By doing so, users of the system can use familiar abstractions and tools for adapting it. A step towards this vision is presented: a Web version of a minimal OOP system, developed as an executable version of the diagrams of its design, in a substrate meant to facilitate this. The experience of creating such a substrate is analysed, and I suggest deficiencies in programming environments that stand in the way of making this practice commonplace, as well as ways to fill in these gaps.
 \end{abstract}
-
-\maketitle \joel{ <-- here for ACM style }
 
 \keywords{substrate, visual, context, domain, adaptation}
 
@@ -78,7 +76,7 @@ Thus was my natural representation decided. My first attempt to make it a realit
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=\picwidth]{orom-html.png}
+  \includegraphics[width=\textwidth]{orom-html.png}
   \caption{Part of \OROM{}/HTML: Obj-dicts are rendered as resizable tables, which reference
            each other through numerical IDs. \label{fig:orom-html}}
 \end{figure}
@@ -117,7 +115,7 @@ There's a way to take arbitrary domain and give it self-programmability. boundar
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=\picwidth]{orom-svg.png}
+  \includegraphics[width=\textwidth]{orom-svg.png}
   \caption{Part of \OROM{}/SVG: Obj-dicts are moveable and resizable nested boxes,
            referencing each other via \emph{real arrows}.\label{fig:orom-svg}}
 \end{figure}
