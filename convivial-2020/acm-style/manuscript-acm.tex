@@ -1,5 +1,5 @@
 \newcommand{\OROM}{Id}
-\title{What does it take to create with domain-appropriate tools?}
+\title{What it takes to create with domain-appropriate tools}
 \subtitle{Reflections on implementing the ``Id{}'' system}
 \author[ ]{Joel Jakubovic}
 \affiliation[ ]{University of Kent, Canterbury}
@@ -47,7 +47,7 @@ ill-fitted to monospaced ASCII.
 
 Amdahl's Law generalises the following idea: even when you spend hours
 of effort doubling the performance of a component used 1\% of the time,
-your reward is a system overall improved by a mere 0.5\%. Now, text
+your reward is a system overall improved by a mere 0.47\%. Now, text
 coding is certainly ubiquitous, the 99\% case in programming. A small
 improvement to text editing, if adopted by everyone, certainly does have
 a massive \emph{intermediate} effect---but this only \emph{matters} to
@@ -124,15 +124,18 @@ normal person has to do, insofar as:
 
 What follows in this paper is an account of how I went about building
 Id, atop a preliminary ``box'' substrate.
-Section\textasciitilde{}\ref{the-system} gives an overview of Id.
-Section\textasciitilde{}\ref{typical-requirements-of-common-software-and-the-work-we-must-do-to-meet-them}
+Section\textasciitilde{}\ref{the-id-system} gives an overview of Id.
+Section\textasciitilde{}\ref{typical-requirements-of-common-software}
 discusses the work involved in obtaining said domain-appropriate
 substrate, and Section\textasciitilde{}\ref{patterns-and-polyfilling}
 continues with an interpretation of the labour costs of doing this. In
-Section\textasciitilde{}\ref{the-system-as-a-part-of-the-solution}, we
-return to the Id system and its role in supporting flexible software.
+Section\textasciitilde{}\ref{the-id-system-as-a-part-of-the-solution},
+we return to the Id system and its role in supporting flexible software.
 Section\textasciitilde{}\ref{conclusions-and-future-work} addresses the
-question in the title, and concludes with next steps for the project.
+question in the title\footnote{The original title of this paper was
+  ``What does it take to create with domain-appropriate tools?'', but it
+  had to be changed for technical reasons.}, and concludes with next
+steps for the project.
 
 \hypertarget{the-id-system}{%
 \section{The Id system}\label{the-id-system}}
@@ -140,11 +143,12 @@ question in the title, and concludes with next steps for the project.
 When I first read the paper ``Open, Reusable Object Models''
 \cite{OROM}, I was hooked on its idea of a small but expressive starting
 system that could be self-improved into anything. It describes a
-late-bound\footnote{Fewer commitments; more things determined by runtime
-  conditions}, Smalltalk-style\footnote{OOP with more emphasis on object
-  instances and messaging, as in a distributed system; less emphasis on
-  class hierarchies implementing traditional data structures} objects
-and messaging environment that the authors call ``Id''.
+late-bound,\footnote{Fewer commitments; more things determined by
+  runtime conditions.} Smalltalk-style\footnote{OOP with more emphasis
+  on object instances and messaging, as in a distributed system; less
+  emphasis on class hierarchies implementing traditional data
+  structures.} objects and messaging environment that the authors call
+``Id''.
 
 An Id{} \emph{object} is a block of state which can change as a result
 of messages received by it. Messaging (analogous to \emph{method
@@ -167,10 +171,12 @@ invocation} in mainstream OOP) works as follows:
   vtable-chain, and terminating at a base case.
 \item
   The higher levels of the vtable-chain mean that different kinds of
-  vtables can be supported\footnote{As well as different kinds of
-    ``kinds of vtables'', and so on.}, each implementing the ``bind''
+  vtables can be supported,\footnote{As well as different kinds of
+    ``kinds of vtables'', and so on.} each implementing the ``bind''
   operation in its own way.
 \end{itemize}
+
+\vspace{-0.1em}
 
 Inkeeping with its aims of minimality and self-describability, Id as a
 whole is ``bootstrapped'' into existence by its initialisation code.
@@ -189,20 +195,20 @@ mundane manner. I had great difficulty following the specifics in my
 head, but when I drew tables in the style of their diagrams I readily
 saw what what going on. I personally would have preferred these to have
 been in the paper in the first place, but I am not necessarily
-representative of those who read it\footnote{Besides that, the
+representative of those who read it.\footnote{Besides that, the
   One-Size-Fits-All{} approach is perhaps unavoidable for static print
-  media.}.
+  media.}
 
 At any rate, in order to solidify my understanding, there was no better
 way than to run the thing and explore it. And yet, having already
 ``de-compiled'' English text and C source code into object diagrams, it
 is a shame to have to compile it all back to struct member assignments.
 Worse, the reference system does not even have text I/O when it is run,
-let alone some sort of GUI\footnote{That is, the (un)intended user
-  interface for Id ends up being a C debugger!}. Faced with the
-necessity of adding \emph{some} UI, it seemed a waste of effort to end
-up with a system that must be continually polled for its current state
-at a terminal prompt.
+let alone some sort of GUI.\footnote{That is, the (un)intended user
+  interface for Id ends up being a C debugger!} Faced with the necessity
+of adding \emph{some} UI, it seemed a waste of effort to end up with a
+system that must be continually polled for its current state at a
+terminal prompt.
 
 If I naturally think of this system as 2D tables, why can't that be how
 the running system looks? I do not have to keep polling my eyes for what
@@ -219,18 +225,19 @@ via JavaScript (JS).
 \hypertarget{id-as-html-tables}{%
 \subsection{Id as HTML tables}\label{id-as-html-tables}}
 
-\begin{figure}[h]
+\begin{figure}
   \centering
-  \includegraphics[width=0.5\textwidth]{orom-html.png}
+  \includegraphics[width=\linewidth]{orom-html.png}
   \caption{Part of Id{}/HTML: Obj-dicts are rendered as resizable tables, which reference
            each other through numerical IDs. \label{fig:orom-html}}
 \end{figure}
 
 To emphasise the tendency of Id{} objects to be visualised as key-value
 mappings, I will refer to them as \emph{obj-dicts}.
-Figure\textasciitilde{}\ref{fig:orom-html} shows the Id{}/HTML
-implementation \cite{orom-html}, in which they take the form of HTML
-tables.
+Figure\textasciitilde{}\ref{fig:orom-html} shows the Id{}/HTML\footnote{This
+  is read ``Id over HTML'', to emphasise the specific substrate on which
+  it sits.} implementation \cite{orom-html}, in which they take the form
+of HTML tables.
 
 Here, I was grateful for the browser's management of graphical layout,
 resizable text fields, and keeping the DOM tree synchronised with what
@@ -289,9 +296,9 @@ frustrating.
 \hypertarget{id-as-svg-trees}{%
 \subsection{Id as SVG trees}\label{id-as-svg-trees}}
 
-\begin{figure}[h]
+\begin{figure}
   \centering
-  \includegraphics[width=0.5\textwidth]{orom-svg.png}
+  \includegraphics[width=\linewidth]{orom-svg.png}
   \caption{Part of Id{}/SVG: Obj-dicts are moveable and resizable nested boxes,
            referencing each other via \emph{real arrows}.\label{fig:orom-svg}}
 \end{figure}
@@ -299,10 +306,10 @@ frustrating.
 In Id{}/SVG, shown in Figure\textasciitilde{}\ref{fig:orom-svg},
 obj-dicts are encoded as nested SVG
 \texttt{\textless{}rect\textgreater{}}s and other elements, reminiscent
-of diSessa's Boxer \cite{boxer}. This was a significant departure from
-the table representation, and even though SVG supports (some) nested
-HTML via \texttt{\textless{}foreignObject\textgreater{}}, I actually
-preferred the possibility of multiple levels of nesting.
+of Boxer \cite{boxer}. This was a significant departure from the table
+representation, and even though SVG supports (some) nested HTML via
+\texttt{\textless{}foreignObject\textgreater{}}, I actually preferred
+the possibility of multiple levels of nesting.
 
 Still, this version was far more challenging and took much longer to
 reach a satisfactory state. Yet it is precisely this drudgery that
@@ -311,10 +318,9 @@ has it taken?} I shall discuss this in the form of broad patterns or
 themes that stand out to me from my development experience, hammered
 home by these Id{} implementations.
 
-\hypertarget{typical-requirements-of-common-software-and-the-work-we-must-do-to-meet-them}{%
-\section{Typical Requirements Of Common Software (and the work we must
-do to meet
-them)}\label{typical-requirements-of-common-software-and-the-work-we-must-do-to-meet-them}}
+\hypertarget{typical-requirements-of-common-software}{%
+\section{Typical Requirements Of Common
+Software}\label{typical-requirements-of-common-software}}
 
 The ``common case'' of software present in our daily lives shares
 certain properties, such as being graphical and interactive. Such are
@@ -606,11 +612,11 @@ endpoint. Since they both feel the same deltas, the displacement vector
 between them is preserved
 (Figure\textasciitilde{}\ref{fig:delta-transmission}).
 
-\begin{figure}[h]
+\begin{figure*}
   \centering
   \includegraphics[width=\textwidth]{../delta-transmission.png}
   \caption{Fully rigid rods transmit changes in one end to the other end. \label{fig:delta-transmission}}
-\end{figure}
+\end{figure*}
 
 I like to see what I'm doing, so I wanted these rods to be visible and
 thus somehow \emph{present in the SVG}. For this, I have a Point class
@@ -627,11 +633,11 @@ a DOM rect to these rods is as simple as subscribing its width and
 height to horizontal and vertical rods' \texttt{length} Observables.
 This way, boxes can be resized from whatever corner is convenient.
 
-\begin{figure}[h]
+\begin{figure*}
   \centering
-  \includegraphics[width=\textwidth]{../rods.png}
+  \includegraphics[width=0.85\textwidth]{rods.png}
   \caption{The yellow rods on the box border are ``half-rigid'': they transmit horizontal or vertical changes, but not both. The green rod in the top-left absorbs all changes from an endpoint into itself, visualising the displacement vector of the child box from its parent. The remaining red rods are fully rigid. A line of CSS can reveal this ``scaffolding'' which is normally hidden for users. \label{fig:rods}}
-\end{figure}
+\end{figure*}
 
 Unfortunately, with these rods came possibly the most frustrating
 technical challenges of the entire system. Initially I hoped to move
@@ -672,12 +678,12 @@ handle.
 
 All child elements of a node transform with it, so already SVG has baked
 in a basic facility for translational rigidity. This is only available
-as a tree hierarchy\footnote{This highlights the mismatch between the
-  tree-based DOM and any system that is graph-structured.}, but it is
+as a tree hierarchy,\footnote{This highlights the mismatch between the
+  tree-based DOM and any system that is graph-structured.} but it is
 still useful. However, it conflicts with my early decision to have Point
 objects all share the global co-ordinate system (this was to ensure that
 simple relations, such as a point following the mouse pointer, are not
-infuriating to express.) Still, it was necessary in the case of certain
+infuriating to express). Still, it was necessary in the case of certain
 elements---especially those which must transcend the tree structure
 altogether, like arrows between boxes---to bite this bullet, one way or
 another.
@@ -702,7 +708,11 @@ structuring expressions: an \emph{ontology} \cite{crit-semprola}. The
 One-Size-Fits-All{} approach is exemplified in such interfaces.
 
 In SVG, we express a rectangle by
-\texttt{\textless{}rect x="10" y="10" width="600" height="400"\textgreater{}}.
+
+\begin{lstlisting}
+<rect x="10" y="10" width="600" height="400">
+\end{lstlisting}
+
 The SVG specification \emph{defines} to the user that a rect simply
 \textbf{is} a top-left corner, a width, and a height---and that's it.
 However, this SVG-approved parametrisation of a rectangle is far from
@@ -718,11 +728,11 @@ four points must be present at \emph{some} level. This alternative
 ontology was polyfilled in the form of a ``rect controls'' class that
 can be attached manually to any SVG
 \texttt{\textless{}rect\textgreater{}}. The \texttt{x} and \texttt{y}
-are subscribed to the top-left Point\footnote{In the usual case where
+are subscribed to the top-left Point;\footnote{In the usual case where
   the \texttt{\textless{}rect\textgreater{}} is part of a box, the
   top-left instead controls the parent
   \texttt{\textless{}g\textgreater{}}'s \texttt{transform}---but the
-  idea is the same.}; \texttt{width} and \texttt{height} are subscribed
+  idea is the same.} \texttt{width} and \texttt{height} are subscribed
 to Rod lengths.
 
 Another example is to be found in the DOM's event listener model.
@@ -751,31 +761,37 @@ In Id{}/SVG I did not quite want to re-map keys, but I did often want to
 have things follow the mouse when dragged. In order to do this, I
 reified the mouse pointer and its position, letting me write
 \texttt{subscribe(point.position,\ pointer.position)}. The Point has an
-\texttt{is-considering-me?} Observable wrapping
-\texttt{onmouseover}/\texttt{onmouseout}, and the LMB is reified into
-\texttt{left\_mouse\_button\_is\_down} to be explicit. The
-aforementioned subscription is set up whenever
-\texttt{is-considering-me?} and \texttt{left\_mouse\_button\_is\_down}
-become true, and torn down otherwise. I tended to think of this in the
-form ``subscribe to pointer \emph{only when} pointer is-considering-me
-\emph{and} LMB is down'', but I could live with this notation as a
-future polyfill in JavaScript.
+\texttt{is-considering-me?} Observable wrapping \texttt{onmouseover} and
+\texttt{onmouseout}, while a \texttt{LMB\_is\_down} Observable reifies
+the LMB state. The aforementioned subscription is set up whenever
+\texttt{is-considering-me?} and \texttt{LMB\_is\_down} become true, and
+torn down otherwise. I tended to think of this in the form ``subscribe
+to pointer \emph{only when} pointer is-considering-me \emph{and} LMB is
+down'', but I could live with this notation as a future polyfill in
+JavaScript.
 
 The way these things are connected to the browser's event listeners
 could be called ``device drivers''---an approach described in
 \cite{prog21-bbox}. It amounts to translating information from the Web's
-ontology into that of my substrate, as early as possible:
+ontology into that of my substrate, as early as possible
+(Listing\textasciitilde{}\ref{lst:drvs}).
 
-\begin{lstlisting}
+\begin{lstlisting}[
+  label={lst:drvs},float,captionpos=b,
+  caption={``Device drivers'' in the code translate the Web's ontology into a more structured form.},
+]
 svg.onmousedown = e =>
-  if (e.button === 0) change(left_mouse_button_is_down, true);
+  if (e.button === 0)
+    change(left_mouse_button_is_down, true);
 
 svg.onmouseup = e =>
-  if (e.button === 0) change(left_mouse_button_is_down, false);
+  if (e.button === 0)
+    change(left_mouse_button_is_down, false);
 
 svg.onmousemove = e => {
+  let client_pos = [e.clientX, e.clientY];
   let r = svg.getBoundingClientRect();
-  let pos = vsub([e.clientX, e.clientY], [r.left, r.top]);
+  let pos = vsub(client_pos, [r.left, r.top]);
   change(pointer.position, pos);
 };
 \end{lstlisting}
@@ -850,10 +866,10 @@ comes \emph{frustratingly close} to the above. It spells out how the
 primitive line-drawing steps, including expressions for the four corners
 in terms of \texttt{x},\texttt{y},\texttt{width},\texttt{height}{}. The
 problem is, this reduction is still described in \emph{natural language}
-for a human implementor, missing the potential of such a
-formulation\footnote{The point here is that a machine-readable
+for a human implementor, missing the potential in such a
+formulation.\footnote{The point here is that a machine-readable
   description could easily remain human-readable, but a natural-language
-  description is not easily machine-readable.}.
+  description is not easily machine-readable.}
 
 It is worth admitting that there is is a significant shortcoming of my
 polyfill here, and perhaps throughout. It has taken the form of
@@ -870,7 +886,7 @@ complications unaddressed by a ``Semiotic Programming'' solution
 code; language-agnosticism is one salient example of ontology
 co-existence. This is especially clear if we agree with the latter
 author's view that ``which language'' ought to be an
-\emph{implementation detail}, that languages ought to be treatable as
+\emph{implementation detail}, that languages ought to be merely
 \emph{different views} onto the same thing.
 
 These considerations did not occur to me because this project is very
@@ -886,23 +902,30 @@ method here will need to be re-examined.
 
 Time and time again we come across the same pattern of partitioning
 system state: trees or graphs of dictonaries, a.k.a. Maps, a.k.a.
-associative arrays. I am talking about filesystem paths
-\texttt{/path/to/some/file}, Python / Java modules
-\texttt{com.example.pkg.subpkg}, JavaScript objects
-\texttt{window.my\_obj.component}. The common case is an association of
-a textual name to an arbitrary value. I find it useful to see this as a
-mathematical ``function'' defined \emph{extensionally} by listing its
-input/output mappings---this opposed to an \emph{intensional} definition
-such as \(x \mapsto 2x+3\), or a computer program.
+associative arrays. I am talking about the following pattern:
+
+\begin{itemize}
+\tightlist
+\item
+  Filesystem paths \texttt{/path/to/some/file}
+\item
+  Python / Java modules \texttt{com.example.pkg.subpkg}
+\item
+  JavaScript objects \texttt{window.my\_obj.component}
+\end{itemize}
+
+The common case is an association of a textual name to an arbitrary
+value. I find it useful to see this as a mathematical ``function''
+defined \emph{extensionally} by listing its input/output mappings---this
+opposed to an \emph{intensional} definition such as \(x \mapsto 2x+3\),
+or a computer program.
 
 Extensional functions are perhaps the most basic form of Knowledge
 Representation, and match natural language very well. ``The bicycle's
 wheels' spokes are silver'' straightforwardly translates to a function
-equation
-
-\begin{lstlisting}
-root (bicycle) (wheels) (spokes) (colour) = root (silver)
-\end{lstlisting}
+equation: \begin{equation*}
+\mathrm{root} (\mathrm{bicycle}) (\mathrm{wheels}) (\mathrm{spokes}) (\mathrm{colour}) = \mathrm{root} (\mathrm{silver})
+\end{equation*}
 
 That is, whatever object is the output of \texttt{silver} in the
 top-level \texttt{root} function, the output of \texttt{colour} (in the
@@ -986,16 +1009,16 @@ needed to be some way to persist changes which live in the DOM, rather
 than the source files.
 
 Normally, this can be as simple as autosave to the filesystem. But the
-Web platform is very wary of this\footnote{As anyone who learns WebGL
+Web platform is very wary of this,\footnote{As anyone who learns WebGL
   can attest to, when they discover they must run a local Web server to
-  provide image files for textures since any filesystem requests will be
-  rejected for security.}, so the solution I turned to was manually
+  provide image files for textures (since any filesystem requests will
+  be rejected for security).} so the solution I turned to was manually
 copying the markup in the browser's inspector
 (Figure\textasciitilde{}\ref{fig:html-inspector}).
 
-\begin{figure}[h]
+\begin{figure}
   \centering
-  \includegraphics[width=0.8\textwidth]{../html-inspector.png}
+  \includegraphics[width=\linewidth]{../html-inspector.png}
   \caption{To save the state of the system, the SVG group corresponding to the \texttt{root} box is copied and pasted inside the HTML file's \texttt{\textless{}svg\textgreater{}} element.\label{fig:html-inspector}}
 \end{figure}
 
@@ -1033,7 +1056,7 @@ that it paves the way to end-user empowerment. This is somewhat
 misleading because in Id{}, these ``end-users'' are actually
 programmers. However, its purpose is to free a programmer's dependence
 on some distant and busy\footnote{Not to mention \emph{unelected?}
-  ``Take Back Control!'' (jokes aside, in this context it makes a lot of
+  ``Take Back Control!'' (Jokes aside, in this context it makes a lot of
   sense.)} language designer. It seems plausible that this is a step on
 the way to enabling \emph{creation} of a piece of software which
 non-programmers do not depend on us for.
@@ -1046,7 +1069,7 @@ first.
 \subsection{Minimal descriptions}\label{minimal-descriptions}}
 
 The Id{} paper was part of the STEPS project of Alan Kay's
-VPRI\footnote{Viewpoints Research Institute}. This project argued that
+VPRI.\footnote{Viewpoints Research Institute} This project argued that
 the immense level of ``accidental complexity'' present in software
 implementation could be reduced, and Kay himself dreams of an end result
 analogous to a ``Maxwell's Equations'' of software. That is: the
@@ -1063,9 +1086,9 @@ will not be able to explain what they mean. What typically amounts to
 years of study is compressed into those mathematical symbols, and the
 learning material involved most certainly does \emph{not} fit on a
 T-shirt. The obvious \emph{reductio ad absurdum} is where we encapsulate
-these equations under a single symbol\footnote{In fact, this is almost
+these equations under a single symbol,\footnote{In fact, this is almost
   achieved by the formalism of Geometric Calculus, which reduces them to
-  only one equation.}, \(\mathcal{M}\). \(\mathcal{M}\) is defined as
+  only one equation.} \(\mathcal{M}\). \(\mathcal{M}\) is defined as
 ``Maxwell's Equations are true''. Ta-da---this fits on a coin, but good
 luck doing anything with it.
 
@@ -1192,7 +1215,7 @@ simply be a matter of time before it catches up.
 Nevertheless, I wanted to explicitly highlight the obstacles one is
 likely to meet when starting from this platform. They include not only
 those specific to the Web, but also issues that occur far more widely
-(e.g.~monopoly ontologies.) I showed how, in the short-term, we can
+(e.g.~monopoly ontologies). I showed how, in the short-term, we can
 overcome these with solutions intended to be domain-appropriate to their
 use (within the syntactic limits of JavaScript).
 
