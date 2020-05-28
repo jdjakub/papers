@@ -1,8 +1,9 @@
 \newcommand{\OROM}{Id}
-\title{What it takes to create with domain-appropriate tools}
-\subtitle{Reflections on implementing the ``Id{}'' system}
-\author[ ]{Joel Jakubovic}
-\affiliation[ ]{University of Kent, Canterbury}
+\title{What It Takes to Create with Domain-Appropriate Tools}
+\subtitle{Reflections on Implementing the ``Id{}'' System}
+\author{Joel Jakubovic}
+\affiliation{University of Kent, Canterbury, UK}
+\email{jdj9@kent.ac.uk}
 
 \newcommand{\joel}[1]{}
 \newcommand{\svgel}[1]{\texttt{\textless{}#1\textgreater{}}}
@@ -132,10 +133,10 @@ continues with an interpretation of the labour costs of doing this. In
 Section\textasciitilde{}\ref{the-id-system-as-a-part-of-the-solution},
 we return to the Id system and its role in supporting flexible software.
 Section\textasciitilde{}\ref{conclusions-and-future-work} addresses the
-question in the title\footnote{The original title of this paper was
-  ``What does it take to create with domain-appropriate tools?'', but it
-  had to be changed for technical reasons.}, and concludes with next
-steps for the project.
+question in the title,\footnote{The original title was ``What Does It
+  Take to Create with Domain-Appropriate Tools?'', but it has been
+  changed for technical reasons.} and concludes with next steps for the
+project.
 
 \hypertarget{the-id-system}{%
 \section{The Id system}\label{the-id-system}}
@@ -223,7 +224,7 @@ a reality was a partial success: a webpage made of HTML tables, evolved
 via JavaScript (JS).
 
 \hypertarget{id-as-html-tables}{%
-\subsection{Id as HTML tables}\label{id-as-html-tables}}
+\subsection{Id as HTML Tables}\label{id-as-html-tables}}
 
 \begin{figure}
   \centering
@@ -261,7 +262,7 @@ browser is a black box, and this was very frustrating in the following
 case.
 
 \hypertarget{the-radical-concept-of-arrows-that-stay-on-the-shapes}{%
-\subsubsection{The Radical Concept of Arrows That Stay On The
+\subsubsection{The Radical Concept of Arrows that Stay on the
 Shapes}\label{the-radical-concept-of-arrows-that-stay-on-the-shapes}}
 
 A key aspect of the Id{} system is that there is an object \emph{graph}.
@@ -294,7 +295,7 @@ crystallise some of my intuitions about why it is so consistently
 frustrating.
 
 \hypertarget{id-as-svg-trees}{%
-\subsection{Id as SVG trees}\label{id-as-svg-trees}}
+\subsection{Id as SVG Trees}\label{id-as-svg-trees}}
 
 \begin{figure}
   \centering
@@ -319,7 +320,7 @@ themes that stand out to me from my development experience, hammered
 home by these Id{} implementations.
 
 \hypertarget{typical-requirements-of-common-software}{%
-\section{Typical Requirements Of Common
+\section{Typical Requirements of Common
 Software}\label{typical-requirements-of-common-software}}
 
 The ``common case'' of software present in our daily lives shares
@@ -365,7 +366,7 @@ animations, but see
 Section\textasciitilde{}\ref{context-appropriate-ontologies}.
 
 \hypertarget{basic-assumptions-about-physical-objects}{%
-\subsection{Basic Assumptions About Physical
+\subsection{Basic Assumptions about Physical
 Objects}\label{basic-assumptions-about-physical-objects}}
 
 In any software making use of vector graphics, there is usually some
@@ -441,7 +442,7 @@ moved, the rest also move by the same delta. This is a problem of
 area of Id{}/SVG.
 
 \hypertarget{maintaining-relationships-over-time}{%
-\subsection{Maintaining Relationships Over
+\subsection{Maintaining Relationships over
 Time}\label{maintaining-relationships-over-time}}
 
 The model of state-mutation present in most imperative languages is what
@@ -485,7 +486,7 @@ adopting B's new value. So by subscribing the object's position to the
 pointer's, pointer movements copy the new position to the object.
 
 \hypertarget{nut-cracking-with-sledgehammers}{%
-\subsection{Nut-Cracking With
+\subsection{Nut-Cracking with
 Sledgehammers}\label{nut-cracking-with-sledgehammers}}
 
 Speaking about vector graphics, physics, layout and constraint
@@ -559,7 +560,7 @@ this further, but here I will list the ``batteries not included'' I
 found myself polyfilling in Id{}/SVG.
 
 \hypertarget{wrapping-and-user-data}{%
-\subsection{Wrapping and ``user data''}\label{wrapping-and-user-data}}
+\subsection{Wrapping and ``User Data''}\label{wrapping-and-user-data}}
 
 The classic example of polyfilling is finding that JavaScript arrays do
 not support some familiar operation. For example, this used to be the
@@ -700,8 +701,8 @@ to children. It is nice to express the relation (as well as see it!)
 this way (Figure\textasciitilde{}\ref{fig:rods}).
 
 \hypertarget{context-appropriate-ontologies}{%
-\subsection{Context-appropriate
-ontologies}\label{context-appropriate-ontologies}}
+\subsection{Context-Appropriate
+Ontologies}\label{context-appropriate-ontologies}}
 
 Each API has its own conventions, including a way of naming and
 structuring expressions: an \emph{ontology} \cite{crit-semprola}. The
@@ -1040,8 +1041,8 @@ listen for changes in node attributes or children, this may remain the
 case.
 
 \hypertarget{the-id-system-as-a-part-of-the-solution}{%
-\section{The Id system as a part of the
-solution}\label{the-id-system-as-a-part-of-the-solution}}
+\section{The Id System as a Part of the
+Solution}\label{the-id-system-as-a-part-of-the-solution}}
 
 The Id{} system was designed with a goal of eliminating the
 ``artificial'' distinction between implementation language and end-user
@@ -1066,7 +1067,7 @@ some significant practical issues that must be overcome or clarified
 first.
 
 \hypertarget{minimal-descriptions}{%
-\subsection{Minimal descriptions}\label{minimal-descriptions}}
+\subsection{Minimal Descriptions}\label{minimal-descriptions}}
 
 The Id{} paper was part of the STEPS project of Alan Kay's
 VPRI.\footnote{Viewpoints Research Institute} This project argued that
@@ -1120,7 +1121,7 @@ final user interface itself. In fact, this is precisely the approach set
 out in the related paper \cite{COLAs}.
 
 \hypertarget{self-implementation}{%
-\subsection{Self-implementation}\label{self-implementation}}
+\subsection{Self-Implementation}\label{self-implementation}}
 
 Said related ``COLAs'' paper expands on Id{}, giving it a ``structural''
 role complemented by a LISP-like programming language.
@@ -1156,11 +1157,11 @@ two questions were answered:
 \end{enumerate}
 
 \hypertarget{conclusions-and-future-work}{%
-\section{Conclusions and future
-work}\label{conclusions-and-future-work}}
+\section{Conclusions and Future
+Work}\label{conclusions-and-future-work}}
 
 \hypertarget{what-did-it-take-and-why}{%
-\subsection{What did it take, and why?}\label{what-did-it-take-and-why}}
+\subsection{What Did It Take, and Why?}\label{what-did-it-take-and-why}}
 
 It takes a lot of work to create in a substrate that feels suited to the
 domain. Much of this work involves filling in the machinery necessary to
@@ -1220,7 +1221,7 @@ overcome these with solutions intended to be domain-appropriate to their
 use (within the syntactic limits of JavaScript).
 
 \hypertarget{what-next}{%
-\subsection{What next?}\label{what-next}}
+\subsection{What Next?}\label{what-next}}
 
 Id{}/SVG more or less realises my desired substrate for implementing
 Id{}. However, there is one major area I failed to make
