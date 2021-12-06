@@ -1,0 +1,48 @@
+\documentclass[acmlarge, review=true
+]{acmart}
+
+\acmConference{PLoP}{2021}{online}
+\citestyle{acmauthoryear}
+
+\markboth{}{}
+
+\title{Technical Dimensions of Programming Systems}
+
+\author{Joel Jakubovic}
+\affiliation{
+\institution{University of Kent} \city{Canterbury} \country{UK}
+}
+\email{jdj9@kent.ac.uk}
+\author{Jonathan Edwards}
+\affiliation{}
+\email{jonathanmedwards@gmail.com}
+\author{Tomas Petricek}
+\affiliation{
+\institution{University of Kent} \city{Canterbury} \country{UK}
+}
+\email{T.Petricek@kent.ac.uk}
+
+\begin{abstract}
+Many programming systems go beyond programming languages. Programming is usually done in the context of a stateful environment, beyond just writing code, by interacting with a system through a graphical user interface. Much research effort focuses on building programming systems that are easier to use, accessible to non-experts, moldable and/or powerful, but such efforts are often disconnected. They are informal, guided by the personal vision of the authors and thus are only evaluable and comparable on the basis of individual experience using them. In other words, they fail to form a coherent body of research. It isn't clear how to build on what has been done. Much has been said and done that allows comparison of \emph{programming languages}, yet no similar theories exist for \emph{programming systems}. We believe that programming systems deserve a theory too. We examine some influential past programming systems and review their stated design principles, technical capabilities, and styles of user interaction. We propose a framework of \emph{technical dimensions}, capturing the underlying system characteristics and providing a means for conceptualising and comparing programming systems. We thus break the holistic view of programming systems down into characteristics that can be compared or advanced independently. These make it possible to talk about programming systems in a way that can be shared and agreed or constructively disagreed upon, rather than relying just on individual experience of using them. Our aim is to bring programming systems into the focus of programming research by providing the foundations that allow such research to proceed in a more systematic way. In other words, we wish the designers of future programming systems to finally stand on the shoulders of giants.
+\end{abstract}
+
+\begin{document}
+
+\maketitle
+%\thispagestyle{empty}
+
+\newcommand{\joel}[1]{}
+\newcommand{\note}[1]{}
+\newcommand{\tp}[1]{}
+\providecommand{\tightlist}{}% Don't want Pandoc's tight lists
+%\newcommand{\hypertarget}[1]{}
+
+\input{prog22-manuscript.tex}
+
+\appendix
+
+\input{prog22-appendix.tex}
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{prog22}
+\end{document}
