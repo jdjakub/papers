@@ -299,7 +299,7 @@ The evolution of programming systems has led away from conceptual integrity, tow
 
 ### Dimension: conceptual integrity
 
-Perhaps the apotheosis of conceptual integrity was in early Smalltalk and Lisp machines, which were complete programming systems built around a single language. They incorporated capabilities commonly provided outside the programming language by operating systems and databases. Everything was done in one language, and so everything was represented with the datatypes of that language, sometimes explained as "everything is an _x_". The benefit of all code being in one language was that it became a lingua franca reusable across all contexts.
+Perhaps the apotheosis of conceptual integrity was in early Smalltalk and Lisp machines, which were complete programming systems built around a single language. They incorporated capabilities commonly provided outside the programming language by operating systems and databases. Everything was done in one language, and so everything was represented with the datatypes of that language. The benefit of all code being in one language was that it became a lingua franca reusable across all contexts.
 
 \note{JE - Unix files are such a buggy abstraction that I'm not sure we should even consider them an example of conceptual integrity. We also discuss them under granularity, which is where I think they belong}
 UNIX offers a kind of conceptual integrity in the way that many sorts of things are manifested as files. Files provide a universal API of reading and writing an array of bytes. But this abstraction has many exceptions. Directories are special kinds of files with special operations. Hardware devices are files, but requires special `ioctl` operations. Many commands expect files containing newline separators.
@@ -313,7 +313,7 @@ In addition to Smalltalk and Lisp, many programming languages focus on one kind 
 
 Many languages are _imperative_, staying close to the hardware model of addressable memory, lightly abstracted into primitive values and references into mutable arrays and structures. _Functional_ languages hide references and treat everything as complex immutable values. This conceptual simplification benefits certain kinds of programming, but can be counterproductive when an imperative approach is more natural, such as in external input/output.
 
-Python and Perl showcase opposite extremes of conceptual integrity. On the one hand, Python follows the principle that “There should be one---and preferably only one---obvious way to do it” in order to promote community consensus on a single coherent style. On the other hand, Perl states that “There is more than one way to do it.” and considers itself “the first postmodern programming language” \cite{Perl}. “Perl doesn't have any agenda at all, other than to be maximally useful to the maximal number of people. To be the duct tape of the Internet, and of everything else.” The Perl way is to accept the status quo of evolved chaos and build upon it using duct tape and ingenuity. Taken to the extreme, a programming system becomes no longer properly speaking a system, but rather a toolkit for improvising assemblages of found software. Perl could be seen as championing the value of Pluralism over Conceptual Integrity.
+Python and Perl showcase opposite extremes of conceptual integrity. On the one hand, Python follows the principle that “There should be one---and preferably only one---obvious way to do it” in order to promote community consensus on a single coherent style. On the other hand, Perl states that “There is more than one way to do it.” and considers itself “the first postmodern programming language” \cite{Perl}. “Perl doesn't have any agenda at all, other than to be maximally useful to the maximal number of people. To be the duct tape of the Internet, and of everything else.” The Perl way is to accept the status quo of evolved chaos and build upon it using duct tape and ingenuity. Taken to the extreme, a programming system becomes no longer properly speaking a system, but rather a toolkit for improvising assemblages of found software. Perl could be seen as championing the value of Pluralism over Conceptual Integrity. This philosophy has been called _Postmodern Programming_\cite{PoMoProNotes}.
 
 
 ### Dimension: conceptual openness
@@ -330,26 +330,14 @@ Another case is that of C\++, which added to C the Object Oriented concepts pion
 
 Many programming languages and systems impose structure at a "fine granularity": that of individual variables and other data and code structures. This replaces and constrains the flat, "anything goes" memory landscape of the machine level, and the similar "run it and see what happens" indifference of machine instruction streams. Conversely, systems like UNIX or the Web impose fewer restrictions on how programmers represent things---in UNIX's case, delegating all fine-grained structure to the client program and insisting only on a basic infrastructure of "large objects" (i.e. files) \cite{KellOS}. The price to pay for this flexibility is that the system can provide relatively little insight into "what is going on" inside the programs if they use a peculiar representation. Everything being a file is both a blessing and a curse.
 
-Web HTTP endpoints have proven to be an even more adaptable and viral abstraction than UNIX files. They operate at a similar level of abstraction as files, but support richer content and encompass internet-wide interactions between autonomous systems. In a sense HTTP GET and PUT have become the "subroutine calls" of an internet-scale programming system. The most surprising thing about the web is that its usefullness came as a surprise to everyone involved in designing it or competing with it.
+Web HTTP endpoints have proven to be an even more adaptable and viral abstraction than UNIX files. They operate at a similar level of abstraction as files, but support richer content and encompass internet-wide interactions between autonomous systems. In a sense HTTP GET and PUT have become the "subroutine calls" of an internet-scale programming system. The most surprising thing about the web is that its usefullness came as such a surprise to everyone involved in designing it or competing with it.
 
 
-### Remark: the end of the history?
+### Remark: the end of history?
 
 Today we live in a highly developed world of software technology. It is estimated that 41,000 person years have been invested into Linux. We describe software development technologies in terms of *stacks* of specialized tools, each of which might capitalize over 100 person years of development. Programming system designers face an existential question: how to make a noticeable impact on the overwhelming edifice of existing technology? There are strong incentives to focus on localized incremental improvements that don’t cross the established boundaries.
 
 The history of computing is one of cycles of evolution and revolution. Successive cycles were dominated in turn by mainframes, minicomputers, workstations, personal computers, and the web. Each transition built a whole new technology ecosystem replacing or on top of the previous. The last revolution, the web, was 25 years ago. Many people have never experienced a disruptive platform transition. Has history stopped, or are we just stuck in a long cycle, with increasingly pent-up pressures for change? If it is the latter, then incompatible ideas now spurned may yet flourish.
-
-### References
-**TODO (Jonathan): Add some narrative around those**
-
-- The Mythical Man Month \cite{MMM}
-- The Mythical Matched Modules \cite{Mythical}
-- Worse Is Better \cite{WIB}
-- Notes on Postmodern Programming \cite{PoMoProNotes}
-- https://en.wikipedia.org/wiki/Mashup\_(web\_application\_hybrid)
-- End-User Software Customization by Direct Manipulation of Tabular Data \cite{Wildcard} - mashup thing for glueing existing things in the web
-- WebStrates / CodeStrates / mashups / Yahoo pipes
-- Memory Models of Programming Languages \cite{MemMod}
 
 ### Relations
  - *Factoring of complexity* (Section \ref{factoring-of-complexity}): Normalizing redundancy across interrelated descriptions improves coherence.
@@ -377,7 +365,7 @@ A program is typically represented through some structure. This may be its sourc
 
 When customizing programs through *external* means, the customization is done by *addressing* some aspect in the existing program and specifying additional or replacement behaviour. An important issue is how are such addresses specified and what extension points in the program can they refer to. The programming system may offer an automatic mechanism that makes certain parts of a program addressable or this task may be delegated to the programmer.
 
-*Cascading Style Sheets (CSS)*: CSS is a prime example of a system that offers external customizability with rich addressability mechanisms that is partly automatic (e.g., when referring to tag names) and partly manual (e.g., when using element IDs and class names). Given a web page, it is possible to modify (almost) any aspects of its look simply by *adding* additional rules to a CSS file. The Infusion project^[https://fluidproject.org/infusion.html] is a research programming system that offers similar customizability mechanism, but for behaviour rather than just styling.
+*Cascading Style Sheets (CSS)*: CSS is a prime example of a system that offers external customizability with rich addressability mechanisms that is partly automatic (e.g., when referring to tag names) and partly manual (e.g., when using element IDs and class names). Given a web page, it is possible to modify (almost) any aspects of its look simply by *adding* additional rules to a CSS file. The Infusion project\cite{Infusion} offers similar customizability mechanism, but for behaviour rather than just styling.
 
 *Object Oriented Programming and Aspect Oriented Programming*: in conventional programming languages, customization is done by modifying the code itself. OOP and AOP make it possible to do so *externally* by adding code independently of existing program code. In OOP, this requires manual definition of extension points, i.e. interfaces and abstract methods. Functionality can then be added to a system by defining a new class (although injecting the new class into existing code without modification requires some form of configuration such as a dependency injection container). AOP systems such as AspectJ \cite{AspectJ} provides a richer addressing mechanism. In particular, it makes it possible to add functionality to the invocation of a specific method (among other options) by using the *method call pointcut*. This functionality is also similar to *advising* in Pilot \cite{Pilot}.
 
@@ -658,7 +646,7 @@ Mainstream software development technologies require substantial effort to learn
 - Specializing to a specific application domain.
 - Specializing to simple small-scale needs.
 - Leveraging the background knowledge, skills, and terminologies of specific communities
-- Supporting learning with staged levels of complexity and assistive development tools. Better *Feedback Loops* can help.
+- Supporting learning with staged levels of complexity and assistive development tools.\cite{FullBrain} Better *Feedback Loops* can help.
 - Collapsing heterogeneous technology stacks into simpler unified systems. This relates to the dimension of *Conceptual Structure*.
 
 FORTRAN was a breakthrough in programming because it specialized to scientific computing and leveraged the background knowledge of scientists about mathematical formulas. COBOL instead specialized to business data processing and embraced the business community by eschewing mathematics in favor of plain English.
@@ -667,23 +655,23 @@ LOGO was the first language explicitly designed for teaching children. Later Bas
 
 Some programming languages have consciously prioritized the programmer's experience of learning and using them. Ruby calls itself _a programmer's best friend_ by focusing on simplicity and elegance. Elm targets the more specialized but still fairly broad domain of web applications while focusing on simplicity and programmer-friendliness. It forgoes capabilities that would lead to run-time crashes. It also tries hard to make error messages clear and actionable.
 
-If we look beyond programming languages per se, we find programmable systems with better learnability. The best example is spreadsheets, which offer a specialized computing environment that is simpler and more intuitive. The visual metaphor of a grid leverages human perceptual skills. Moving all programming into declarative formulas and attributes greatly simplifies both creation and understanding. Research on Live Programming has sought to incorporate these benefits into general purpose programming, but with limited success.
+If we look beyond programming languages per se, we find programmable systems with better learnability. The best example is spreadsheets, which offer a specialized computing environment that is simpler and more intuitive. The visual metaphor of a grid leverages human perceptual skills. Moving all programming into declarative formulas and attributes greatly simplifies both creation and understanding. Research on Live Programming\cite{Hancock2003}\cite{BretVictor} has sought to incorporate these benefits into general purpose programming, but with limited success to date.
 
 HyperCard and Flash were both programming systems that found widespread adoption by non-experts. Like spreadsheets they had an organizing visual metaphor (cards and timelines respectively). They both made it easy for beginners to get started. Hypercard had layers of complexity intended to facilitate gradual mastery.
 
-Smalltalk and Lisp machines were complex but unified. Once having overcome the initial lerning curve their environments provided a complete solution for building entire application systems of arbitrary complexity without having to learn other technologies. Boxer is notable for providing a general purpose programming environment (albeit for small scale applications) along with an organizing visual metaphor like spreadsheets.
+Smalltalk and Lisp machines were complex but unified. Once having overcome the initial lerning curve their environments provided a complete solution for building entire application systems of arbitrary complexity without having to learn other technologies. Boxer\cite{BoxerDesign} is notable for providing a general purpose programming environment (albeit for small scale applications) along with an organizing visual metaphor like spreadsheets.
 
 
 ### Dimension: Sociability
-Over time, especially in the internet era, social issues have come to dominate programming. Much programming technology is now developed by open source communities, and all programming technologies are now embedded in social media communities of their users. The nature of these communities often trumps purely technical and individual considerations. See Socio-PLT. Some of the specific concerns of sociability are:
+Over time, especially in the internet era, social issues have come to dominate programming. Much programming technology is now developed by open source communities, and all programming technologies are now embedded in social media communities of their users. The nature of these communities often trumps purely technical and individual considerations.\cite{SocioPLT} Some of the specific concerns of sociability are:
 
-- Easy integration into standard technology stacks, allowing incremental adoption, and also easy exit if needed. See Worse is Better for the classic case of UNIX vs Lisp.
+- Easy integration into standard technology stacks, allowing incremental adoption, and also easy exit if needed. This dynamic was discussed in the classic essay _Worse is Better_\cite{WIB} about how UNIX beat Lisp.
 - Backing by large corporations or widespread industry investments that ensures economic sustainability.
 - An open source community of volunteers investing their time, which has proven to be as viable as financial support.
-- Easy sharing of code via package repositories or open exchanges. Prior to the open source era, commercial marketplaces were important, like VBX components for VisualBasic.
+- Easy sharing of code via package repositories or open exchanges. Prior to the open source era, commercial marketplaces were important, like VBX components for VisualBasic. Sharing is impeded when languages have competing dialects and libraries, like Scheme\cite{LispCurse}.
 - Friendly and helpful user communities on social media, for example Stack Overflow. Such communities have to some extent replaced the traditional role of documentation.
 
-The tenor of the online community around a programming system can be its most public attribute. Even before social media, Flash developed a vibrant community of amateurs sharing code and tips. The Elm language invested much effort in creating a welcoming community from the outset. Attempts to reform older communities have introduced Codes of Conduct, but not without controversy.
+The tenor of the online community around a programming system can be its most public attribute. Even before social media, Flash developed a vibrant community of amateurs sharing code and tips. The Elm language invested much effort in creating a welcoming community from the outset.\cite{WhatIsSuccess} Attempts to reform older communities have introduced Codes of Conduct, but not without controversy.
 
 On the other hand, a cloistered community that turns its back on the wider world can give its members strong feelings of belonging and purpose. Examples are Smalltalk, Racket, Clojure, and Haskell. These communities bear some resemblance to cults, with guru-like leaders, and fierce group cohesion.
 
@@ -691,16 +679,6 @@ The economic sustainability of a programming system can be even more important t
 
 Unfortunately, all of these issues of sociability create barriers to new programming systems targeting non-experts, and indeed the entire dimension of learnability. Large internet corporations have invested mainly in technologies relevant to their high-end needs. Open source communities have only flourished around techologies for expert programmers "scratching their own itch". While there has been a flow of venture funding into "no-code" and "low-code" programming systems, it is not clear how they can become economically and socially sustainable. By and large, the internet era has seen the ascendancy of expert programmers.
 
-### References
-**TODO (Jonathan): Add some narrative around those**
-
-- Principles for Programming Language Adoption \cite{SocioPLT}
-- Lisp Curse \cite{LispCurse}
-- What is Success \cite{WhatIsSuccess}
-- Programming On An Already Full Brain \cite{FullBrain}
-- Bret Victor Learnable Programming \cite{BretVictor}
-- Chris Hanson thesis ???
-- A Principled Design for an Integrated Computational Environment" \cite{BoxerDesign}
 
 # Conclusions
 There is a renewed interest in developing new programming systems. Such systems go beyond the simple model of code written in a programming language using a more or less sophisticated text editor. They combine textual and visual notations, create programs through rich graphical interactions, and challenge accepted assumptions about program editing, execution and debugging. Despite the growing number of novel programming systems, it remains difficult to evaluate the novelty of programming systems and see how they improve over work done in the past. To address the issue, we proposed a framework of “technical dimensions” that captures essential characteristics of programming systems in a qualitative but rigorous way.
