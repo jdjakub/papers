@@ -1,14 +1,14 @@
-> _A systematic presentation removes ideas from the ground that made them grow and arranges them in an artificial pattern._
+> A systematic presentation removes ideas from the ground that made them grow and arranges them in an artificial pattern.
 >
-> --- Paul Feyerabend, The Tyranny of Science, Polity Press (2011)
+> --- Paul Feyerabend, *The Tyranny of Science*, Polity Press (2011)
 
-> _Irony is said to allow the artist to continue his creative production while immersed in a sociocultural context of which he is critical._
+> Irony is said to allow the artist to continue his creative production while immersed in a sociocultural context of which he is critical.
 >
-> --- Emmanuel Petit, Irony or, the Self-Critical Opacity of Postmodernist Architecture, Yale (2013)
+> --- Emmanuel Petit, *Irony or, the Self-Critical Opacity of Postmodernist Architecture*, Yale (2013)
 
 # Introduction
 
-Many forms of software have been developed to enable programming. The classic form consists of a *programming language*, a text editor to enter source code, and a compiler to turn it into an executable program. Instances of this form are differentiated by the syntax and semantics of the language, along with the implementation techniques in the compiler or runtime environment. Since the advent of graphical user interfaces (GUIs), programming languages can be found embedded within graphical environments that increasingly define how programmers work with the language (by directly supporting debugging or refactoring, for instance.) However, the rise of GUIs also permits diverse visual forms of programming, including visual languages and GUI-based end-user programming tools. This paper relies on, and encourages, a shift of attention from *programming languages* to the more general notion of "software that enables programming"---in other words, *programming systems*.
+Many forms of software have been developed to enable programming. The classic form consists of a *programming language*, a text editor to enter source code, and a compiler to turn it into an executable program. Instances of this form are differentiated by the syntax and semantics of the language, along with the implementation techniques in the compiler or runtime environment. Since the advent of graphical user interfaces (GUIs), programming languages can be found embedded within graphical environments that increasingly define how programmers work with the language (by directly supporting debugging or refactoring, for instance.) Beyond this, the rise of GUIs also permits diverse visual forms of programming, including visual languages and GUI-based end-user programming tools. This paper relies on, and encourages, a shift of attention from *programming languages* to the more general notion of "software that enables programming"---in other words, *programming systems*.
 
 A *programming system* may include tools, protocols, notations and languages. It is a software artefact that makes it possible to construct programs, debug them, and turn them into operational, maintained and evolvable artifacts running on appropriate hardware. This notion covers classic programming languages together with their editors, debuggers, compilers and other tools. Yet it is intentionally broad enough to accommodate image-based programming environments like Smalltalk, operating systems like UNIX, and hypermedia systems like Hypercard, as well as various other examples we will mention.
 
@@ -16,18 +16,18 @@ A *programming system* may include tools, protocols, notations and languages. It
 
 There is a growing interest in broader forms of *programming systems*, both in the programming research community and in industry. On the one hand, researchers are increasingly studying topics such as *programming experience* and *live programming* that require considering not just the *language*, but further aspects of a given system. On the other hand, commercial companies are building new programming environments like Replit or low-code programming tools like Dark and Glide. Yet, such topics remain at the sidelines of mainstream programming research. While *programming languages* are a well-established concept, analysed and compared in a common vocabulary, no similar foundation exists for the wider range of *programming systems*.
 
-The academic research on programming suffers from the lack of common vocabulary for talking about programming systems. While we can thoroughly assess programming languages, as soon as we add interaction or graphics into the picture, all we can say is that the resulting system is vaguely "cool" or "interesting". Moreover, when designing new systems, inspiration is often drawn from same few somewhat disconnected sources of ideas. These might be influential past systems like Smalltalk, programmable end-user applications like spreadsheets, or motivational illustrations by thinkers like Victor\ \cite{BretVictor}.
+The academic research on programming suffers from this lack of common vocabulary. While we can thoroughly assess programming languages, as soon as we add interaction or graphics into the picture, we get stuck on how the resulting system is vaguely "cool" or "interesting". Moreover, when designing new systems, inspiration is often drawn from same few somewhat disconnected sources of ideas. These might be influential past systems like Smalltalk, programmable end-user applications like spreadsheets, or motivational illustrations by thinkers like Victor\ \cite{BretVictor}.
 
 Instead of forming a solid body of work, the ideas that emerge are difficult to relate to each other. Similarly, the research methods used to study programming systems lack the more rigorous structure of programming language research methods. They tend to rely on singleton examples, which demonstrate the author's ideas, but are inadequate methods for comparing new ideas with the work of others. This makes it hard to build on top and thereby advance the state of the art.
 
 Studying *programming systems* is not merely about taking a programming language and looking at the tools that surround it. It presents a *paradigm shift* to a perspective that is, at least partly, *incommensurable* with that of languages. When studying programming languages, everything that matters is in the program code; when studying programming systems, everything that matters is in the *interaction* between the programmer and the system. As documented by Gabriel \cite{PLrev}, looking at a *system* from a *language* perspective makes it impossible to think about concepts that arise from interaction with a system, but are not reflected in the language. Thus, we must proceed with some caution. As we will see, when we talk about Lisp as a programming system, we mean something very different from a parenthesis-heavy programming language!
 
 ## Contributions
-We propose a new common language as an initial, tentative step towards more progressive research on programming systems. Our set of "Technical Dimensions for Programming Systems" seeks to break down the holistic view of systems along various specific "axes": verbal conceptual prompts inspired by the *Cognitive\ Dimensions of\ Notation*\ \cite{CogDims}. While not strictly quantitative, we have designed them to be narrow enough to be comparable, so that we may say one system has more or less of a property than another. Generally, we see the various possibilities as tradeoffs and are reluctant to assign them "good" or "bad" status. If the framework is to be useful, then it must encourage some sort of rough consensus on how to apply it; we expect it will be more helpful to agree on descriptions of systems first, and settle normative judgements later.
+We propose a new common language as an initial, *tentative* step towards more progressive research on programming systems. Our set of "Technical Dimensions for Programming Systems" seeks to break down the holistic view of systems along various specific "axes": verbal conceptual prompts inspired by the *Cognitive\ Dimensions of\ Notation*\ \cite{CogDims}. While not strictly quantitative, we have designed them to be narrow enough to be comparable, so that we may say one system has more or less of a property than another. Generally, we see the various possibilities as tradeoffs and are reluctant to assign them "good" or "bad" status. If the framework is to be useful, then it must encourage some sort of rough consensus on how to apply it; we expect it will be more helpful to agree on descriptions of systems first, and settle normative judgements later.
 
-The set of dimensions can be understood as a map of the design space of programming systems (Figure\ \ref{fig:tech-dims-diagram}). Past and present systems will serve as landmarks, and with enough of them, unexplored or overlooked possibilities will reveal themselves. So far, the field has not been able to establish a virtuous cycle of feedback where practitioners are able to situate their work in the context of others' for subsequent work to improve on. Our aim is to provide foundations for the study of programming systems that would allow such development.
+The set of dimensions can be understood as a map of the design space of programming systems (Figure\ \ref{fig:tech-dims-diagram}). Past and present systems will serve as landmarks, and with enough of them, unexplored or overlooked possibilities will reveal themselves. So far, the field has not been able to establish a virtuous cycle of feedback; it is hard for practitioners to situate their work in the context of others' so that subsequent work can improve on it. Our aim is to provide foundations for the study of programming systems that would allow such development.
 
-1. We present in detail several clusters of technical dimensions: *interaction dimensions*, *notational dimensions*, *conceptual dimensions*, *customizability*, *level of automation*, *errors*, *factoring of complexity*, *representation*, and *adoptability*.
+1. We present the dimensions in detail, organised into related clusters: *interaction*, *notation*, *conceptualization*, *customizability*, *level of automation*, *errors*, *factoring of complexity*, *representation*, and *adoptability*.
 2. We define these dimensions by reference to landmark programming systems of the past, and discuss any relationships between them.
 3. We demonstrate the salience of these dimensions by applying them to example systems from both the past and present. We situate some experimental systems as explorations at the frontier of certain dimensions.
 
@@ -43,7 +43,7 @@ The programming systems that shape our framework come from a few recognisable cl
 - "Applications" targeted to a specific domain: spreadsheets
 - Mixed aspects of platform and application: HyperCard, Boxer, Flash, and programming language workflows
 
-Richard Gabriel noted a "paradigm shift" \cite{PLrev} from the study of systems to the study of languages in computer science, which informs our distinction here. One consequence of the change is that a *language* is often formally specified apart from any specific implementations, while *systems* resist formal specification and are often *defined by* an implementation. We do, however, intend to recognizeprogramming languages as a small part of the space of possible systems (Figure\ \ref{fig:tech-dims-diagram}). Hence we refer to the *interactive programming system* aspects of languages, such as text editing and command-line workflow.
+Richard Gabriel noted a "paradigm shift" \cite{PLrev} from the study of systems to the study of languages in computer science, which informs our distinction here. One consequence of the change is that a *language* is often formally specified apart from any specific implementations, while *systems* resist formal specification and are often *defined by* an implementation. We do, however, intend to recognize programming languages as a *small region* of the space of possible systems (Figure\ \ref{fig:tech-dims-diagram}). Hence we refer to the *interactive programming system* aspects of languages, such as text editing and command-line workflow.
 
 \begin{figure}
   \centering
@@ -51,7 +51,7 @@ Richard Gabriel noted a "paradigm shift" \cite{PLrev} from the study of systems 
   \caption{A speculative sketch of one 2-dimensional slice of the space of possible systems.\label{fig:tech-dims-diagram}}
 \end{figure}
 
-Our "system" concept is mostly technical in scope, with occasional excursions as in "Adoptability" (Section\ \ref{adoptability}). This contrasts with the more socio-political focus found in \cite{TcherDiss}. It overlaps with Kell's conceptualization of UNIX, Smalltalk, and Operating Systems generally\ \cite{KellOS}, and we ensure UNIX is a part of ours. We do not, however, extend it to systems distributed over networks, although our framework may still be applicable there.
+Our "system" concept is mostly technical in scope, with occasional excursions as in "Adoptability" (Section\ \ref{adoptability}). This contrasts with the more socio-political focus found in \cite{TcherDiss}. It overlaps with Kell's conceptualization of UNIX, Smalltalk, and Operating Systems generally\ \cite{KellOS}, and we ensure UNIX is a part of ours. We do not extend it to systems distributed over networks, although our framework may still be applicable there.
 
 ## Industry and research interest in programming systems
 There is renewed interest in programming systems in both industry and research. In industry we see:
@@ -78,11 +78,11 @@ Several research venues investigate programming systems:
 There are several existing projects identifying characteristics of programming systems. Some of these revolve around a single one, such as levels of liveness \cite{Liveness}, or plurality and communicativity \cite{KellComm}. Others propose, as we do here, an entire collection:
 
 - *Memory\ Models of\ Programming\ Languages*\ \cite{MemMod} identifies the "everything is an X" metaphors underlying many programming languages.
-- The *Design\ Principles of\ Smalltalk*\ \cite{STdesign} documents the philosophical goals and dictums used in the design of Smalltalk.
+- The *Design\ Principles of\ Smalltalk*\ \cite{STdesign} documents the philosophical goals and dicta used in the design of Smalltalk.
 - The original *Design Patterns*\ \cite{DesPats} names and catalogues specific tactics within the *codebases* of software systems.
 - The *Cognitive\ Dimensions of\ Notation*\ \cite{CogDims} introduces a common vocabulary for software's *notational surface* and shows how they trade off and affect the performance of certain types of tasks.
 
-Of these sources, the latter two bear the most obvious influence on our proposal. Our framework of "technical dimensions" continues the approach of the Cognitive Dimensions to the "rest" of a system beyond its notation. Our individual dimensions naturally fall under larger *clusters* that we present in a regular format, similar to the presentation of the classic Design Patterns. As for characteristics identified by others, part of our contribution is to integrate them under a common umbrella: Liveness, pluralism, and uniformity metaphors ("everything is an X") are incorporated as dimensions already identified by the related work.
+Of these sources, the latter two bear the most obvious influence on our proposal. Our framework of "technical dimensions" continues the approach of the Cognitive Dimensions to the "rest" of a system beyond its notation. Our individual dimensions naturally fall under larger *clusters* that we present in a regular format, similar to the presentation of the classic Design Patterns. As for characteristics identified by others, part of our contribution is to integrate them under a common umbrella: liveness, pluralism, and uniformity metaphors ("everything is an X") are incorporated as dimensions already identified by the related work.
 
 We follow the attitude of *Evaluating Programming Systems*\ \cite{EvProgSys} in distinguishing our work from HCI methods and empirical evaluation. We are generally concerned with characteristics that are not obviously amenable to statistical analysis (e.g. mining software repositories) or experimental methods like controlled user studies, so numerical quantities are generally not featured.
 
@@ -101,21 +101,21 @@ Here, we will present a brief and incomplete history of programming systems. Thi
 The key aspect of computers that enabled the rise of programming systems was the ability for a programmer to interact one-on-one with a computer. This was not possible in the 1950s when most computers were large and operated in a batch-processing mode. Two historical developments enabled such interactivity from the 1960s. First, time-sharing systems enabled interactive shared use of a computer via a teletype. Second, smaller computers such as the PDP-1 and PDP-10 provided similar direct interaction, while 1970s workstations such as the Alto and Lisp Machines added graphical displays and mouse input.
 
 ### Lisp
-The Lisp programming language (in the form of LISP 1.5 \cite{LISP15}) was designed before the rise of interactive computers. Nevertheless, the existence of an interpreter plus the absence of declarations made it natural to use Lisp interactively, with the first interactive implementations appearing in the early 1960s. Two branches of the Lisp family,^[The Lisp family consists of several branches, including MacLisp, InterLisp, ZetaLisp, Common Lisp, Scheme, Racket, and Clojure. see \cite{LispEvolve}] MacLisp and the later Interlisp, fully embraced the so called "conversational" way of working. Interaction occured through the teletype at first, later giving way to the screen and keyboard. Even on the teletype, the system incorporated a number of ideas that remain popular with programming systems today.
+The Lisp programming language (in the form of LISP 1.5 \cite{LISP15}) was designed before the rise of interactive computers. Nevertheless, the existence of an interpreter plus the absence of declarations made it natural to use Lisp interactively, with the first interactive implementations appearing in the early 1960s. Two branches of the Lisp family,^[The Lisp family consists of several branches, including MacLisp, InterLisp, ZetaLisp, Common Lisp, Scheme, Racket, and Clojure. see \cite{LispEvolve}] MacLisp and the later Interlisp, fully embraced the so-called "conversational" way of working. Interaction occured through the teletype at first, later giving way to the screen and keyboard. Even on the teletype, the system incorporated a number of ideas that remain popular with programming systems today.
 
 Both MacLisp and Interlisp adopted the idea of *persistent address space*. The address space (what Smalltalk calls the *image*) contained both program code and program state, meaning that both could be accessed and modified interactively as well as programmatically using the *same means*. This idea of persistent address space appeared on time-sharing systems and culminated with the development of Lisp Machines, which embraced the idea that the machine runs continually and saves the state to disk when needed. Today, while this is still not the default state for systems running "natively" on some hardware, it is widely seen in cloud-based services like Google Docs and online IDEs.
 
 One idea not widely seen today, yet pioneered in MacLisp and Interlisp, was the use of *structure editors*. These let programmers work with Lisp data structures not as sequences of characters, but as nested lists. In Interlisp, for example, the programmer would use commands such as `*P` to print the current expression, or `*(2 (X Y))` to replace its second element with the argument `(X Y)`. The PILOT system \cite{Pilot}, later integrated into Interlisp, offered even more sophisticated conversational features. For typographical errors and other slips, it would offer an automatic fix for the user to interactively accept, modifying the program in memory and resuming the execution.
 
 ### Smalltalk
-Smalltalk came on the scene in the 1970s, with the ambition of providing "dynamic media which can be used by humans of all ages". The authors saw computers as *meta-media* that could become a range of other media for applications like animation, circuit design, simulation and others not yet invented. Smalltalk was designed for single-user workstations with graphical display, and this display was pioneered not just for applications, but also for programming. In Smalltalk 72, one wrote code in the bottom half of the screen. When editing a definition, the window became a structure editor logically similar to that in Lisp, but controlled using a mouse and menu instead of a teletype.
+Smalltalk came on the scene in the 1970s, with the ambition of providing "dynamic media which can be used by humans of all ages". The authors saw computers as *meta-media* that could become a range of other media for education, discourse, creative arts, simulation and other applications not yet invented. Smalltalk was designed for single-user workstations with a graphical display, and pioneered this display not just for applications but also for programming itself. In Smalltalk 72, one wrote code in the bottom half of the screen. When editing a definition, the window became a structure editor logically similar to that in Lisp, but controlled using a mouse and menu instead of a teletype.
 
-Smalltalk shared a number of other characteristics with Lisp, although its key concept was that of an *object* rather than a *list*. Today, Smalltalk is perhaps best known for adopting the aforementioned persistent address space model of programming, where all objects remain in memory. Any changes made to the system state by programming or execution are preserved when the computer is turned off. The graphical interface then provides easy access to all objects and their methods through the *object browser*. The fact that much of the Smalltalk environment was implemented in itself, a property shared with many Lisp later systems, made it possible to significantly modify the system from within.
+Smalltalk shared a number of other characteristics with Lisp, although its key concept was that of an *object* rather than a *list*. Today, Smalltalk is perhaps best known for adopting the aforementioned persistent address space model of programming, where all objects remain in memory. Any changes made to the system state by programming or execution are preserved when the computer is turned off. The graphical interface provides easy access to all objects and their methods through the *object browser*. The fact that much of the Smalltalk environment was implemented in itself, a property shared with many Lisp later systems, made it possible to significantly modify the system from within.
 
 ### UNIX
 Both Lisp and Smalltalk worked, to some extent, as operating systems. The user started their machine directly in the Lisp or Smalltalk environment and was able to do everything they needed from *within* the system.^[When the Lisp and Smalltalk systems were implemented on specialized computers---InterLisp and Smalltalk on the Alto and Xerox D, ZetaLisp and Common Lisp on Lisp machines---the user would start their computers directly in the programming system environment. When implemented on commodity hardware, the user would resume a saved image of the programming system.] This explains why it is worth considering (especially programmer-oriented) operating systems as programming systems as well. A prime example of this is UNIX, which was a simpler 1970s operating system for time-sharing computers.
 
-As we discuss later under "Adoptability" (Section \ref{adoptability}), many aspects of programming systems are shaped by their intended target audience. UNIX was built for computer hackers themselves and, as such, its interface is close to the machine. While everything is an object in Smalltalk, the ontology of the UNIX system consists of files, memory, executable programs, and running processes. Interestingly, there is an explicit stage distinction here, that is not present in Smalltalk or Lisp. The ontology, however, enables an open pluralistic environment.
+As we discuss later under "Adoptability" (Section \ref{adoptability}), many aspects of programming systems are shaped by their intended target audience. UNIX was built for computer hackers themselves and, as such, its interface is close to the machine. While everything is an object in Smalltalk, the ontology of the UNIX system consists of files, memory, executable programs, and running processes. Interestingly, there is an explicit stage distinction here, not present in Smalltalk or Lisp, between volatile (RAM) and non-volatile (disk) structures. The ontology of files, however, enables an open pluralistic environment.
 
 ## Early application platforms
 The previously discussed programming systems did not focus on any particular kind of application. They were universal. As computers became more widely used, it became clear that there are typical kinds of applications that need to be built. For those, more specialized programming systems began to appear. Although they are more focused, they also support programming based on rich interactions with specialized visual and textual notations.
@@ -146,7 +146,7 @@ Today, REPLs exist for many programming languages. Unlike in Lisp, they are ofte
 Notebooks for data science are a particularly interesting example. Their primary output is the notebook itself, rather than a separate application to be compiled and run. The code lives in a document format, interleaved with other notations. Code is written in small parts that are executed (almost) immediately, offering the user more rapid feedback than in conventional programming. A notebook can be seen as a trace of how the result has been obtained, although one often problematic feature of notebooks is that they allow the user to run code blocks out-of-order. Retracing the individual steps in a notebook may thus be more subtle than following a trace produced from a conventional REPL (for example, using the `dribble` function in Common Lisp).
 
 ### Haskell and other languages
-The aforementioned 1990s paradigm shift from thinking about *systems* to thinking about *languages* means that researchers tend to emphasize the language side of programming. However, all programming languages are a part of a richer ecosystem that consist of editors and other tools. In our analysis, we choose Haskell as our example as a clearly language-focused programming system.
+The aforementioned 1990s paradigm shift from thinking about *systems* to thinking about *languages* means that researchers tend to emphasize the language side of programming. However, all programming languages are a part of a richer ecosystem that consist of editors and other tools. In our analysis, we choose Haskell as our example of a clearly *language-focused* programming system.
 
 Like most programming languages, Haskell code can be written in a wide range of text editors, some of which support assistance tools such as syntax highlighting and auto-completion. These offer immediate feedback while editing code, such as when highlighting type errors. This way, "lapse" and "slip" type errors are mitigated---we discuss this further under "Errors" (\ref{errors}).
 
@@ -157,11 +157,9 @@ In this section, we present our most worked-out technical dimensions under *clus
 
 Each cluster is named and opens with a short *summary*, followed by a longer *description*, and closes with a list of any *relations* to other clusters along with any *references* if applicable. Within the main description, individual *dimensions* are identified. Sometimes, a particular value along a dimension (or a combination of values along several dimensions) can be recognized as a familiar pattern---perhaps with a name already established in the literature. These are marked as *instances*. Finally, interspersed discussion that is neither a *dimension* nor an *instance* is introduced as a *remark*.
 
-For brevity, we present three dimension clusters from our current list, and leave the rest to the Appendix. These are *interaction dimensions*, *notational dimensions*, and *conceptual dimensions*.
+## Interaction
 
-## Interaction dimensions
-
-_How do users execute their ideas, evaluate the result, and generate new ideas in response?_
+> _How do users execute their ideas, evaluate the result, and generate new ideas in response?_
 
 An essential aspect of programming systems is how the user interacts with them when creating programs. Take the standard form of statically typed, compiled languages with straightforward library linking: here, programmers write their code in a text editor, invoke the compiler, and read through error messages they get. After fixing the code to pass compilation, a similar process might happen with runtime errors.
 
@@ -224,11 +222,11 @@ The idea of interaction modes goes beyond just programming systems, appearing in
 - _Errors_ (Section \ref{errors}) A longer evaluation gulf delays the detection of errors. A longer execution gulf can increase the *likelihood* of errors (e.g. writing a lot of code or taking a long time to write it). By turning runtime bugs into statically detected bugs, the combined evaluation gulfs can be reduced.
 - _Adoptability_ (Section \ref{adoptability}): The *execution* gulf is concerned with software using and programming in general. The time taken to realizean idea in software is affected by the user's familiarity and the system's *learnability*, as well as the *expressive power* of the system's ontology.
 - _Representation_ (Section \ref{representation}): The motto "The thing on the screen is supposed to be the actual thing" coined in the context of live programming \cite{Live13} suggests that _liveness_ also relates to representation. Objects that users interact with should be equipped with faithful behavior rather than being intangible shadows cast by the hidden *real* object.
-- _Notation_ (Section \ref{notation-dimensions}): Feedback loops are related to *notational structures*. In a system with multiple notations, each notation may have different associated feedback loops.
+- _Notation_ (Section \ref{notation}): Feedback loops are related to *notational structures*. In a system with multiple notations, each notation may have different associated feedback loops.
 
-## Notation dimensions
+## Notation
 
-_What are the different notations, both textual and visual, through which the system is programmed? How do they relate to each other when programming the system?_
+> _What are the different notations, both textual and visual, through which the system is programmed? How do they relate to each other when programming the system?_
 
 Programming is always done through some form of notation. We consider notations in the most general sense and include any structured gesture using textual or visual notation, user interface or other means. Textual notations include primarily programming languages, but may also include, for example, configuration files. Visual notations include graphical programming languages. Other kinds of structured gestures include, for example, user interfaces for constructing visual elements used in the system.
 
@@ -282,12 +280,12 @@ Cognitive Dimensions \cite{CogDims} provide a comprehensive framework for analys
 
 ### Relations
 - *Factoring of complexity* (Section \ref{factoring-of-complexity}): Using multiple complementing notations implicitly factors complexity by expressing different aspects of a program using different notations.
-- *Interaction* (Section \ref{interaction-dimensions}): The feedback loops that exist in a programming system are typically associated with individual notations. Different notations may also have different feedback loops.
+- *Interaction* (Section \ref{interaction}): The feedback loops that exist in a programming system are typically associated with individual notations. Different notations may also have different feedback loops.
 - *Adoptability* (Section \ref{adoptability}): Notational structure can affect learnability. In particular, complementing notations may require (possibly different) users master multiple notations. Overlapping notations may improve learnability by allowing the user to edit program in one way (e.g. visually) and see the effect in the other notation (e.g. in code).
 
-## Conceptual dimensions
+## Conceptualization
 
-_What tradeoffs are made between conceptual integrity and plurality? How compatible is the system with established technologies? How open is it to the changing practices of the software industry?_
+> _What tradeoffs are made between conceptual integrity and plurality? How compatible is the system with established technologies? How open is it to the changing practices of the software industry?_
 
 > I will contend that Conceptual Integrity is the most important consideration in system design. It is better to have a system omit certain anomalous features and improvements, but to reflect one set of design ideas, than to have one that contains many good but independent and uncoordinated ideas. ---\ Fred Brooks \cite{brooks95aristo}
 
@@ -344,7 +342,7 @@ The history of computing is one of cycles of evolution and revolution. Successiv
 
 ## Customizability
 
-_Considering an existing program created using the programming system, what aspects of the program can be extended and modified and in what ways is this achieved?_
+> _Considering an existing program created using the programming system, what aspects of the program can be extended and modified and in what ways is this achieved?_
 
 Programming is a gradual process. We start either from nothing or from an existing program and gradually extend and refine it until it serves a given purpose. Programs created using different programming systems can be refined to a different extent, in different ways, at different stages of their existence.
 
@@ -389,11 +387,11 @@ In addition to the examples discussed above, the proceedings of self-sustaining 
 
 ### Relations
 - *Factoring of complexity* (Section \ref{factoring-of-complexity}): related in that "customizability" is a form of creating new programs from existing ones; factoring repetitive aspects into a reusable standard component library facilitates the same thing.
-- *Interaction structure* (Section \ref{interaction-dimensions}): this determines whether there are separate stages for running and writing programs and may thus influence what kind of customizability is possible.
+- *Interaction* (Section \ref{interaction}): this determines whether there are separate stages for running and writing programs and may thus influence what kind of customizability is possible.
 
 ## Level of automation
 
-_To what extent and in what ways does the programming system remove the need to specify the program implementation in minute detail?_
+> _To what extent and in what ways does the programming system remove the need to specify the program implementation in minute detail?_
 
 In order to execute a computer program, computers require a full and exact specificiation of the instructions to run. Ever since the 1940s, programmers envisioned that some form of "automatic programming" will alleviate the need for repeatedly specifying all details. The computer still requires full details today, but many aspects of the task of programming can be automated.
 
@@ -429,7 +427,7 @@ We may speculate whether Deep Learning will enable the next step of automation. 
 
 ## Errors
 
-_What does the system consider to be an error, and how does it approach their prevention and handling?_
+> _What does the system consider to be an error, and how does it approach their prevention and handling?_
 
 In general, a *program error* is when the system cannot run in a normal way and needs to resolve the situation. This raises a number of questions for system design: What can cause a program error? Which program errors can be prevented from happening? How should the system react to a program error?
 
@@ -486,7 +484,7 @@ The most common error handling mechanism in conventional programming languages i
 Reason \cite{HumanError} analyses errors in the context of human errors and develops a classification of errors that we adopt. In the context of computing, errors or _miscomputation_ has been analysed from a philosophical perspective \cite{Miscomputation,MalfunctioningSW}. Notably, the approach to errors also differs for different sub-cultures of programming \cite{LivingWithErrors}.
 
 ## Factoring of complexity
-_What are the primitives? How can they be combined? How is *common structure* recognized and utilized?_
+> _What are the primitives? How can they be combined? How is *common structure* recognized and utilized?_
 
 There is a large space of possible things we might want to do with a system. The question is, how do we "get" to all the possible locations in this space? We can have a very flat structure where different tools, methods or features are used to reach individual points in this space. We can also have a more structured approach where we need to compose individual components to "get" to individual locations.
 
@@ -572,7 +570,7 @@ Another option is to construct abstractions *from concrete cases*. Here, the pro
 
 
 ## Representation
-_Which structures are available to programmatic manipulation, and which ones must be extracted by a non-trivial process?_
+> _Which structures are available to programmatic manipulation, and which ones must be extracted by a non-trivial process?_
 
 Representations may be flat sequences or structured graphs. There may be multiple representations of the same thing. What are they and how do they relate?
 
@@ -638,7 +636,9 @@ With strings demarcated by left/right quotes, all of this would be unnecessary, 
 
 ## Adoptability
 
-_How does the system facilitate or obstruct adoption by both individuals and communities?_ We consider adoption by individuals as the dimension of *Learnability*, and adoption by communities as the dimension of *Sociability*.
+> _How does the system facilitate or obstruct adoption by both individuals and communities?_
+
+We consider adoption by individuals as the dimension of *Learnability*, and adoption by communities as the dimension of *Sociability*.
 
 ### Dimension: Learnability
 Mainstream software development technologies require substantial effort to learn. Systems can be made easier to learn in several ways:
