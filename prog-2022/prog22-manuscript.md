@@ -283,7 +283,11 @@ Cognitive Dimensions \cite{CogDims} provide a comprehensive framework for analys
 
 ## Conceptualization
 
-> _What tradeoffs are made between conceptual integrity and plurality? How compatible is the system with established technologies? How open is it to the changing practices of the software industry?_
+\noindent\fbox{%
+  \parbox{\textwidth}{%
+    What tradeoffs are made between conceptual integrity vs. compatiblity with established technologies?
+  }%
+}
 
 > I will contend that Conceptual Integrity is the most important consideration in system design. It is better to have a system omit certain anomalous features and improvements, but to reflect one set of design ideas, than to have one that contains many good but independent and uncoordinated ideas. ---\ Fred Brooks \cite{brooks95aristo}
 
@@ -291,23 +295,27 @@ Cognitive Dimensions \cite{CogDims} provide a comprehensive framework for analys
 
 > Conceptual integrity arises not (simply) from one mind or from a small number of agreeing resonant minds, but from sometimes hidden co-authors and the thing designed itself. ---\ Richard Gabriel \cite{DesignedAsDesigner}
 
-The evolution of programming systems has led away from conceptual integrity, towards an enormously complex ecosystem of specialized technologies and standards. Any attempt to unify parts of this ecosystem into a coherent whole will create *incompatibility* with the remaining parts, which becomes a major barrier to adoption. Designers seeking adoption are pushed to focus on localized incremental improvements that stay within the boundaries of existing practice. This tension manifests in two dimensions: how open we are to the pressures imposed by society, and how highly we value conceptual elegance.
+The evolution of programming systems has led away from conceptual integrity, towards an intricate ecosystem of specialized technologies and standards. Any attempt to unify parts of this ecosystem into a coherent whole will create *incompatibility* with the remaining parts, which becomes a major barrier to adoption. Designers seeking adoption are pushed to focus on localized incremental improvements that stay within the boundaries established by existing practice. This tension manifests in two dimensions: how open we are to the pressures imposed by society, and how highly we value conceptual elegance.
+
+\note{JE: I'm not sure integrity and openness are orthogonal. They seem to be opposing tendencies in one dimension}
 
 ### Dimension: conceptual integrity
 
 Perhaps the apotheosis of conceptual integrity was in early Smalltalk and Lisp machines, which were complete programming systems built around a single language. They incorporated capabilities commonly provided outside the programming language by operating systems and databases. Everything was done in one language, and so everything was represented with the datatypes of that language. The benefit of all code being in one language was that it became a *lingua franca*, reusable across all contexts.
 
-\note{JE - Unix files are such a buggy abstraction that I'm not sure we should even consider them an example of conceptual integrity. We also discuss them under granularity, which is where I think they belong}
+\note{JE - Unix files are such a buggy low-level abstraction that I'm not sure we should even consider them an example of conceptual integrity. We also discuss them under granularity and composability, which is where I think they belong.
+
 UNIX offers a kind of conceptual integrity in the way that many sorts of things are manifested as files. Files provide a universal API for reading and writing an array of bytes. But this abstraction has many exceptions. Directories are special kinds of files with special operations. Hardware devices are files, but require special `ioctl` operations. Many commands expect files containing newline separators.
+}
 
 In addition to Smalltalk and Lisp, many programming languages focus on one kind of data structure \cite{MemMod}:
 
 - In COBOL, data consists of nested records as in a business form.
 - In Fortran, data consists of parallel arrays.
 - In SQL, data is a set of relations with key constraints.
-- In scripting languages like Python, Ruby, and Lua, most data takes the form of string-indexed hash tables.
+- In scripting languages like Python, Ruby, and Lua, much data takes the form of string-indexed hash tables.
 
-Many languages are _imperative_, staying close to the hardware model of addressable memory, lightly abstracted into primitive values and references into mutable arrays and structures. _Functional_ languages hide references and treat everything as complex immutable values. This conceptual simplification benefits certain kinds of programming, but can be counterproductive when an imperative approach is more natural, such as in external input/output.
+Many languages are _imperative_, staying close to the hardware model of addressable memory, lightly abstracted into primitive values and references into mutable arrays and structures. On the other hand, _functional_ languages hide references and treat everything as immutable structured values. This conceptual simplification benefits certain kinds of programming, but can be counterproductive when an imperative approach is more natural, such as in external input/output.
 
 Python and Perl showcase opposite extremes of conceptual integrity. On the one hand, Python follows the principle that “There should be one---and preferably only one---obvious way to do it” in order to promote community consensus on a single coherent style. On the other hand, Perl states that “There is more than one way to do it.” and considers itself “the first postmodern programming language” \cite{Perl}. “Perl doesn't have any agenda at all, other than to be maximally useful to the maximal number of people. To be the duct tape of the Internet, and of everything else.” The Perl way is to accept the status quo of evolved chaos and build upon it using duct tape and ingenuity. Taken to the extreme, a programming system becomes no longer a *system*, properly speaking, but rather a *toolkit for improvising* assemblages of *found* software. Perl could be seen as championing the value of Pluralism over Conceptual Integrity. This philosophy has been called _Postmodern Programming_ \cite{PoMoProNotes}.
 
@@ -320,23 +328,23 @@ Richard Gabriel first described this dilemma in his influential 1991 essay *Wors
 
 Another case is that of C\++, which added to C the Object-Oriented concepts pioneered by Smalltalk while remaining 100% compatible with C, down to the level of ABI and performance. This strategy was enormously successful for adoption, but came with the tradeoff of enormous complexity compared to languages designed from scratch for OO, like Smalltalk, Ruby, and Java.
 
-### Dimension: conceptual granularity
+\note{JE: this should be merged into Composability ### Dimension: conceptual granularity
 
 \tp{Smalltalk objects are "all levels of granularity"; UNIX files are large-scale; Haskell data structures small-scale; very big virtual machines; there is also the web / distributed file system?}
 
 Many programming languages and systems impose structure at a "fine granularity": that of individual variables and other data and code structures. This replaces and constrains the flat, "anything goes" memory landscape of the machine level, and the similar "run it and see what happens" indifference of machine instruction streams. Conversely, systems like UNIX or the Web impose fewer restrictions on how programmers represent things---in UNIX's case, delegating all fine-grained structure to the client program and insisting only on a basic infrastructure of "large objects" (i.e. files) \cite{KellOS}. The price to pay for this flexibility is that the system can provide relatively little insight into "what is going on" inside the programs if they use a peculiar representation. Everything being a file is both a blessing and a curse.
 
 Web HTTP endpoints have proven to be an even more adaptable and viral abstraction than UNIX files. They operate at a similar level of abstraction as files, but support richer content and encompass internet-wide interactions between autonomous systems. In a sense, HTTP GET and PUT have become the "subroutine calls" of an internet-scale programming system. Perhaps the most salient thing about the Web is that its usefulness came as such a surprise to everyone involved in designing or competing with it.
-
+}
 
 ### Remark: the end of history?
 
-Today we live in a highly developed world of software technology. It is estimated that 41,000 person years have been invested into Linux. We describe software development technologies in terms of *stacks* of specialized tools, each of which might capitalize over 100 person-years of development. Programming system designers face an existential question: how to make a noticeable impact on the overwhelming edifice of existing technology? There are strong incentives to focus on localized incremental improvements that don’t cross the established boundaries.
+Today we live in a highly developed world of software technology. It is estimated that 41,000 person years have been invested into Linux. We describe software development technologies in terms of *stacks* of specialized tools, each of which might capitalize over 100 person-years of development. Programming systems have become programming ecosystems --- not designed but evolved. How can we noticeably improve programming in the face of the overwhelming edifice of existing technology? There are strong incentives to focus on localized incremental improvements that don’t cross the established boundaries.
 
 The history of computing is one of cycles of evolution and revolution. Successive cycles were dominated in turn by mainframes, minicomputers, workstations, personal computers, and the Web. Each transition built a whole new technology ecosystem replacing or on top of the previous. The last revolution, the Web, was 25 years ago, with the result that many people have never experienced a disruptive platform transition. Has history stopped, or are we just stuck in a long cycle, with increasingly pent-up pressures for change? If it is the latter, then incompatible ideas now spurned may yet flourish.
 
 ### Relations
- - *Factoring of complexity* (Section \ref{factoring-of-complexity}): Normalizing redundancy across interrelated descriptions improves coherence.
+ - *Composability* (Section \ref{Dimension: composability}): Conceptual integrity strives to reduce complexity at the source, by creating unified concepts that compose orthogonally to generate diversity.
 
 ## Customizability
 
