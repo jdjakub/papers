@@ -285,7 +285,7 @@ Cognitive Dimensions \cite{CogDims} provide a comprehensive framework for analys
 
 \noindent\fbox{%
   \parbox{\textwidth}{%
-    What tradeoffs are made between conceptual integrity vs. compatiblity with established technologies?
+    What tradeoffs are made between conceptual integrity vs. compatibility with established technologies?
   }%
 }
 
