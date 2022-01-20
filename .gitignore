@@ -1,1 +1,7 @@
 prog-2022/prog22-manuscript.tex
+prog-2022/prog22-appendix.tex
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
