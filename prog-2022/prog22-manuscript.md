@@ -51,7 +51,7 @@ Richard Gabriel noted a "paradigm shift" \cite{PLrev} from the study of systems 
   \caption{A speculative sketch of one 2-dimensional slice of the space of possible systems.\label{fig:tech-dims-diagram}}
 \end{figure}
 
-Our "system" concept is mostly technical in scope, with occasional excursions as in "Adoptability" (Section\ \ref{adoptability}). This contrasts with the more socio-political focus found in \cite{TcherDiss}. It overlaps with Kell's conceptualization of UNIX, Smalltalk, and Operating Systems generally\ \cite{KellOS}, and we ensure UNIX is a part of ours. We do not extend it to systems distributed over networks, although our framework may still be applicable there.
+Our "system" concept is mostly technical in scope, with occasional excursions as in "Adoptability" (Section\ \ref{adoptability}). This contrasts with the more socio-political focus found in \cite{TcherDiss}. It overlaps with Kell's conceptualization of UNIX, Smalltalk, and Operating Systems generally\ \cite{KellOS}, and we have ensured that UNIX has a place in our framework.
 
 ## Industry and research interest in programming systems
 There is renewed interest in programming systems in both industry and research. In industry we see:
@@ -69,11 +69,12 @@ In research, there are an increasing number of explorations of the possibilities
 
 Several research venues investigate programming systems:
 
+- [UIST](https://uist.acm.org/) (ACM Symposium on User Interface Software and Technology)
 - [VL/HCC](https://conferences.computer.org/VLHCC/) (IEEE Symposium on Visual Languages and Human-Centric Computing)
 - The [LIVE programming](https://liveprog.org/) workshop at SPLASH
 - The [PX](https://2021.programming-conference.org/home/px-2021) (Programming eXperience) workshop at $\langle$Programming$\rangle$
 
-## Related methodology
+## Characteristics already identified elsewhere
 
 There are several existing projects identifying characteristics of programming systems. Some of these revolve around a single one, such as levels of liveness \cite{Liveness}, or plurality and communicativity \cite{KellComm}. Others propose, as we do here, an entire collection:
 
@@ -144,7 +145,7 @@ Another kind of developer ecosystem which evolved from simple scripting tools co
 
 Today, REPLs exist for many programming languages. Unlike in Lisp, they are often separate from the running program. REPLs often maintain an execution state independent of a running program and there are many strategies for prototyping code in a REPL before making it a part of an ordinary compiled application.
 
-Notebooks for data science are a particularly interesting example. Their primary output is the notebook itself, rather than a separate application to be compiled and run. The code lives in a document format, interleaved with other notations. Code is written in small parts that are executed (almost) immediately, offering the user more rapid feedback than in conventional programming. A notebook can be seen as a trace of how the result has been obtained, although one often problematic feature of notebooks is that some notebook systems allow the user to run code blocks out-of-order. Retracing the individual steps in a notebook may thus be more subtle than following a trace produced from a conventional REPL (for example, using the `dribble` function in Common Lisp).
+Notebooks for data science are a particularly interesting example. Their primary output is the notebook itself, rather than a separate application to be compiled and run. The code lives in a document format, interleaved with other notations. Code is written in small parts that are executed (almost) immediately, offering the user more rapid feedback than in conventional programming. A notebook can be seen as a trace of how the result has been obtained, although one often problematic feature of notebooks is that some notebook systems allow the user to run code blocks out-of-order. Retracing the individual steps in a notebook may thus be more subtle than following a trace produced from a conventional REPL (for example, using the `dribble` function in Common Lisp to record the session to a file.)
 
 ### Haskell and other languages
 The aforementioned 1990s paradigm shift from thinking about *systems* to thinking about *languages* means that researchers tend to emphasize the language side of programming. However, all programming languages are a part of a richer ecosystem that consist of editors and other tools. In our analysis, we choose Haskell as our example of a clearly *language-focused* programming system.
@@ -154,9 +155,9 @@ Like most programming languages, Haskell code can be written in a wide range of 
 Haskell is mathematically rooted and relies on mathematical intuition for understanding many of its concepts. This background is also reflected in the notations it uses. In addition to the concrete language syntax (used when writing code), the Haskell ecosystem also uses an informal mathematical notation, which is used when writing about Haskell (e.g. in academic papers or on the whiteboard). This provides an additional tool for manipulating Haskell programs and experimenting with them on paper *in vitro*, in ways that other systems may attempt to achieve through experimentation within the system *in vivo*.
 
 # Technical dimensions
-In this section, we present our most worked-out technical dimensions under *clusters*. This is a consequence of how we developed the framework. In the beginning, we considered these clusters the "dimensions" themselves---yet, as we added detail, they soon developed an internal "glossary" structure defining more primitive terms. Since it was easier to see how these primitives could be compared and assigned values for concrete systems, and unclear how the same would be possible for the clusters, we tentatively settled on the format that follows. The clusters may be regarded as "topics of interest" or "areas of inquiry" when studying a given system, grouping together related dimensions against which to measure it.
+In this section, we present our proposed technical dimensions grouped under *clusters*. The clusters may be regarded as "topics of interest" or "areas of inquiry" when studying a given system, grouping together related dimensions against which to measure it.
 
-Each cluster is named and opens with a short *summary*, followed by a longer *description*, and closes with a list of any *relations* to other clusters along with any *references* if applicable. Within the main description, individual *dimensions* are identified. Sometimes, a particular value along a dimension (or a combination of values along several dimensions) can be recognized as a familiar pattern---perhaps with a name already established in the literature. These are marked as *instances*. Finally, interspersed discussion that is neither a *dimension* nor an *instance* is introduced as a *remark*.
+Each cluster is named and opens with a short *summary*, followed by a longer *description*, and closes with a list of any *relations* to other clusters along with any *references* if applicable. Within the main description, individual *dimensions* are listed. Sometimes, a particular value along a dimension (or a combination of values along several dimensions) can be recognized as a familiar pattern---perhaps with a name already established in the literature. These are marked as *examples*. Finally, interspersed discussion that is neither a *dimension* nor an *example* is introduced as a *remark*.
 
 ## Interaction
 
@@ -194,7 +195,7 @@ For example, we can analyze statically checked *programming languages* (e.g. Jav
     - On the other hand, this can make it harder to write statically valid code, which may increase the number of level-2 cycles, thus increasing the total *execution* gulf at level 3.
     - Depending on how these balance out, the total top-level feedback loop may grow longer or shorter.
 
-### Instance: immediate feedback
+### Example: immediate feedback
 \tp{What about the gulf of execution in this case? I guess this is not relevant, because you may still have poor ways of doing what you want despite having immediate feedback. Maybe worth saying this here?}
 
 The specific case where the *evaluation* gulf is minimized to be imperceptible is known as *immediate feedback*. Once the user has caused some change to the system, its effects (including errors) are immediately visible. This is a key ingredient of *liveness*, though it is not sufficient on its own. (See *Relations*)
@@ -203,7 +204,7 @@ The ease of achieving immediate feedback is obviously constrained by the computa
 
 In a *REPL* or *shell*, there is a *main* cycle of typing commands and seeing their output, and a *secondary* cycle of typing and checking the command line itself. The output of commands can be immediate, but usually reflects only part of the total effects or even none at all. The user must manually issue further commands afterwards, to check the relevant state bit by bit. The secondary cycle, like all typing, provides immediate feedback in the form of character "echo", but things like syntax errors generally only get reported *after* the entire line is submitted. This evaluation gulf has been reduced in the JavaScript console of web browsers, where the line is "run" in a limited manner on every keystroke. Thus, simple commands without side-effects (such as calls to pure functions) can give instant previewed results, though partially typed expressions and syntax errors will not trigger previews.
 
-### Instance: direct manipulation
+### Example: direct manipulation
 The origin of *direct manipulation* is in the real world, such as programming a robot by physically dragging its arms to record the process that it will later replay. Since most interaction with software takes place through keyboards, screens, and mice, it is more common for this to be simulated.
 
 In this case, direct manipulation is a special case of an immediate feedback loop. The user sees and interacts with an artefact in a way that is as similar as possible to real life; this typically includes dragging with a cursor or finger in order to physically move a visual item, and is limited by the particular haptic technology in use.
@@ -235,14 +236,14 @@ Programming is always done through some form of notation. We consider notations 
 
 In practice, most programming systems use multiple notations. Different notations can play different roles in the system. On the one hand, multiple _overlapping notations_ can be provided as different ways of programming the same aspects of the system. In this case, each notation may be more suitable to different kind of users, but may have certain limitations (for example, a visual notation may have a limited expressive power). On the other hand, multiple _complementing notations_ may be used as the means for programming different aspects of the system. In this case, programming the system requires using multiple notations, but each notation may be more suitable for the task at hand, such as HTML for describing the document structure and JavaScript for specifying its behavior.
 
-### Instance: overlapping notations
+### Example: overlapping notations
 A programming system may provide multiple notations for programming the same aspect of the system. This is typically motivated by an attempt to offer easy ways of completing different tasks, e.g., a textual notation for defining abstractions and a visual notation for specifying concrete structures. The crucial issue in this kind of arrangement is synchronization between the different notations. If the notations have different characteristics, this is not a straightforward mapping. For example, source code may allow a more elaborate abstraction mechanism (such as a loop) which will appear as visible repetition in the visual notation. What should such a system do when the user edits a single object that resulted from such repetition? Similarly, textual notation may allow incomplete expressions that do not have an equivalent in the visual notation. For programming systems that use *overlapping notations*, we need to describe how the notations are synchronized.
 
 *Sketch-n-Sketch* \cite{SnS} employs overlapping notations for creating and editing SVG and HTML documents. The user edits documents in an interface with a split-screen structure that shows source code on the left and displayed visual output on the right. They can edit both of these and changes are propagated to the other view. The code can use abstraction mechanisms (such as functions) which are not completely visible in the visual editor (an issue we return to in *expression geography* below). Sketch-n-sketch can be seen as an example of a *projectional editor*, although traditional projectional editors usually work more directly with the abstract syntax tree (AST) of a programming language.\note{TODO: Insert some more references to research on "projectional editors"}
 
 *UML Round-tripping.* Another example of a programming system that utilizes the *overlapping notations* structure are UML design tools that display the program both as source code and as a UML diagram. Edits in one result in automatic update of the other. An example is the [Together/J](https://www.mindprod.com/jgloss/togetherj.html) system.\note{TODO: Make this into a citation}. To solve the issue of notation synchronization, such systems often need to store additional information (e.g. location of classes in UML diagram after the user rearranges them) in the textual notation, typically using a special kind of code comment.
 
-### Instance: complementing notations
+### Example: complementing notations
 A programming system may also provide multiple complementing notations for programming different aspects of its world. Again, this is typically  motivated by the aim to make specifying certain aspects of programming easier, but it is more suitable when the different aspects can be more clearly separated. The key issue for systems with complementing notations is how the different notations are connected. The user may need to use both notations at the same time, or they may need to progress from one to the next level when solving increasingly complex problems. In the latter case, the learnability of progressing from one level to the next is a major concern.
 
 *Spreadsheets and HyperCard.* In Excel, there are three different complementing notations that allow users to specify aspects of increasing complexity: (i) the visual grid, (ii) formula language and (iii) a macro language such as Visual Basic for Applications. The notations are largely independent and have different degrees of expressive power. Entering values in a grid cannot be used for specifying new computations, but it can be used to adapt or run a computation, for example when entering different alternatives in What-If Scenario Analysis. More complex tasks can be achieved using formulas and macros. A user gradually learns more advanced notations, but experience with a previous notation does not help with mastering the next one. The approach optimizes for easy learnability at one level, but introduces a hurdle for users to surmount in order to get to the second level. The notational structure of *HyperCard* is similar and consists of (i) visual design of cards, (ii) visual programming (via the GUI) with a limited number of operations and (iii) HyperTalk for arbitrary scripting.
@@ -365,7 +366,7 @@ For systems that distinguish between different stages, such as writing source co
 
 There are a number of interesting questions related to staging of customization. First, what is the notation used for customization? This may be the notation in which a program was initially created, but a system may also use a secondary notation for customization (consider Emacs using Emacs Lisp). For systems with a stage distinction, an important question is whether such changes are *persistent*.
 
-*Smalltalk, Interlisp and similar.* In image-based programming systems, there is generally no strict distinction between stages and so a program can be customized during execution in the same way as during development. The program image includes the programming environment. Users of a program can open this, navigate to a suitable object or a class (which serve as the *addressable extension points*) and modifying that. Lisp-based systems such as *Interlisp* follow a similar model. Changes made directly to the image are persistent. The PILOT system for Lisp \cite{Pilot} offers an interactive way of correcting errors when a program fails during execution. Such corrections are then applied to the image and thus are persistent.
+*Smalltalk, Interlisp and similar.* In image-based programming systems, there is generally no strict distinction between stages and so a program can be customized during execution in the same way as during development. The program image includes the programming environment. Users of a program can open this, navigate to a suitable object or a class (which serve as the *addressable extension points*) and modify that. Lisp-based systems such as *Interlisp* follow a similar model. Changes made directly to the image are persistent. The PILOT system for Lisp \cite{Pilot} offers an interactive way of correcting errors when a program fails during execution. Such corrections are then applied to the image and are thus persistent.
 
 *Document Object Model (DOM) and Webstrates*: In the context of Web programming, there is traditionally a stage distinction between programming (writing the code and markup) and running (displaying a page). However, the DOM can be also modified by browser Developer Tools---either manually, by running scripts in a console, or by using a userscript manager such as Greasemonkey. Such changes are not persistent in the default browser state, but are made so by Webstrates \cite{Webstrates} which synchronize the DOM between the server and the client.
 
@@ -419,7 +420,7 @@ Higher levels of automation require more complex *reusable components* than lowe
 
 There is also an interesting (and perhaps inevitable) trade-off. The higher the level of automation, the less explicit the operational meaning of a program. This has a wide range of implications. Smaragdakis \cite{NextGen} notes, for example, that this means the implementation can significantly change the performance of a program.
 
-### Instance: programming by example
+### Example: programming by example
 
 An interesting case of automation is _programming by example_ \cite{PBE}. In this case, the user does not provide even a declarative specification of the program behavior, but instead specifies sample inputs and outputs. A more or less sophisticated algorithm then attempts to infer the relationship between the inputs and the outputs. This may, for example, be done through program synthesis where an algorithm composes a transformation using a (small) number of pre-defined operations. Programming by example is often very accessible and has been used in spreadsheet applications \cite{PBEExcel}.
 
@@ -428,7 +429,7 @@ An interesting issue is that reusable components that enable higher levels of au
 
 As noted in \cite{KellOS,Mythical}, incompatible reusable components that exist for multiple systems also limit compositionality. One possible exception from the rule is the Z3 theorem prover, which is used as an implementation mechanism by multiple programming systems including Dafny and F*, as well as by numerous program verification tools.
 
-### Instance: next-level automation
+### Example: next-level automation
 Throughout history, programmers have always hoped for the next level of "automatic programming". As observed by Parnas \cite{Euphemism}, "automatic programming has always been a euphemism for programming in a higher-level language than was then available to the programmer".
 
 We may speculate whether Deep Learning will enable the next step of automation. However, this would not be different in principle from existing developments. We can see any level of automation as using *artificial intelligence* methods. This is the case for declarative languages or constraint-based languages---where the inference engine implements a traditional AI method (GOFAI, i.e., Good Old Fashioned AI).
@@ -457,11 +458,11 @@ Consider three examples. First, in live programming systems, the programmer imme
 
 Error detection in different feedback loops is suitable for detecting different kinds of errors. Many slips and lapses can be detected by the static checking feedback loop, although this is not always the case. For example, consider a "compact" *expression geography* where small changes in code may result in large changes of behaviour. This makes it easier for slips and lapses to produce hard to detect errors. Mistakes are easier to detect through a live feedback loop, but they can also be partly detected by more advanced static checking.
 
-### Instance: static typing
+### Example: static typing
 
 In statically typed programming languages like Haskell and Java, types are used to capture some information about the intent of the programmer. The type checker ensures code matches the lightweight specification given using types. In such systems, types and implementation serve as two descriptions of programmer's intent that need to align; what varies is the extent to which types can capture intent and the way in which the two are constructed; that is, which of the two comes first.
 
-### Instances: TDD, REPL and live coding
+### Examples: TDD, REPL and live coding
 
 Whereas static typing aims to detect errors without executing code, approaches based on immediate feedback typically aim to execute (a portion of) the code and let the programmer see the error immediately. This can be done in a variety of ways.
 
@@ -546,7 +547,7 @@ EXAMPLES: non-programming language world?
 HyperCard - had shared backgrounds, which arose from the need of writing the help files.
 }
 
-### Instances: flattening and factoring
+### Examples: flattening and factoring
 Data structures usually have several "moving parts" that can vary independently. For example, a simple pair of “vehicle type” and “color” might have all combinations of (Car, Van, Train) and (Red, Blue). In this *factored* representation, we can programmatically change the color directly: `pair.second = Red` or `vehicle.colour = Red`.
 
 In some contexts, such as class names, a system might only permit such multi-dimensional structure as an *exhaustive enumeration*: RedCar, BlueCar, RedVan, BlueVan, RedTrain, BlueTrain, etc. The system sees a flat list of atoms, even though a human can see the sub-structure encoded in the string. In this world, we cannot simply “change the color to Red” programmatically; we would need to case-split as follows:
@@ -590,7 +591,7 @@ Representations may be flat sequences or structured graphs. There may be multipl
 ### Dimensions: Source Of Truth and Derived Representation
 A human might recognize individual edges and objects in an image, but the image is a mere array of pixels. Similarly, an audio file might consist of a single, long waveform, yet a human listener could easily pick out individual instruments, sounds or words. In each of these cases there is (a) a messy, real-world *source of truth* easily understood by humans yet hard to formalize, and (b) a *derived representation* \note{shadow?} of computer-friendly repeating primitive units. The latter produces comparable stimuli for a human, but is merely a recording of the source of truth in a specific context.
 
-### Instance: String Typing
+### Example: String Typing
 The epithet "stringly typed" refers to data with clear sub-structure which has been encoded in a string. This sub-structure may be evident to a human, but all a computer program sees is an opaque list of characters. For example, a citation might be displayed as "Example Paper (John Doe, 1993)". Clearly, it contains the title of a work, an author name, and a year. However, while this may be clear to us, a machine simply sees a list of characters. In order to work with these individual fields, it must be programmed to *extract* them by *parsing* the string.
 
 Alternatively, the citation could be programmatically represented in a structured form, such as a dictionary:
@@ -604,16 +605,16 @@ Alternatively, the citation could be programmatically represented in a structure
 
 This structure could then be *rendered* into a string for display or output to a document. The code to do this could well be simpler than the code required for the reverse transformation, parsing a string into the structure. The benefit would be that there is straightforward programmatic access to the individual sub-structures, for free, from the beginning.
 
-### Instances: Vector and Raster Graphics
+### Examples: Vector and Raster Graphics
 *Raster graphics* organises graphics as a rectangular array of colored pixels, while *vector graphics* works on a tree or graph of shape descriptions. In a classic raster graphics program like MS Paint, a user can can see the pixels resulting from using the curve tool, but can't change the curve afterwards---they can only undo or erase the pixels and start again. In contrast, in a vector graphics tool, the curve's control points and parameters would be always present, only *incidentally* rendering the shape to pixels for display purposes.
 
-This is analogous to the String Typing instance. However, the problem of starting from a block of pixels and wishing to *programmatically* work with sub-structure---parsing, so to speak---is much more complicated in this case. Extracting meaningful units of structure from digital images, such as recognizing shapes, is the domain of advanced research in AI and computer vision.
+This is analogous to the String Typing example. However, the problem of starting from a block of pixels and wishing to *programmatically* work with sub-structure---parsing, so to speak---is much more complicated in this case. Extracting meaningful units of structure from digital images, such as recognizing shapes, is the domain of advanced research in AI and computer vision.
 
 Thus, using a structured representation (vector graphics) for graphic design is the only technically feasible option. In the case of strings, the issue is less obvious due to decades of established techniques in parsing formal languages. The missing link between the two is that formal languages, as far as we are aware, have never been extended to formal structures of pixels in images, where parsing would not need to rely on artificial intelligence yet would still break on incorrect pixel placement.
 
 \note{Example / Instance: spreadsheet vs CSV}
 
-### Instances: Text vs. Structure Editing
+### Examples: Text vs. Structure Editing
 There are two ways in which text editing can be analysed for its Source of Truth and Derived Artefact. In the first, we can consider text editing, and word processing more generally, as a special case of Vector Graphics. Howver, in another sense, text editing shares a resemblance to Raster Graphics.
 
 *Text editing as Vector Graphics*. Text glyphs are shapes like any others, and need rasterizing to pixels on a screen. Text editors, word processors and other publishing software do not require a typist to correct their mistakes by manipulating blocks of pixels. These tools have the user work at the level of *characters* instead of *pixels*. The usual advantages apply, such as scaling to different sizes and easily navigating, selecting and modifying at the character level. Even though text needs rendering to pixels, it is usually inappropriate to manipulate text as pixels.
