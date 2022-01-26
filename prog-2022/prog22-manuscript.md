@@ -27,7 +27,7 @@ We propose a new common language as an initial, *tentative* step towards more pr
 
 The set of dimensions can be understood as a map of the design space of programming systems (Figure\ \ref{fig:tech-dims-diagram}). Past and present systems will serve as landmarks, and with enough of them, unexplored or overlooked possibilities will reveal themselves. So far, the field has not been able to establish a virtuous cycle of feedback; it is hard for practitioners to situate their work in the context of others' so that subsequent work can improve on it. Our aim is to provide foundations for the study of programming systems that would allow such development.
 
-1. We present the dimensions in detail, organised into related clusters: *interaction*, *notation*, *conceptualization*, *customizability*, *level of automation*, *errors*, *factoring of complexity*, *representation*, and *adoptability*.
+1. We present the dimensions in detail, organised into related clusters: *interaction*, *notation*, *architecture*, *customizability*, *automation*, *errors*, *representation*, and *adoptability*.
 2. We define these dimensions by reference to landmark programming systems of the past, and discuss any relationships between them.
 3. We demonstrate the salience of these dimensions by applying them to example systems from both the past and present. We situate some experimental systems as explorations at the frontier of certain dimensions.
 
@@ -301,7 +301,6 @@ _Lisp systems._ In Lisp, source code is represented in memory as S-expressions, 
 The importance of notations in the practice of science, more generally, has been studied by \cite{PaperTools} as "paper tools". These are formula-like entities which can be manipulated by humans in lieu of experimentation, such as the aforementioned mathematical notation in Haskell: a "paper tool" for experimentation on a whiteboard. Programming notations are similar, but they are a way of communicating with a machine; the experimentation does not happen on paper alone.
 
 ### Relations
-- *Factoring of complexity* (Section \ref{factoring-of-complexity}): Using multiple complementing notations implicitly factors complexity by expressing different aspects of a program using different notations.
 - *Interaction* (Section \ref{interaction}): The feedback loops that exist in a programming system are typically associated with individual notations. Different notations may also have different feedback loops.
 - *Adoptability* (Section \ref{adoptability}): Notational structure can affect learnability. In particular, complementing notations may require (possibly different) users to master multiple notations. Overlapping notations may improve learnability by allowing the user to edit the program in one way (e.g. visually) and see the effect in the other notation (e.g. in code).
 - *Representation* (Section \ref{representation}): The two dimensions are related in that the internal representation of program structures may be more or less closely reflected in the notation.
@@ -473,7 +472,7 @@ The terms "self-describing" or "self-implementing" have been used for this prope
 In addition to the examples discussed above, the proceedings of self-sustaining systems workshops \cite{SelfSustaining2008,SelfSustaining2010} provides numerous examples of systems and languages that are able to bootstrap, implement, modify, and maintain themselves; Gabriel's analysis of programming language revolutions \cite{PLrev} uses _advising_ in PILOT, related Lisp mechanisms, and "mixins" in OOP to illustrate the difference between the "languages" and "systems" paradigms.
 
 ### Relations
-- *Factoring of complexity* (Section \ref{factoring-of-complexity}): related in that "customizability" is a form of creating new programs from existing ones; factoring repetitive aspects into a reusable standard component library facilitates the same thing.
+- *Flattening and factoring* (Section \ref{examples-flattening-and-factoring}): related in that "customizability" is a form of creating new programs from existing ones; factoring repetitive aspects into a reusable standard component library facilitates the same thing.
 - *Interaction* (Section \ref{interaction}): this determines whether there are separate stages for running and writing programs and may thus influence what kind of customizability is possible.
 
 ## Automation
@@ -482,7 +481,7 @@ In addition to the examples discussed above, the proceedings of self-sustaining 
 
 Ultimately, at the hardware level, computers are primitive calculating machines. They require a full and exact specificiation of the instructions to run. Ever since the 1940s, programmers have envisioned that some form of "automatic programming" will alleviate the need for tediously specifying details at this level. While this level still remains today, many aspects of the task of "programming" can and have been *automated.*
 
-Automation can take a number of forms. Extracting common functionality into a library may be merely good use of *factoring of complexity* (Section \ref{factoring-of-complexity}), but to the user of the library, this may appear as automation. In high-level programming languages, many details are also omitted; those are filled in by the compiler. Finally, the program may also be executed by a more sophisticated runtime that fills in details not specified explicitly, such as when running an SQL query or using a logic programming system like Prolog.
+Automation can take a number of forms. Extracting common functionality into a library may be merely good use of *factoring* (Section \ref{examples-flattening-and-factoring}), but to the user of the library, this may appear as automation. In high-level programming languages, many details are also omitted; those are filled in by the compiler. Finally, the program may also be executed by a more sophisticated runtime that fills in details not specified explicitly, such as when running an SQL query or using a logic programming system like Prolog.
 
 ### Remark: notations
 Even with high-level of automation, programming involves manipulating some program notation. In high-level functional or imperative programming languages, the programmer writes code that typically has clear operational meaning. When using more declarative programming like SQL, Prolog or Datalog, the meaning of a program is still unambiguous, but it is not defined operationally---there is a (more or less deterministic) inference engine that solves the problem based on the provided description. Finally, systems based on *programming by example* step even further away from having clear operational meaning---the program may be simply a collection of sample inputs and outputs, from which a (typically non-deterministic) engine infers the concrete steps of execution.
@@ -490,7 +489,7 @@ Even with high-level of automation, programming involves manipulating some progr
 ### Dimension: degrees of automation
 There are many degrees of automation in programming systems, but the basic mechanism is always the same---given a program, some logic is specified explicitly and some is left to a reusable component that can do the rest. In the case of library reuse, the reusable component is just the library. In the case of higher-level programming languages, the reusable component may include a memory allocator or a garbage collector. In case of declarative languages or programming by example, the reusable component is a general purpose inference engine.
 
-Higher levels of automation require more complex *reusable components* than lower levels. This is a difference between *level of automation* and *factoring of complexity*---producing systems with higher level of automation requires more than simply extracting (factoring) existing code into a reusable component. Instead, it requires doing more work and introducing a higher level of indirection between the program and the reusable component.
+Higher levels of automation require more complex *reusable components* than lower levels. This is a difference between *level of automation* and *factoring*---producing systems with higher level of automation requires more than simply extracting (factoring) existing code into a reusable component. Instead, it requires doing more work and introducing a higher level of indirection between the program and the reusable component.
 
 There is also an interesting (and perhaps inevitable) trade-off. The higher the level of automation, the less explicit the operational meaning of a program. This has a wide range of implications. Smaragdakis \cite{NextGen} notes, for example, that this means the implementation can significantly change the performance of a program.
 
@@ -512,7 +511,7 @@ We may speculate whether Deep Learning will enable the next step of automation. 
 \note{Tomas: I removed references here, because I could not think of anything else to add here. I guess it makes sense to keep those optional..}
 
 ### Relations
-- *Factoring of complexity*: One typically automates the thing at the lowest level in one's factoring (by making the lowest level a thing that exists outside of the program---in a system or a library)
+- *Flattening and factoring* (Section\ \ref{examples-flattening-and-factoring}: One typically automates the thing at the lowest level in one's factoring (by making the lowest level a thing that exists outside of the program---in a system or a library)
 
 ## Errors
 
@@ -650,7 +649,7 @@ Mainstream software development technologies require substantial effort to learn
 - Specializing to simple small-scale needs.
 - Leveraging the background knowledge, skills, and terminologies of specific communities.
 - Supporting learning with staged levels of complexity and assistive development tools \cite{FullBrain}. Better *Feedback Loops* can help (Section\ \ref{interaction}).
-- Collapsing heterogeneous technology stacks into simpler unified systems. This relates to the dimensions under *Conceptualization* (Section\ \ref{conceptualization}).
+- Collapsing heterogeneous technology stacks into simpler unified systems. This relates to the dimensions under *Architecture* (Section\ \ref{architecture}).
 
 FORTRAN was a breakthrough in programming because it specialized to scientific computing and leveraged the background knowledge of scientists about mathematical formulas. COBOL instead specialized to business data processing and embraced the business community by eschewing mathematics in favor of plain English.
 
@@ -687,5 +686,5 @@ There is a renewed interest in developing new programming systems. Such systems 
 
 The framework of technical dimensions puts the vast variety of programming systems, past and present, on a common footing of commensurability. This is crucial to enable the strengths of each to be identified and, if possible, combined by designers of the next generation of programming systems. As more and more systems are assessed in the framework, a picture of the space of possibilities will gradually emerge. Some regions will be conspicuously empty, indicating unrealized possibilities that could be worth trying. In this way, a domain of "normal science" is created for the design of programming systems.
 
-# Acknowledgements
+\acks
 We would like to thank Richard Gabriel for his detailed comments and shepherding of the drafts for this paper. We also thank the committee of the *Pattern Languages of Programming (PLoP)* conference, who enabled such a collaboration for our submission. We have additionally benefited from discussions with members of the *Temporary Computing Collective* during its regular reading group and elsewhere.

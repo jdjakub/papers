@@ -1,34 +1,60 @@
-\documentclass[acmlarge, review=true
-]{acmart}
+\documentclass[english,submission]{programming}
 
-\acmConference{}{2021}{}
-\citestyle{acmauthoryear}
+%\citestyle{acmauthoryear}
+%\markboth{}{}
 
-\markboth{}{}
+% Class scrartcl Warning: seems someone has broken package `auxhook'.
+% Usually this happens, if `auxhook' is loaded or used implicitly or explicitly
+% by patching \document or via etoolbox command \AtEndPreamble. Trying an
+% emergency workaround. You can avoid this warning adding:
+\usepackage{auxhook}
+% before \begin{document} on input line 6.
+\begin{document}
+
+\paperdetails{perspective=art, area=tbd}
 
 \title{Technical Dimensions of Programming Systems}
 
 \author{Joel Jakubovic}
 \affiliation{
-\institution{University of Kent} \city{Canterbury} \country{UK}
-}
+University of Kent, Canterbury, UK
 \email{jdj9@kent.ac.uk}
+}
 \author{Jonathan Edwards}
-\affiliation{}
-\email{jonathanmedwards@gmail.com}
+\affiliation{\email{jonathanmedwards@gmail.com}}
 \author{Tomas Petricek}
 \affiliation{
-\institution{University of Kent} \city{Canterbury} \country{UK}
-}
+University of Kent, Canterbury, UK
 \email{T.Petricek@kent.ac.uk}
+}
+
+\keywords{paper, lorem ipsum}
+
+% Please go to https://dl.acm.org/ccs/ccs.cfm and generate your Classification
+% System [view CCS TeX Code] stanz and copy _all of it_ to this place.
+%% From HERE
+\begin{CCSXML}
+<ccs2012>
+<concept>
+<concept_id>10002944.10011122.10003459</concept_id>
+<concept_desc>General and reference~Computing standards, RFCs and guidelines</concept_desc>
+<concept_significance>300</concept_significance>
+</concept>
+<concept>
+<concept_id>10010405.10010476.10010477</concept_id>
+<concept_desc>Applied computing~Publishing</concept_desc>
+<concept_significance>300</concept_significance>
+</concept>
+</ccs2012>
+\end{CCSXML}
+\ccsdesc[300]{General and reference~Computing standards, RFCs and guidelines}
+
+\maketitle
 
 \begin{abstract}
 Many programming systems go beyond programming languages. Programming is usually done in the context of a stateful environment, beyond just writing code, by interacting with a system through a graphical user interface. Much research effort focuses on building programming systems that are easier to use, accessible to non-experts, moldable and/or powerful, but such efforts are often disconnected. They are informal, guided by the personal vision of the authors and thus are only evaluable and comparable on the basis of individual experience using them. This fails to form a coherent body of research, since it is unclear how to build on past work. In the research world, much has been said and done that allows comparison of \emph{programming languages}, yet no similar theory exists for \emph{programming systems}; we believe that programming systems deserve a theory too. We examine some influential past programming systems and review their stated design principles, technical capabilities, and styles of user interaction. We propose a framework of \emph{technical dimensions} which capture the underlying system characteristics and provide a means for conceptualizing and comparing programming systems. Since these characteristics may be compared or advanced independently, it should be easier to talk about programming systems in a way that can be shared and constructively debated rather than relying solely on personal impressions. By providing foundations for more systematic research in this area, we can help the designers of future programming systems to stand, at last, on the shoulders of giants.
 \end{abstract}
 
-\begin{document}
-
-\maketitle
 %\thispagestyle{empty}
 
 \newcommand{\joel}[1]{}
@@ -43,6 +69,5 @@ Many programming systems go beyond programming languages. Programming is usually
 % \appendix
 % \input{prog22-appendix.tex}
 
-\bibliographystyle{ACM-Reference-Format}
 \bibliography{prog22}
 \end{document}
