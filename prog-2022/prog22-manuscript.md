@@ -27,7 +27,7 @@ We propose a new common language as an initial, *tentative* step towards more pr
 
 The set of dimensions can be understood as a map of the design space of programming systems (Figure\ \ref{fig:tech-dims-diagram}). Past and present systems will serve as landmarks, and with enough of them, unexplored or overlooked possibilities will reveal themselves. So far, the field has not been able to establish a virtuous cycle of feedback; it is hard for practitioners to situate their work in the context of others' so that subsequent work can improve on it. Our aim is to provide foundations for the study of programming systems that would allow such development.
 
-1. We present the dimensions in detail, organised into related clusters: *interaction*, *notation*, *architecture*, *customizability*, *automation*, *errors*, *representation*, and *adoptability*.
+1. We present the dimensions in detail, organised into related clusters: *interaction*, *notation*, *architecture*, *customizability*, *automation*, *errors*, and *adoptability*.
 2. We define these dimensions by reference to landmark programming systems of the past, and discuss any relationships between them.
 3. We demonstrate the salience of these dimensions by applying them to example systems from both the past and present. We situate some experimental systems as explorations at the frontier of certain dimensions.
 
@@ -241,12 +241,11 @@ Another option is to construct abstractions *from concrete cases*. Here, the pro
 ### Relations
 - _Errors_ (Section \ref{errors}) A longer evaluation gulf delays the detection of errors. A longer execution gulf can increase the *likelihood* of errors (e.g. writing a lot of code or taking a long time to write it). By turning runtime bugs into statically detected bugs, the combined evaluation gulfs can be reduced.
 - _Adoptability_ (Section \ref{adoptability}): The *execution* gulf is concerned with software using and programming in general. The time taken to realize an idea in software is affected by the user's familiarity and the system's *learnability*, as well as the *expressive power* of the system's ontology.
-- _Representation_ (Section \ref{representation}): The motto "The thing on the screen is supposed to be the actual thing" \cite{NakedObjects}, adopted in the context of live programming, suggests that _liveness_ also relates to representation. Objects that users interact with should be equipped with faithful behavior rather than being intangible shadows cast by the hidden *real* object.
-- _Notation_ (Section \ref{notation}): Feedback loops are related to *notational structures*. In a system with multiple notations, each notation may have different associated feedback loops.
+- _Notation_ (Section \ref{notation}): Feedback loops are related to *notational structures*. In a system with multiple notations, each notation may have different associated feedback loops. The motto "The thing on the screen is supposed to be the actual thing" \cite{NakedObjects}, adopted in the context of live programming, relates _liveness_ to a direct connection between surface and internal notations. The idea is that interactable objects should be equipped with faithful behavior, instead of being intangible shadows cast by the hidden *real* object.
 
 ## Notation
 
-\mybox{{What are the different notations, both textual and visual, through which the system is programmed? How do they relate to each other?}
+\mybox{What are the different notations, both textual and visual, through which the system is programmed? How do they relate to each other?}
 
 Programming is always done through some form of notation. We consider notations in the most general sense and include any structured gesture using textual or visual notation, user interface or other means. Textual notations include primarily programming languages, but may also include, for example, configuration files. Visual notations include graphical programming languages. Other kinds of structured gestures include, for example, user interfaces for constructing visual elements used in the system.
 
@@ -295,6 +294,31 @@ Notations are closely linked to representation in that the notation may mirror t
 
 _Lisp systems._ In Lisp, source code is represented in memory as S-expressions, which can be manipulated by Lisp primitives. In addition, Lisp systems have robust macro processing as part of their semantics: expanding a macro revises the list structure of the code that uses the macro. Combining these makes it possible to define extensions to the system in Lisp, with syntax indistinguishable from Lisp. Moreover, it is possible to write a program that constructs another Lisp program and not only run it interpretively (using the \texttt{eval} function) but compile it at runtime (using the \texttt{compile} function) and execute it. Many domain-specific languages, as well as prototypes of new programming languages (such as Scheme), were implemented this way. Lisp the language is, in this sense, a "programmable programming language". \cite{LispIntro,ProgProgLang}
 
+### Dimensions: surface notation and internal notation
+All programming systems build up structures in memory, which we can consider as an *internal notation* not usually visible to the user. Even though such structures might be revealed in a debugger, they are hidden during normal operation. What the user interacts with instead is the *surface notation*, typically one of text or shapes on a screen. Every interaction with the surface notation alters the internal notation in some way, and the nature of this connection is worth examining in more detail. To do this, we illustrate with a simplified binary choice for the form of these notations.
+
+### Examples: implicit vs. explicit structure
+Let us partition notations into two families. Notations with *implicit structure* present as a sequence of items, such as textual characters or audio signal amplitudes. Those with *explicit structure* present as a tree or graph without an obvious order, such as shapes in a vector graphics editor. These two types of notations can be transformed into each other: the implicit structure contained in a string can be *parsed* into an explicit syntax tree, and an explicit document structure might be *rendered* into a sequence of characters with the same implicit structure.
+
+Now consider an interface to enter a personal name made up of a forename and a surname. For the surface notation, there could be a single text field to hold the names separated with a space; here, the sub-structure is implicit in the string. Alternatively, there could be two fields where the names are entered separately, and their separation is explicit. A similar choice exists for the internal notation built up in memory: is it a single string, or two separate strings?
+
+We can see that these choices give four combinations. More interestingly, they exhibit unique characters owing to two key asymmetries. Firstly, surface notation is mostly used by humans, while the internal notation is mostly used by the computer. Secondly, and most significantly, computer programs can only work with explicit structure, while humans can understand both explicit and implicit structure. \joel{informal vs formal structure?} Because of the practical consequences of this asymmetry, we will examine the combinations with emphasis on the *internal* notation first.
+
+### Examples: one string in memory (implicitly structured internal notation)
+The simplest case here would be with implicit structure in the surface notation, i.e. a single text box for the full name. Edits to the surface are straightforwardly mirrored interally and persisted to disk. This corresponds to *text editing*. We can generalize this to an idea of *sequence editing* if we view the fundamental act as *recording* events to a list over time. For text, these are key presses; for an audio editing interface they would be samples of sound amplitude.
+
+In the other case, with two text boxes, we have *sequence rendering*. The information about the separation of the two strings, present in the interface, is not quite "thrown away" but is made *implicit* as a space character in the string. This combination corresponds to Visual Basic generating code from GUI forms, video editors combining multiple clips and effects into a single stream, and 3D renderers turning scene graphs into pixels. Another example is line-based diff tools, which provide side-by-side views and related interfaces, yet must ultimately forward the user's changes to the underlying text file.
+
+Critically, in both of these cases, a computer program can only manipulate the stored sequences *as* sequences; that is, by inserting, removing, or serially reading. The appealing feature here is that these operations are simple to implement and may be re-usable across many types of sequences. However, any further structure is implicit and, to work with it programmatically, a user must write a program to *parse* it into something explicit. Furthermore, errors introduced at this stage may simply be *recorded* into the sequence, only to be discovered much later in an attempt to use the data.
+
+### Examples: two strings in memory (explicitly structured internal notation)
+\joel{TODO: cite The Many Forms of a Single Fact}
+With two text boxes, both notations match, so there is not much work to do. As with sequence editing, edits on the surface can be mirrored to the internal notation. This corresponds to vector graphics editors and 3D modelling tools, as well as *structure editors* for programming languages. For this reason we call this combination *structure editing*.
+
+With a single text field, we have *structure recovery.* Parsing needs to happen each time the input changes. This style is found in the DOM inspector in browser developer tools, where HTML can be edited as text to make changes to the document tree structure. More generally, this is the mode found in compilers and interpreters which accept program source text yet internally work on tree and graph structures. It is also possible to do a sort of structure editing this way, where the experience is made to resemble text editing but the output is explicitly structured.
+
+In both of these cases, in order to write programs to transform, analyze, or otherwise work with the digital artefact the user has created, one can trivially navigate the stored structure instead of parsing it for every use. Parsing is either done away with altogether or is reduced to a transient process that happens during editing; this means errors can be caught at the moment they are introduced instead of remaining latent.
+
 ### References
 *Cognitive Dimensions of Notation* \cite{CogDims} provide a comprehensive framework for analysing individual notations, while our focus here is on how multiple notations are related and how they are structured. It is worth noting that the Cognitive Dimensions also define _secondary notation_, but in a different sense to ours. For them, secondary notation refers to whether a notation allows including redundant information such as color or comments for readability purposes.
 
@@ -303,7 +327,7 @@ The importance of notations in the practice of science, more generally, has been
 ### Relations
 - *Interaction* (Section \ref{interaction}): The feedback loops that exist in a programming system are typically associated with individual notations. Different notations may also have different feedback loops.
 - *Adoptability* (Section \ref{adoptability}): Notational structure can affect learnability. In particular, complementing notations may require (possibly different) users to master multiple notations. Overlapping notations may improve learnability by allowing the user to edit the program in one way (e.g. visually) and see the effect in the other notation (e.g. in code).
-- *Representation* (Section \ref{representation}): The two dimensions are related in that the internal representation of program structures may be more or less closely reflected in the notation.
+- *Errors* (Section \ref{errors}). A process that merely records user actions in a sequence (such as text editing) will, in particular, record any *errors* the user makes and defer their handling to later use of the data, keeping the errors *latent*. A process which instead treats user actions as edits to a structure, with constraints and correctness rules, will be able to catch errors at the moment they are introduced and ensure the data coming out is error-free.
 
 ## Architecture
 
@@ -570,71 +594,6 @@ Orthogonally to the above options, a system may also have a way to recover from 
 The most common error handling mechanism in conventional programming languages is exception handling. The modern form of exception handling has been described in \cite{ExceptionHandling}; \cite{SweImpact} documents the history and influences of Software Engineering on exception handling. The concept of _antifragile software_ \cite{Antifragile} goes further by suggesting that software could improve in response to errors. Work on Chaos Engineering \cite{ChaosMonkey} is a step in this direction.
 
 \cite{HumanError} analyses errors in the context of human errors and develops a classification of errors that we adopt. In the context of computing, errors or _miscomputation_ has been analysed from a philosophical perspective \cite{Miscomputation,MalfunctioningSW}. Notably, attitudes and approaches to errors also differ for different programming subcultures \cite{LivingWithErrors}.
-
-## Representation
-> _Which structures are available to programmatic manipulation, and which ones must be extracted by a non-trivial process?_
-
-Representations may be flat sequences or structured graphs. There may be multiple representations of the same thing. What are they and how do they relate?
-
-### Dimensions: Source Of Truth and Derived Representation
-A human might recognize individual edges and objects in an image, but the image is a mere array of pixels. Similarly, an audio file might consist of a single, long waveform, yet a human listener could easily pick out individual instruments, sounds or words. In each of these cases there is (a) a messy, real-world *source of truth* easily understood by humans yet hard to formalize, and (b) a *derived representation* \note{shadow?} of computer-friendly repeating primitive units. The latter produces comparable stimuli for a human, but is merely a recording of the source of truth in a specific context.
-
-### Example: String Typing
-The epithet "stringly typed" refers to data with clear sub-structure which has been encoded in a string. This sub-structure may be evident to a human, but all a computer program sees is an opaque list of characters. For example, a citation might be displayed as "Example Paper (John Doe, 1993)". Clearly, it contains the title of a work, an author name, and a year. However, while this may be clear to us, a machine simply sees a list of characters. In order to work with these individual fields, it must be programmed to *extract* them by *parsing* the string.
-
-Alternatively, the citation could be programmatically represented in a structured form, such as a dictionary:
-
-```
-{
-  title: "Example Paper", year: 1993,
-  author: {forename: "John", surname: "Doe"}
-}
-```
-
-This structure could then be *rendered* into a string for display or output to a document. The code to do this could well be simpler than the code required for the reverse transformation, parsing a string into the structure. The benefit would be that there is straightforward programmatic access to the individual sub-structures, for free, from the beginning.
-
-### Examples: Vector and Raster Graphics
-*Raster graphics* organises graphics as a rectangular array of colored pixels, while *vector graphics* works on a tree or graph of shape descriptions. In a classic raster graphics program like MS Paint, a user can can see the pixels resulting from using the curve tool, but can't change the curve afterwards---they can only undo or erase the pixels and start again. In contrast, in a vector graphics tool, the curve's control points and parameters would be always present, only *incidentally* rendering the shape to pixels for display purposes.
-
-This is analogous to the String Typing example. However, the problem of starting from a block of pixels and wishing to *programmatically* work with sub-structure---parsing, so to speak---is much more complicated in this case. Extracting meaningful units of structure from digital images, such as recognizing shapes, is the domain of advanced research in AI and computer vision.
-
-Thus, using a structured representation (vector graphics) for graphic design is the only technically feasible option. In the case of strings, the issue is less obvious due to decades of established techniques in parsing formal languages. The missing link between the two is that formal languages, as far as we are aware, have never been extended to formal structures of pixels in images, where parsing would not need to rely on artificial intelligence yet would still break on incorrect pixel placement.
-
-\note{Example / Instance: spreadsheet vs CSV}
-
-### Examples: Text vs. Structure Editing
-There are two ways in which text editing can be analysed for its Source of Truth and Derived Artefact. In the first, we can consider text editing, and word processing more generally, as a special case of Vector Graphics. Howver, in another sense, text editing shares a resemblance to Raster Graphics.
-
-*Text editing as Vector Graphics*. Text glyphs are shapes like any others, and need rasterizing to pixels on a screen. Text editors, word processors and other publishing software do not require a typist to correct their mistakes by manipulating blocks of pixels. These tools have the user work at the level of *characters* instead of *pixels*. The usual advantages apply, such as scaling to different sizes and easily navigating, selecting and modifying at the character level. Even though text needs rendering to pixels, it is usually inappropriate to manipulate text as pixels.
-
-*Text editing as Raster Graphics*. On the other hand, what exactly is meant by *text*? Viewing written language as merely a list of characters may be just as naïve as viewing glyphs as pixel blocks. Written language clearly has internal structure. Documents comprise paragraphs and headings. Paragraphs contain sentences, sentences contain clauses, clauses contain words and words themselves contain syllables and hyphenation points. These same structural categories are concretely rendered with different punctuation characters in different languages. Furthermore, in formal languages such as program code, this property is explicit at the level of its formal grammar. A program might be made up of declarations, containing statements, containing expressions, containing tokens, which are ultimately made up of textual characters.
-
-The possibility of making *typographical errors* in an English document, or *syntax errors* in some source code, is proof that the character level has degrees of freedom that our languages do not have. This is the motivation for *structure editing* as opposed to text editing---the approach of making errors *unrepresentable* in the first place.
-
-Structure editors do for linguistic structures (like program code) what vector graphics editors do for diagrams. From a *notational* point of view, there is no reason why structure editing cannot be made arbitrarily close to text editing; the text can be rendered straightforwardly as in a text editor, and it can be entered by ordinary typing. The key difference is in what is being built up in computer memory: in structure editing, a *tree* or *graph* is being built up as the user works, whereas a text editor merely builds a long character sequence.
-
-In order to write programs to transform, analyze, or otherwise work with the digital artefact the user has created, one can trivially navigate the structure output by a structure editor. For the output of a text editor, one must first parse it *into* such a structure, and deal with any errors just before use, instead of at the moment the user introduced the error.
-
-Consider an interface to enter a personal name made up of a forename and a surname. The user could be presented with a single text field, in which they type the the names separated with a space; or two fields, where the names are entered separately. We can also ask what is built up in memory: is it a single string, or two separate strings? Four *representation paradigms* are illustrated by the combinations that result:
-
-1. *Sequence editing:* single field, single string. All the editor has to do is straightforwardly store whatever is in the text field. This corresponds to text editors, and more generally sensors and recorders for different data (video, photographs, and audio.)
-2. *Sequence rendering:* two fields, single string. Here, there is a structured interface writing through to a string in memory. The information about the separation of the two strings, present in the interface, is not quite "thrown away" but it is made *implicit* as, say, a space character in the string. In order to recover this information, the string must be parsed later on. This combination corresponds to code generation from GUI forms in Visual Basic, as well as MIDI sequencers (which render musical notes played by virtual instruments to a single combined waveform), video editors, and renderers for 2D or 3D graphics. Another example is line-based diff tools, which provide side-by-side views and related interfaces, yet must ultimately forward the user's changes to the underlying text file.
-3. *Structure editing:* two fields, two strings. As in sequence editing, both parts match, so there is not much work to do. This corresponds to structure editors, vector graphics editors, and 3D modelling tools.
-4. *Structure recovery:* single field, two strings. Parsing needs to happen each time the input changes. This style is found in the DOM inspector in browser developer tools, where HTML can be edited as text to make changes to the document tree structure. More generally, this is the mode found in compilers and interpreters which accept program source text yet internally work on tree and graph structures.
-
-\joel{
-Parsing of strings into trees is helped by the fact that bracket characters (`() [] {} <>`) come in pairs which function as "begin substructure" and "end substructure" commands. Despite the fact that single and double quotes have left and right variants, most programming languages use the same character to begin and end a string. As a result, quote characters that are part of the string (probably enveloping embedded quoted text) must be *escaped*, often using a backslash `\` or percentage `%` character. Of course, if such a character is part of the text, then it too needs escaping. If the text is supposed to be program source code, then this process may need several iterations. At each stage, every single special character in the string must be escaped, doubling the number of escape characters.
-
-1. `"He said \"Hello\"."` (Four items need escaping: two backslashes and two quotes.)
-2. `"He said \\\"Hello\\\"."` (To instruct a program to store string no.1, we now need 8 escapes.)
-3. `"He said \\\\\\\"Hello\\\\\\\"."` (To store string no. 2, we need sixteen.)
-
-With strings demarcated by left/right quotes, all of this would be unnecessary, but they would still represent a tree *implicitly*, by being parseable into one.
-}
-
-### Relations
-- *Level of Automation*. The human eye can see a rectangular array of pixels and straightforwardly recognise shapes. Programming a computer to do this is the subject of highly advanced research in *computer vision* and *artificial intelligence*. The human eye can also recognise structures in a formal language from the character sequences used to render them. However, getting a computer to do the same thing---parsing---is a matter of ordinary programming instead of advanced probabilistic techniques. The parsing of natural language, perhaps, lies between these two degrees of formalization.
-- *Errors* (Section \ref{errors}). A process that merely records user actions in a sequence (such as text editing) will, in particular, record any *errors* the user makes and defer their handling to later use of the data, keeping the errors *latent*. A process which instead treats user actions as edits to a structure, with constraints and correctness rules, will be able to catch errors at the moment they are introduced and ensure the data coming out is error-free.
 
 ## Adoptability
 
