@@ -1,24 +1,21 @@
+\newcommand{\summ}[1]{\multicolumn{2}{p{0.8\linewidth}}{#1} \\ \hline}
+\setlength\extrarowheight{2pt}
 \begin{table}
 %\centering
-\newcommand{\summ}[1]{\multicolumn{2}{p{0.7\linewidth}|}{#1} \\ \hline}
-
-\setlength\extrarowheight{2pt}
-\begin{adjustwidth}{-2cm}{-2cm}
-\begin{tabular}{| >{\raggedleft\arraybackslash}p{0.25\linewidth} | p {0.35\linewidth} | >{\raggedright\arraybackslash}p{0.35\linewidth} |}
+\begin{tabular}{ >{\raggedleft\arraybackslash}p{0.2\linewidth}  p {0.4\linewidth}  >{\raggedright\arraybackslash}p{0.4\linewidth} }
 \hline
-Dimension (CLUSTER) & Summary & Range of examples \\ \hline
+Dimension (CLUSTER) & Summary & Range of key examples \\ \hline
 \hline INTERACTION &
 \summ{How do users execute their ideas, evaluate the result, and generate new ideas in response?}
-\def\arraystretch{1}
 Feedback Loops &
-How wide are the various gulfs of \emph{execution} and \emph{evaluation} and how do they relate to each other? &
-Immediate Feedback (short) vs batch mode (long) evaluation \\
+How wide are the various gulfs of \emph{execution} and \emph{evaluation} and how are they related? &
+Immediate Feedback (short) vs. batch mode (long) gulf of evaluation \\
 Modes of Interaction &
-TODO &
-TODO \\
+Which sets of feedback loops only occur together? &
+Setup vs. editing vs. debugging \\
 Abstraction Construction &
 How do we go from abstractions to concrete examples and vice versa? &
-TODO \\
+Programming by Example vs. first principles \\
 \hline NOTATION &
 \summ{How are the different textual / visual programming notations related?}
 Notational Structure &
@@ -29,7 +26,7 @@ What is the connection between what a user sees and what a computer program sees
 Sequence Editing vs. Rendering, Structure Editing vs. Recovery \\
 Primary / Secondary Notations &
 Is one notation more important than others? &
-Build scripts are secondary vs. equal importance of visual editor and code in Flash \\
+Secondary build scripts vs. visual editor and code on equal footing in Flash \\
 Expression Geography &
 Do similar expressions encode similar programs? &
 Concise yet error-prone vs. explicit yet verbose \\
@@ -43,50 +40,58 @@ Does the system present as \emph{designed} or \emph{improvised}? &
 Integrity (Everything is a X) vs. openness (compatible mixtures) \\
 Composability &
 What are the primitives? How can they be combined to achieve novel behaviors? &
-TODO \\
+Sequence, selection, repetition, function abstraction, recursion, logical connectives \\
 Convenience &
 Which wheels do users not need to reinvent? &
-TODO \\
+Small vs. expansive standard libraries \\
 Commonality &
 How much is \emph{common structure} explicitly marked as such? &
 Common structure is redundantly flattened vs. factored out\\
+\hline
+\end{tabular}
+\caption{\label{summary-table1} Quick reference sheet for our set of Technical Dimensions.}
+\end{table}
+
+\begin{table}
+\begin{tabular}{ >{\raggedleft\arraybackslash}p{0.2\linewidth}  p {0.4\linewidth}  >{\raggedright\arraybackslash}p{0.4\linewidth} }
+\hline
+Dimension (CLUSTER) & Summary & Range of key examples \\ \hline
 \hline CUSTOMIZABILITY &
 \summ{Once a program exists in the system, how can it be extended and modified?}
 Staging of Customization &
 Must we customize \emph{running} programs differently to \emph{inert} ones? Do these changes last beyond termination? &
 TODO \\
-Addressability &
-How many actual and potential \emph{system states} can customizations refer to? &
+Externalizability &
+Which portions of the system's state can be referenced and transferred to/from it? &
 TODO \\
-Additive Authorship &
+Open Authoring &
 How far can the system's behavior be changed by \emph{adding} expressions? &
 TODO \\
 Self-Sustainability &
 How far can the system’s behavior be changed from within? &
 TODO \\
 \hline AUTOMATION &
-\summ{To what extent, and in what ways, does the system remove the need to spell out implementation in minute detail?}
+\summ{How far does the system remove the need to spell out implementation in minute detail?}
 Degrees of Automation &
 What part of program logic does not need to be explicitly specified? &
-Automatic memory management is a low-end example; Prolog a higher-end one. \\
+Garbage collection (low-tech) vs. Prolog engine (hi-tech) \\
 \hline ERRORS &
-\summ{What does the system consider to be an error, and how does it approach their prevention and handling?}
+\summ{What does the system consider to be an error; how are they prevented and handled?}
 Error Detection &
-What errors can be detected in which feedback loops and what is the detection mechanism? &
-In live coding, errors are detected by humans; in static typing, this is partly automated. \\
+What errors can be detected in which feedback loops, and how? &
+Human inspection in live coding vs. partial automation in static typing \\
 Error Response &
 How does the system respond when an error is detected? &
 Does it stop, recover automatically, ignore the error or ask the user how to continue? \\
 \hline ADOPTABILITY &
 \summ{How does the system facilitate or obstruct adoption by both individuals and communities?}
 Learnability &
-TODO &
-TODO \\
+What is the attitude towards the \emph{learning curve} and what is the target audience? &
+HyperCard for the general public vs. FORTRAN for scientists \\
 Sociability &
-TODO &
+What are the social and economic factors that make the system the way it is? &
 TODO \\
 \hline
 \end{tabular}
-\end{adjustwidth}
-\caption{\label{summary-table} Quick reference sheet for our set of Technical Dimensions.}
+\caption{\label{summary-table2} Quick reference sheet for our set of Technical Dimensions.}
 \end{table}
