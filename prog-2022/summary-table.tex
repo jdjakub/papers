@@ -1,0 +1,92 @@
+\begin{table}
+%\centering
+\newcommand{\summ}[1]{\multicolumn{2}{p{0.7\linewidth}|}{#1} \\ \hline}
+
+\setlength\extrarowheight{2pt}
+\begin{adjustwidth}{-2cm}{-2cm}
+\begin{tabular}{| >{\raggedleft\arraybackslash}p{0.25\linewidth} | p {0.35\linewidth} | >{\raggedright\arraybackslash}p{0.35\linewidth} |}
+\hline
+Dimension (CLUSTER) & Summary & Range of examples \\ \hline
+\hline INTERACTION &
+\summ{How do users execute their ideas, evaluate the result, and generate new ideas in response?}
+\def\arraystretch{1}
+Feedback Loops &
+How wide are the various gulfs of \emph{execution} and \emph{evaluation} and how do they relate to each other? &
+Immediate Feedback (short) vs batch mode (long) evaluation \\
+Modes of Interaction &
+TODO &
+TODO \\
+Abstraction Construction &
+How do we go from abstractions to concrete examples and vice versa? &
+TODO \\
+\hline NOTATION &
+\summ{How are the different textual / visual programming notations related?}
+Notational Structure &
+What notations are used to program the system and how are they related? &
+Notations overlap and need sync vs. complement each other \\
+Surface / Internal Notations &
+What is the connection between what a user sees and what a computer program sees? &
+Sequence Editing vs. Rendering, Structure Editing vs. Recovery \\
+Primary / Secondary Notations &
+Is one notation more important than others? &
+Build scripts are secondary vs. equal importance of visual editor and code in Flash \\
+Expression Geography &
+Do similar expressions encode similar programs? &
+Concise yet error-prone vs. explicit yet verbose \\
+Uniformity of Notations &
+Does the notation use a small or a large number of basic concepts? &
+Lisp S-expressions vs. English-like textual notations \\
+\hline ARCHITECTURE &
+\summ{What is the system's attitude to its own organization and that of the outside world?}
+Conceptual Outlook &
+Does the system present as \emph{designed} or \emph{improvised}? &
+Integrity (Everything is a X) vs. openness (compatible mixtures) \\
+Composability &
+What are the primitives? How can they be combined to achieve novel behaviors? &
+TODO \\
+Convenience &
+Which wheels do users not need to reinvent? &
+TODO \\
+Commonality &
+How much is \emph{common structure} explicitly marked as such? &
+Common structure is redundantly flattened vs. factored out\\
+\hline CUSTOMIZABILITY &
+\summ{Once a program exists in the system, how can it be extended and modified?}
+Staging of Customization &
+Must we customize \emph{running} programs differently to \emph{inert} ones? Do these changes last beyond termination? &
+TODO \\
+Addressability &
+How many actual and potential \emph{system states} can customizations refer to? &
+TODO \\
+Additive Authorship &
+How far can the system's behavior be changed by \emph{adding} expressions? &
+TODO \\
+Self-Sustainability &
+How far can the system’s behavior be changed from within? &
+TODO \\
+\hline AUTOMATION &
+\summ{To what extent, and in what ways, does the system remove the need to spell out implementation in minute detail?}
+Degrees of Automation &
+What part of program logic does not need to be explicitly specified? &
+Automatic memory management is a low-end example; Prolog a higher-end one. \\
+\hline ERRORS &
+\summ{What does the system consider to be an error, and how does it approach their prevention and handling?}
+Error Detection &
+What errors can be detected in which feedback loops and what is the detection mechanism? &
+In live coding, errors are detected by humans; in static typing, this is partly automated. \\
+Error Response &
+How does the system respond when an error is detected? &
+Does it stop, recover automatically, ignore the error or ask the user how to continue? \\
+\hline ADOPTABILITY &
+\summ{How does the system facilitate or obstruct adoption by both individuals and communities?}
+Learnability &
+TODO &
+TODO \\
+Sociability &
+TODO &
+TODO \\
+\hline
+\end{tabular}
+\end{adjustwidth}
+\caption{\label{summary-table} Quick reference sheet for our set of Technical Dimensions.}
+\end{table}

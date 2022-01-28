@@ -159,9 +159,11 @@ In this section, we present our proposed technical dimensions grouped under *clu
 
 Each cluster is named and opens with a short *summary*, followed by a longer *description*, and closes with a list of any *relations* to other clusters along with any *references* if applicable. Within the main description, individual *dimensions* are listed. Sometimes, a particular value along a dimension (or a combination of values along several dimensions) can be recognized as a familiar pattern---perhaps with a name already established in the literature. These are marked as *examples*. Finally, interspersed discussion that is neither a *dimension* nor an *example* is introduced as a *remark*.
 
+\input{summary-table.tex}
+
 ## Interaction
 
-> _How do users execute their ideas, evaluate the result, generate new ideas in response and capture those ideas?_
+\mybox{How do users execute their ideas, evaluate the result, and generate new ideas in response?}
 
 An essential aspect of programming systems is how the user interacts with them when creating programs. Take the standard form of statically typed, compiled languages with straightforward library linking: here, programmers write their code in a text editor, invoke the compiler, and read through error messages they get. After fixing the code to pass compilation, a similar process might happen with runtime errors.
 
@@ -245,7 +247,7 @@ Another option is to construct abstractions *from concrete cases*. Here, the pro
 
 ## Notation
 
-\mybox{What are the different notations, both textual and visual, through which the system is programmed? How do they relate to each other?}
+\mybox{How are the different textual / visual programming notations related?}
 
 Programming is always done through some form of notation. We consider notations in the most general sense and include any structured gesture using textual or visual notation, user interface or other means. Textual notations include primarily programming languages, but may also include, for example, configuration files. Visual notations include graphical programming languages. Other kinds of structured gestures include, for example, user interfaces for constructing visual elements used in the system.
 
@@ -331,11 +333,7 @@ The importance of notations in the practice of science, more generally, has been
 
 ## Architecture
 
-\noindent\fbox{%
-  \parbox{\textwidth}{%
-    What tradeoffs are made between conceptual integrity vs. compatibility with established technologies?
-  }%
-}
+\mybox{What is the system's attitude to its own organization and that of the outside world?}
 
 ### Dimension: conceptual outlook
 
@@ -452,7 +450,7 @@ The history of computing is one of cycles of evolution and revolution. Successiv
 
 ## Customizability
 
-> _For an existing program created using the system, which aspects can be extended and modified and how is this achieved?_
+\mybox{Once a program exists in the system, how can it be extended and modified?}
 
 Programming is a gradual process. We start either from nothing or from an existing program and gradually extend and refine it until it serves a given purpose. Programs created using different programming systems can be refined to a different extent, in different ways, at different stages of their existence.
 
@@ -501,7 +499,7 @@ In addition to the examples discussed above, the proceedings of self-sustaining 
 
 ## Automation
 
-> _To what extent and in what ways does the system remove the need to spell out implementation in minute detail?_
+\mybox{To what extent and in what ways does the system remove the need to spell out implementation in minute detail?}
 
 Ultimately, at the hardware level, computers are primitive calculating machines. They require a full and exact specificiation of the instructions to run. Ever since the 1940s, programmers have envisioned that some form of "automatic programming" will alleviate the need for tediously specifying details at this level. While this level still remains today, many aspects of the task of "programming" can and have been *automated.*
 
@@ -539,7 +537,7 @@ We may speculate whether Deep Learning will enable the next step of automation. 
 
 ## Errors
 
-> _What does the system consider to be an error, and how does it approach their prevention and handling?_
+\mybox{What does the system consider to be an error, and how does it approach their prevention and handling?}
 
 In general, a *program error* is when the system cannot run in a normal way and needs to resolve the situation. This raises a number of questions for system design: What can cause a program error? Which program errors can be prevented from happening? How should the system react to a program error?
 
@@ -597,7 +595,7 @@ The most common error handling mechanism in conventional programming languages i
 
 ## Adoptability
 
-> _How does the system facilitate or obstruct adoption by both individuals and communities?_
+\mybox{How does the system facilitate or obstruct adoption by both individuals and communities?}
 
 We consider adoption by individuals as the dimension of *Learnability*, and adoption by communities as the dimension of *Sociability*.
 
