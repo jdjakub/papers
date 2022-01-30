@@ -335,9 +335,15 @@ The importance of notations in the practice of science, more generally, has been
 
 \mybox{What is the system's attitude to its own organization and that of the outside world?}
 
-### Dimension: conceptual outlook
+\note{JE: this could mean almost anything. how about:
+## Conceptual Structure
+\mybox{How is meaning constructed in the system, and what balance is established between internal and external incentives?}
+}
 
-The evolution of programming systems has led away from *conceptual integrity* towards an intricate ecosystem of specialized technologies and standards. Any attempt to unify parts of this ecosystem into a coherent whole will create *incompatibility* with the remaining parts, which becomes a major barrier to adoption. Designers seeking adoption are pushed to focus on localized incremental improvements that stay within the boundaries established by existing practice. This creates a tension between how highly they can afford to value conceptual elegance, and how open they are to the pressures imposed by society. We will turn to both of these opposite ends of *conceptual outlook*---*integrity* and *openness*---in more detail.
+### Dimension: conceptual outlook
+\note{again, too vague. 'Conceptual integrity vs. openness' explains it more precisely. These really aren't examples - they are the dialectical opposites. Maybe just 'closed vs open'.}
+
+The evolution of programming systems has led away from *conceptual integrity* towards an intricate ecosystem of specialized technologies and industry standards. Any attempt to unify parts of this ecosystem into a coherent whole will create *incompatibility* with the remaining parts, which becomes a major barrier to adoption. Designers seeking adoption are pushed to focus on localized incremental improvements that stay within the boundaries established by existing practice. This creates a tension between how highly they can afford to value conceptual elegance, and how open they are to the pressures imposed by society. We will turn to both of these opposite ends of *conceptual outlook*---*integrity* and *openness*---in more detail.
 
 ### Example: conceptual integrity
 
@@ -347,7 +353,7 @@ The evolution of programming systems has led away from *conceptual integrity* to
 
 > Conceptual integrity arises not (simply) from one mind or from a small number of agreeing resonant minds, but from sometimes hidden co-authors and the thing designed itself. \cite{DesignedAsDesigner}
 
-Perhaps the apotheosis of conceptual integrity was in early Smalltalk and Lisp machines, which were complete programming systems built around a single language. They incorporated capabilities commonly provided outside the programming language by operating systems and databases. Everything was done in one language, and so everything was represented with the datatypes of that language. The benefit of all code being in one language was that it became a *lingua franca*, reusable across all contexts. \joel{tautology sentence? the benefit of all code being in one language is that it became a common language.} A similar drive exists in the Python programming language, which follows the principle that “There should be one---and preferably only one---obvious way to do it” in order to promote community consensus on a single coherent style.
+Perhaps the apotheosis of conceptual integrity was in early Smalltalk and Lisp machines, which were complete programming systems built around a single language. They incorporated capabilities commonly provided outside the programming language by operating systems and databases. Everything was done in one language, and so everything was represented with the datatypes of that language. Likewise the libraries and idioms of the language were applicable in all contexts. Having a *lingua franca* avoided much of the friction and impedance mismatches inherent to multi-language systems. A similar drive exists in the Python programming language, which follows the principle that “There should be one---and preferably only one---obvious way to do it” in order to promote community consensus on a single coherent style.
 
 In addition to Smalltalk and Lisp, many programming languages focus on one kind of data structure \cite{MemMod}:
 
@@ -366,7 +372,7 @@ The choice between compatibility and integrity correlates with the personality t
 
 Richard Gabriel first described this dilemma in his influential 1991 essay *Worse is Better* \cite{WIB} analyzing the defeat of Lisp by UNIX and C. Because UNIX and C were so easy to port to new hardware, they were “the ultimate computer viruses” despite providing only “about 50%--80% of what you want from an operating system and programming language”. Their conceptual openness meant that they adapted easily to the evolving conditions of the external world. The tradeoff was decreased conceptual integrity, such as the undefined behaviours of C, the junkyard of working directories, and the proliferation of special purpose programming languages to provide a complete development environment.
 
-Another case is that of C\++, which added to C the Object-Oriented concepts pioneered by Smalltalk while remaining 100% compatible with C, down to the level of ABI and performance. This strategy was enormously successful for adoption, but came with the tradeoff of enormous complexity compared to languages designed from scratch for OO, like Smalltalk, Ruby, and Java.
+Another case is that of C\++, which added to C the Object-Oriented concepts developed by Smalltalk while remaining 100% compatible with C, down to the level of ABI and performance. This strategy was enormously successful for adoption, but came with the tradeoff of enormous complexity compared to languages designed from scratch for OO, like Smalltalk, Ruby, and Java.
 
 \tp{Smalltalk objects are "all levels of granularity"; UNIX files are large-scale; Haskell data structures small-scale; very big virtual machines; there is also the web / distributed file system?}
 
@@ -377,11 +383,14 @@ Concepual integrity is necessarily sacrificed for such openness; while "everythi
 Web HTTP endpoints, meanwhile, have proven to be an even more adaptable and viral abstraction than UNIX files. They operate at a similar level of abstraction as files, but support richer content and encompass internet-wide interactions between autonomous systems. In a sense, HTTP GET and PUT have become the "subroutine calls" of an internet-scale programming system. Perhaps the most salient thing about the Web is that its usefulness came as such a surprise to everyone involved in designing or competing with it. It is likely that, by staying close to the existing practice of transferring files, the Web gained a competitive edge over more ambitious and less familiar hypertext projects like Xanadu \cite{TedNelson}.
 
 ### Dimension: composability
-In short, *you can get anywhere by putting together a number of smaller steps.* There exist building blocks which span a range of useful combinations. Such a property can be analogized to *linear independence* in mathematical vector spaces: a number of primitives (basis vectors) whose possible combinations span a meaningful space. Composability is, in a sense, key to the notion of "programmability" and every programmable system will have some level of composability (e.g. in the scripting language.)
+In short, *you can get anywhere by putting together a number of smaller steps.* There exist building blocks which span a range of useful combinations.
+\note{JE. LEGOs might be a more friendly example than Linear Algebra.
+Such a property can be analogized to *linear independence* in mathematical vector spaces: a number of primitives (basis vectors) whose possible combinations span a meaningful space.}
+Composability is, in a sense, key to the notion of "programmability" and every programmable system will have some level of composability (e.g. in the scripting language.)
 
 *UNIX* shell commands are a standard example of composability. The base set of primitive commands can be augmented by programming command executables in other languages. Given some primitives, one can "pipe" one's output to another's input (`|`), sequence (`;` or `&&`), select via conditions, and repeat with loop constructs, enabling full imperative programming. Furthermore, command compositions can be packaged into a named "script" which follows the same interface as primitive commands, and named subprograms within a script can also be defined.
 
-In *HyperCard*, the user level just before writing code is *non*composable for programming buttons: there is simply a long list of predefined behaviors to choose from.
+In *HyperCard*, the *Authoring Environment* is *non*composable for programming buttons: there is simply a set of predefined behaviors to choose from --- full scriptability is available only in the *Programming Environment*.
 
 The *Haskell type system*, as well as that of other functional programming languages, exhibits high composability. New types can be defined in terms of existing ones in several ways. These include records, discriminated unions, function types and recursive constructs (e.g. to define a `List` as either a `Nil` or a combination of element plus other list.) The C programming language also has some means of composing types that are analogous in some ways, such as structs, unions, enums and indeed even function pointers. For every type, there is also a corresponding "pointer" type. It lacks, however, the recursive constructs permitted in Haskell types.
 
@@ -390,7 +399,7 @@ The *Haskell type system*, as well as that of other functional programming langu
 ### Dimension: convenience
 In short, *you can get to X, Y or Z via one single step.* There are ready-made solutions to specific problems, not necessarily generalizable or composable. Convenience often manifests as "canonical" solutions and utilities in the form of an expansive standard library.
 
-Composability without convenience is a set of atoms or gears; theoretically, anything one wants could be built out of them, but one must do that work. This could characterize low-level programming systems or systems in a "blank canvas" state.
+Composability without convenience is a set of atoms or gears; theoretically, anything one wants could be built out of them, but one must do that work. This situation has been criticized as the *Lisp Curse*\cite{LispCurse}.
 
 Composability *with* convenience is a set of convenient specific tools *along with* enough components to construct new ones. The specific tools themselves could be transparently composed of these building blocks, but this is not essential. They save users the time and effort it would take to "roll their own" solutions to common tasks.
 
@@ -399,6 +408,8 @@ For example, let us turn to a convenience factor of *UNIX* shell commands, havin
 \note{ex: something in the UI world? one click vs. long winded "principled" way of doing the thing? (macros? applescript?)}
 
 ### Dimension: commonality
+\note{JE This seems like data modelling issues that happen during application design, not programming system design.}
+
 Humans can see Arrays, Strings, Dicts and Sets all have a “size”, but the software needs to be *told* that they are the “same”. Commonality like this can be factored out into an explicit structure (a “Collection” class), analogous to database *normalization*. This way, an entity's size can be queried without reference to its particular details: if `c` is declared to be a Collection, then one can straightforwardly access `c.size`.
 
 Alternatively, it can be left implicit. This is less upfront work, but permits instances to *diverge*, analogous to *redundancy* in databases. For example, Arrays and Strings might end up with “length”, while Dict and Set call it “size”. This means that, to query the size of an entity, it is necessary to perform a case split according to its concrete type, solely to funnel the diverging paths back to the commonality they represent:
