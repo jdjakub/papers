@@ -51,7 +51,7 @@ Richard Gabriel noted a "paradigm shift" \cite{PLrev} from the study of systems 
   \caption{A speculative sketch of one 2-dimensional slice of the space of possible systems.\label{fig:tech-dims-diagram}}
 \end{figure}
 
-Our "system" concept is mostly technical in scope, with occasional excursions as in "Adoptability" (Section\ \ref{adoptability}). This contrasts with the more socio-political focus found in \cite{TcherDiss}. It overlaps with Kell's conceptualization of UNIX, Smalltalk, and Operating Systems generally\ \cite{KellOS}, and we have ensured that UNIX has a place in our framework.
+Our "system" concept is mostly technical in scope, with occasional excursions as in "Adoptability" (Section\ \ref{adoptability}). This contrasts with the more socio-political focus found in Tchernavskij \cite{TcherDiss}. It overlaps with Kell's conceptualization of UNIX, Smalltalk, and Operating Systems generally\ \cite{KellOS}, and we have ensured that UNIX has a place in our framework.
 
 ## Industry and research interest in programming systems
 There is renewed interest in programming systems in both industry and research. In industry we see:
@@ -105,7 +105,7 @@ We intentionally use the term _programming system_ to refer to a broad range of 
 The key aspect of computers that enabled the rise of programming systems was the ability for a programmer to interact one-on-one with a computer. This was not possible in the 1950s when most computers were large and operated in a batch-processing mode. Two historical developments enabled such interactivity from the 1960s. First, time-sharing systems enabled interactive shared use of a computer via a teletype. Second, smaller computers such as the PDP-1 and PDP-8 provided similar direct interaction, while 1970s workstations such as the Alto and Lisp Machines added graphical displays and mouse input.
 
 ### Lisp
-The Lisp programming language, in the form of LISP 1.5 \cite{LISP15}, arrived before the rise of interactive computers. Nevertheless, the existence of an interpreter and the absence of declarations made it natural to use Lisp interactively, with the first such implementations appearing in the early 1960s. Two branches of the Lisp family,^[The Lisp family consists of several branches, including MacLisp, InterLisp, ZetaLisp, Common Lisp, Scheme, Racket, and Clojure. see \cite{LispEvolve}] MacLisp and the later Interlisp, fully embraced the so-called "conversational" way of working. Interaction occured through the teletype at first, later giving way to the screen and keyboard. Even on the teletype, the system incorporated a number of ideas that remain popular with programming systems today.
+The Lisp programming language, in the form of LISP 1.5 \cite{LISP15}, arrived before the rise of interactive computers. Nevertheless, the existence of an interpreter and the absence of declarations made it natural to use Lisp interactively, with the first such implementations appearing in the early 1960s. Two branches of the Lisp family,^[The Lisp family consists of several branches, including MacLisp, InterLisp, ZetaLisp, Common Lisp, Scheme, Racket, and Clojure. See *The Evolution of Lisp* \cite{LispEvolve}.] MacLisp and the later Interlisp, fully embraced the so-called "conversational" way of working. Interaction occured through the teletype at first, later giving way to the screen and keyboard. Even on the teletype, the system incorporated a number of ideas that remain popular with programming systems today.
 
 Both MacLisp and Interlisp adopted the idea of *persistent address space*. Both program code and program state were preserved when powering off the system, and could be accessed and modified interactively as well as programmatically using the *same means*. This idea appeared on time-sharing systems and culminated with the development of Lisp Machines, which embraced the idea that the machine runs continually and saves the state to disk when needed. Today, while this is still not the default state for systems running "natively" on some hardware, it is widely seen in cloud-based services like Google Docs, online IDEs, or virtual machine and container images.
 
@@ -157,19 +157,15 @@ Like most programming languages, Haskell code can be written in a wide range of 
 Haskell is mathematically rooted and relies on mathematical intuition for understanding many of its concepts. This background is also reflected in the notations it uses. In addition to the concrete language syntax (used when writing code), the Haskell ecosystem also uses an informal mathematical notation, which is used when writing about Haskell (e.g. in academic papers or on the whiteboard). This provides an additional tool for manipulating Haskell programs and experimenting with them on paper *in vitro*, in ways that other systems may attempt to achieve through experimentation within the system *in vivo*.
 
 # Technical dimensions
-For the rest of this paper, we present our proposed technical dimensions grouped under *clusters*. The clusters may be regarded as "topics of interest" or "areas of inquiry" when studying a given system, grouping together related dimensions against which to measure it.
+For the rest of this paper, we present our proposed technical dimensions grouped under *clusters*. The clusters may be regarded as "topics of interest" or "areas of inquiry" when studying a given system, grouping together related dimensions against which to measure it. We also include a concise reference sheet on the next page, though it will make more sense after reading the relevant sections.
 
-Each cluster is named and opens with a boxed *summary*, followed by a short *description*, and closes with a list of any *relations* to other clusters along with any *references* if applicable. Within the main description, individual *dimensions* are listed. Sometimes, a particular value along a dimension (or a combination of values along several dimensions) can be recognized as a familiar pattern---perhaps with a name already established in the literature. These are marked as *examples*. Finally, interspersed discussion that is neither a *dimension* nor an *example* is introduced as a *remark*. We include a concise reference sheet on the next page, though of course this cannot substitute for reading the relevant sections at least once.
+Each cluster is named and opens with a boxed *summary*, followed by a longer *discussion*, and closes with a list of any *relations* to other clusters along with any *references* if applicable. Within the main discussion, individual *dimensions* are listed. Sometimes, a particular value along a dimension (or a combination of values along several dimensions) can be recognized as a familiar pattern---perhaps with a name already established in the literature. These are marked as *examples*. Finally, interspersed discussion that is neither a *dimension* nor an *example* is introduced as a *remark*.
 
 \includepdf{table.pdf}
 
 ## Interaction
 
-<<<<<<< Updated upstream
 \mybox{How do users manifest their ideas, evaluate the result, and generate new ideas in response?}
-=======
-\mybox{How do users implement their ideas, evaluate the result, and generate new ideas in response?}
->>>>>>> Stashed changes
 
 An essential aspect of programming systems is how the user interacts with them when creating programs. Take the standard form of statically typed, compiled languages with straightforward library linking: here, programmers write their code in a text editor, invoke the compiler, and read through error messages they get. After fixing the code to pass compilation, a similar process might happen with runtime errors.
 
@@ -335,11 +331,11 @@ The evolution of programming systems has led away from *conceptual integrity* to
 
 ### Example: conceptual integrity
 
-> I will contend that Conceptual Integrity is the most important consideration in system design. It is better to have a system omit certain anomalous features and improvements, but to reflect one set of design ideas, than to have one that contains many good but independent and uncoordinated ideas. \cite{brooks95aristo}
+> I will contend that Conceptual Integrity is the most important consideration in system design. It is better to have a system omit certain anomalous features and improvements, but to reflect one set of design ideas, than to have one that contains many good but independent and uncoordinated ideas. (Fred\ Brooks, *Aristocracy, Democracy and System Design* \cite{brooks95aristo})
 
 \note{The essence of this style can be captured by the phrase “the right thing”. To such a designer it is important to get all of the following characteristics right: Simplicity … Correctness … Consistency … Completeness --- Richard Gabriel}
 
-> Conceptual integrity arises not (simply) from one mind or from a small number of agreeing resonant minds, but from sometimes hidden co-authors and the thing designed itself. \cite{DesignedAsDesigner}
+> Conceptual integrity arises not (simply) from one mind or from a small number of agreeing resonant minds, but from sometimes hidden co-authors and the thing designed itself. (Richard \ Gabriel, *Designed As Designer* \cite{DesignedAsDesigner})
 
 Conceptual integrity strives to reduce complexity at the source; it employs *unified concepts* that may *compose orthogonally* to generate diversity. Perhaps the apotheosis of this approach can be found in early Smalltalk and Lisp machines, which were complete programming systems built around a single language. They incorporated capabilities commonly provided *outside* the programming language by operating systems and databases. Everything was done in one language, and so everything was represented with the datatypes of that language. Likewise the libraries and idioms of the language were applicable in all contexts. Having a *lingua franca* avoided much of the friction and impedance mismatches inherent to multi-language systems. A similar drive exists in the Python programming language, which follows the principle that “There should be one---and preferably only one---obvious way to do it” in order to promote community consensus on a single coherent style.
 
@@ -387,7 +383,7 @@ The *Haskell type system*, as well as that of other functional programming langu
 ### Dimension: convenience
 In short, *you can get to X, Y or Z via one single step.* There are ready-made solutions to specific problems, not necessarily generalizable or composable. Convenience often manifests as "canonical" solutions and utilities in the form of an expansive standard library.
 
-Composability without convenience is a set of atoms or gears; theoretically, anything one wants could be built out of them, but one must do that work. This situation has been criticized as the *Lisp Curse*\cite{LispCurse}.
+Composability without convenience is a set of atoms or gears; theoretically, anything one wants could be built out of them, but one must do that work. This situation has been criticized as the *Lisp Curse* \cite{LispCurse}.
 
 Composability *with* convenience is a set of convenient specific tools *along with* enough components to construct new ones. The specific tools themselves could be transparently composed of these building blocks, but this is not essential. They save users the time and effort it would take to "roll their own" solutions to common tasks.
 
@@ -585,9 +581,9 @@ Orthogonally to the above options, a system may also have a way to recover from 
 - _Expression geography:_ In an expression geography where small changes in notation lead to valid but differently behaved programs, a slip or lapse is more likely to lead to an error that is difficult to detect through standard mechanisms.
 
 ### References
-The most common error handling mechanism in conventional programming languages is exception handling. The modern form of exception handling has been described in \cite{ExceptionHandling}; \cite{SweImpact} documents the history and influences of Software Engineering on exception handling. The concept of _antifragile software_ \cite{Antifragile} goes further by suggesting that software could improve in response to errors. Work on Chaos Engineering \cite{ChaosMonkey} is a step in this direction.
+The most common error handling mechanism in conventional programming languages is exception handling. The modern form of exception handling has been described by Goodenough\ \cite{ExceptionHandling}; Ryder et al.\ \cite{SweImpact} documents the history and influences of Software Engineering on exception handling. The concept of _antifragile software_ \cite{Antifragile} goes further by suggesting that software could improve in response to errors. Work on Chaos Engineering \cite{ChaosMonkey} is a step in this direction.
 
-\cite{HumanError} analyses errors in the context of human errors and develops a classification of errors that we adopt. In the context of computing, errors or _miscomputation_ has been analysed from a philosophical perspective \cite{Miscomputation,MalfunctioningSW}. Notably, attitudes and approaches to errors also differ for different programming subcultures \cite{LivingWithErrors}.
+Reason\ \cite{HumanError} analyses errors in the context of human errors and develops a classification of errors that we adopt. In the context of computing, errors or _miscomputation_ has been analysed from a philosophical perspective \cite{Miscomputation,MalfunctioningSW}. Notably, attitudes and approaches to errors also differ for different programming subcultures \cite{LivingWithErrors}.
 
 ## Adoptability
 
