@@ -9,10 +9,11 @@
 % emergency workaround. You can avoid this warning adding:
 \usepackage{auxhook}
 % before \begin{document} on input line 6.
-\usepackage{changepage}
+\usepackage{changepage} % For the single-page summary table PDF insert.
+\usepackage{pdfpages}
 \begin{document}
 
-\paperdetails{perspective=art, area=tbd}
+\paperdetails{perspective=art, area={Programming systems}}
 
 \title{Technical Dimensions of Programming Systems}
 
@@ -29,31 +30,40 @@ University of Kent, Canterbury, UK
 \email{T.Petricek@kent.ac.uk}
 }
 
-\keywords{paper, lorem ipsum}
+\keywords{Programming Systems, Dimensions, Design, Framework, Analysis}
 
 % Please go to https://dl.acm.org/ccs/ccs.cfm and generate your Classification
 % System [view CCS TeX Code] stanz and copy _all of it_ to this place.
 %% From HERE
 \begin{CCSXML}
 <ccs2012>
-<concept>
-<concept_id>10002944.10011122.10003459</concept_id>
-<concept_desc>General and reference~Computing standards, RFCs and guidelines</concept_desc>
-<concept_significance>300</concept_significance>
-</concept>
-<concept>
-<concept_id>10010405.10010476.10010477</concept_id>
-<concept_desc>Applied computing~Publishing</concept_desc>
-<concept_significance>300</concept_significance>
-</concept>
-</ccs2012>
+   <concept>
+       <concept_id>10011007.10011006.10011066.10011069</concept_id>
+       <concept_desc>Software and its engineering~Integrated and visual development environments</concept_desc>
+       <concept_significance>500</concept_significance>
+       </concept>
+   <concept>
+       <concept_id>10003120.10003121.10003129</concept_id>
+       <concept_desc>Human-centered computing~Interactive systems and tools</concept_desc>
+       <concept_significance>300</concept_significance>
+       </concept>
+   <concept>
+       <concept_id>10003120.10003121.10003122</concept_id>
+       <concept_desc>Human-centered computing~HCI design and evaluation methods</concept_desc>
+       <concept_significance>300</concept_significance>
+       </concept>
+ </ccs2012>
 \end{CCSXML}
-\ccsdesc[300]{General and reference~Computing standards, RFCs and guidelines}
+\ccsdesc[500]{Software and its engineering~Integrated and visual development environments}
+\ccsdesc[300]{Human-centered computing~Interactive systems and tools}
+\ccsdesc[300]{Human-centered computing~HCI design and evaluation methods}
 
 \maketitle
 
 \begin{abstract}
-Many programming systems go beyond programming languages. Programming is usually done in the context of a stateful environment, beyond just writing code, by interacting with a system through a graphical user interface. Much research effort focuses on building programming systems that are easier to use, accessible to non-experts, moldable and/or powerful, but such efforts are often disconnected. They are informal, guided by the personal vision of the authors and thus are only evaluable and comparable on the basis of individual experience using them. This fails to form a coherent body of research, since it is unclear how to build on past work. In the research world, much has been said and done that allows comparison of \emph{programming languages}, yet no similar theory exists for \emph{programming systems}; we believe that programming systems deserve a theory too. We examine some influential past programming systems and review their stated design principles, technical capabilities, and styles of user interaction. We propose a framework of \emph{technical dimensions} which capture the underlying system characteristics and provide a means for conceptualizing and comparing programming systems. Since these characteristics may be compared or advanced independently, it should be easier to talk about programming systems in a way that can be shared and constructively debated rather than relying solely on personal impressions. By providing foundations for more systematic research in this area, we can help the designers of future programming systems to stand, at last, on the shoulders of giants.
+Many programming systems go beyond programming languages. Programming is usually done in the context of a stateful environment, beyond just writing code, by interacting with a system through a graphical user interface. Much research effort focuses on building programming systems that are easier to use, accessible to non-experts, moldable and/or powerful, but such efforts are often disconnected. They are informal, guided by the personal vision of the authors and thus are only evaluable and comparable on the basis of individual experience using them. They fail to form a coherent body of research, since it is unclear how to build on past work. In the research world, much has been said and done that allows comparison of \emph{programming languages}, yet no similar theory exists for \emph{programming systems}; we believe that programming systems deserve a theory too. We examine some influential past programming systems and review their stated design principles, technical capabilities, and styles of user interaction. We propose a framework of \emph{technical dimensions} which capture the underlying system characteristics and provide a means for conceptualizing and comparing programming systems. Since these characteristics may be compared or advanced independently, it should be easier to talk about programming systems in a way that can be shared and constructively debated rather than relying solely on personal impressions. By providing foundations for more systematic research in this area, we can help the designers of future programming systems to stand, at last, on the shoulders of giants.
+
+NOTE TO REVIEWERS: The main contribution of the paper is a comprehensive survey of 21 design dimensions of programming systems. Each one comes with detailed discussion, including known uses, to properly motivate it. We also elect to include the \emph{full set} of these dimensions in the main text. While these two aspects do make the paper longer than the recommended page limit, we prefer to err on this side than to privilege certain dimensions and relegate others to an appendix. We invite the reader to focus on the ones that best suit their interest.
 \end{abstract}
 
 %\thispagestyle{empty}
