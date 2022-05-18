@@ -27,7 +27,7 @@ We propose a new common language as an initial, *tentative* step towards more pr
 
 The set of dimensions can be understood as a map of the design space of programming systems (Figure\ \ref{fig:tech-dims-diagram}). Past and present systems will serve as landmarks, and with enough of them, unexplored or overlooked possibilities will reveal themselves. So far, the field has not been able to establish a virtuous cycle of feedback; it is hard for practitioners to situate their work in the context of others' so that subsequent work can improve on it. Our aim is to provide foundations for the study of programming systems that would allow such development.
 
-1. We present the dimensions in detail, organised into related clusters: *interaction*, *notation*, *conceptual structure*, *customizability*, *automation*, *errors*, and *adoptability*.
+1. We present the dimensions in detail, organised into related clusters: *interaction*, *notation*, *conceptual structure*, *customizability*, *complexity*, *errors*, and *adoptability*.
 2. We define these dimensions by reference to landmark programming systems of the past, and discuss any relationships between them.
 3. We demonstrate the salience of these dimensions by applying them to example systems from both the past and present. We situate some experimental systems as explorations at the frontier of certain dimensions.
 
@@ -489,23 +489,34 @@ In addition to the examples discussed above, the proceedings of self-sustaining 
 - *Flattening and factoring* (Section \ref{examples-flattening-and-factoring}): related in that "customizability" is a form of creating new programs from existing ones; factoring repetitive aspects into a reusable standard component library facilitates the same thing.
 - *Interaction* (Section \ref{interaction}): this determines whether there are separate stages for running and writing programs and may thus influence what kind of customization is possible.
 
-## Automation
+## Complexity
 
-\mybox{How far does the system remove the need to spell out implementation in minute detail?}
+\mybox{How does the system structure complexity and what level of detail is required?}
 
-Ultimately, at the hardware level, computers are primitive calculating machines. They require a full and exact specificiation of the instructions to run. Ever since the 1940s, programmers have envisioned that some form of "automatic programming" will alleviate the need for tediously specifying details at this level. While this level still remains today, many aspects of the task of "programming" can and have been *automated.*
+There is a massive gap between the level of detail required by a computer, which executes a sequence of low-level instructions, and the human description of a program, which uses higher-level terms. To bridge this gap, programming system needs to deal with the complexity that is inherent in going from a high-level description to low-level instructions.
 
-Automation can take a number of forms. Extracting common functionality into a library may be merely good use of *factoring* (Section \ref{examples-flattening-and-factoring}), but to the user of the library, this may appear as automation. In high-level programming languages, many details are also omitted; those are filled in by the compiler. Finally, the program may also be executed by a more sophisticated runtime that fills in details not specified explicitly, such as when running an SQL query or using a logic programming system like Prolog.
+Ever since the 1940s, programmers have envisioned that "automatic programming" will allow higher-level programming. This did not necessarily mean full automation. In fact, the first "automatic programming" systems referred to higher-level programming languages with a compiler (or an interpreter) that expanded the high-level code into detailed instructions.
+
+Most programming systems use _factoring of complexity_ and encapsulate some of the details that need to be specified into components that can be reused by the programmer. The details may be encapsulated in a library or filled-in by a compiler or interpreter. Such factoring may also be reflected in the conceptual structure of the system (Section \ref{examples-flattening-and-factoring}). However, a system may also fully _automate_ some aspects of programming. In those cases, a general-purpose algorithm solves a whole class of problems, which then do not need to be coded explicitly. An example includes planning the execution of an SQL query or using an inference engine to run a program in a logic programming language like Prolog.
 
 ### Remark: notations
-Even with high-level of automation, programming involves manipulating some program notation. In high-level functional or imperative programming languages, the programmer writes code that typically has clear operational meaning. When using more declarative programming like SQL, Prolog or Datalog, the meaning of a program is still unambiguous, but it is not defined operationally---there is a (more or less deterministic) inference engine that solves the problem based on the provided description. Finally, systems based on *programming by example* step even further away from having clear operational meaning---the program may be simply a collection of sample inputs and outputs, from which a (typically non-deterministic) engine infers the concrete steps of execution.
+Even when working at a high-level, programming involves manipulating some program notation. In high-level functional or imperative programming languages, the programmer writes code that typically has clear operational meaning, even when some of the complexity is relegated to a library implementation or a runtime. When using declarative programming systems like SQL, Prolog or Datalog, the meaning of a program is still unambiguous, but it is not defined operationally---there is a (more or less deterministic) inference engine that solves the problem based on the provided description. Finally, systems based on *programming by example* step even further away from having clear operational meaning---the program may be simply a collection of sample inputs and outputs, from which a (typically non-deterministic) engine infers the concrete steps of execution.
 
-### Dimension: degrees of automation
-There are many degrees of automation in programming systems, but the basic mechanism is always the same---given a program, some logic is specified explicitly and some is left to a reusable component that can do the rest. In the case of library reuse, the reusable component is just the library. In the case of higher-level programming languages, the reusable component may include a memory allocator or a garbage collector. In case of declarative languages or programming by example, the reusable component is a general purpose inference engine.
+### Dimension: factoring of complexity
+The basic mechanism of dealing with complexity is _factoring of complexity_. Given a program, the more domain-specific aspects of the logic are specified explicitly, whereas the more mundane and technical aspects of the logic are left to a reusable component. In the case of library reuse, the reusable component is just a library. In the case of higher-level programming languages, the reusable component may include a part of a language runtime such as a memory allocator or a garbage collector. In case of declarative languages or programming by example, the reusable component is a general purpose inference engine.
 
-Higher levels of automation require more complex *reusable components* than lower levels. This is a difference between *level of automation* and *factoring*---producing systems with higher level of automation requires more than simply extracting (factoring) existing code into a reusable component. Instead, it requires doing more work and introducing a higher level of indirection between the program and the reusable component.
+### Dimension: level of automation
+Factoring of complexity shields the programmer from some details, but those details still need to be explicitly programmed. Depending on the customizability of the system, this programming may or may not be accessible, but it is always there. For example, a function used in a spreadsheet formula is implemented in the spreadsheet system.
+
+A programming system with higher _level of automation_ requires more than simply factoring code into a reusable component. It uses a mechanism where some details of the operational meaning of a program are never explicitly specified, but are inferred automatically by the system. An example of such approach is _programming by example_ and _deep learning_ where behaviour is specified through examples. In some cases, deciding whether a feature is _automation_ or merely _factoring of complexity_ is less clear. For example, garbage collection can likely be seen as either a simple case of automation or a sophisticated case of factoring of complexity.
 
 There is also an interesting (and perhaps inevitable) trade-off. The higher the level of automation, the less explicit the operational meaning of a program. This has a wide range of implications. Smaragdakis \cite{NextGen} notes, for example, that this means the implementation can significantly change the performance of a program.
+
+### Example: domain-specific languages
+
+Domain-specific languages \cite{DSLs} provide an example of factoring of complexity that does not involve automation. In this case, programming is done at two levels. At the lower level, an (often more experienced) programmer develops a domain-specific language that allows a (typically less experienced) programmer easily solve problems in a particular domain such as modelling of financial contracts or specifying interactive user interfaces.
+
+The domain-specific language provides primitives that can be composed, but each primitive and each form of composition has explicitly programmed and unambiguous operational meaning. The user of the domain-specific language can think using the higher-level concepts provided by the domain-specific language. The structure of those concepts can be analysed using the dimensions from Section~\ref{conceptual-structure}. As long as those concepts are clear, the user does not need to be concerned with the details of how exactly the resulting programs run.
 
 ### Example: programming by example
 
@@ -527,6 +538,7 @@ We may speculate whether Deep Learning will enable the next step of automation. 
 \note{Tomas: I removed references here, because I could not think of anything else to add here. I guess it makes sense to keep those optional..}
 
 ### Relations
+- *Conceptual structure* (Section\ \ref{conceptual-structure}): In many cases, the factoring of complexity follows the conceptual structure of the programming system.
 - *Flattening and factoring* (Section\ \ref{examples-flattening-and-factoring}: One typically automates the thing at the lowest level in one's factoring (by making the lowest level a thing that exists outside of the program---in a system or a library)
 
 ## Errors
