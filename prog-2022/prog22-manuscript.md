@@ -23,13 +23,15 @@ Instead of forming a solid body of work, the ideas that emerge are difficult to 
 Studying *programming systems* is not merely about taking a programming language and looking at the tools that surround it. It presents a *paradigm shift* to a perspective that is, at least partly, *incommensurable* with that of languages. When studying programming languages, everything that matters is in the program code; when studying programming systems, everything that matters is in the *interaction* between the programmer and the system. As documented by Gabriel \cite{PLrev}, looking at a *system* from a *language* perspective makes it impossible to think about concepts that arise from interaction with a system, but are not reflected in the language. Thus, we must proceed with some caution. As we will see, when we talk about Lisp as a programming system, we mean something very different from a parenthesis-heavy programming language!
 
 ## Contributions
-We propose a new common language as an initial, *tentative* step towards more progressive research on programming systems. Our set of "Technical Dimensions for Programming Systems" seeks to break down the holistic view of systems along various specific "axes" inspired by the approach of the *Cognitive\ Dimensions of\ Notation*\ \cite{CogDims}. While not strictly quantitative, we have designed them to be narrow enough to be comparable, so that we may say one system has more or less of a property than another. Generally, we see the various possibilities as tradeoffs and are reluctant to assign them "good" or "bad" status. If the framework is to be useful, then it must encourage some sort of rough consensus on how to apply it; we expect it will be more helpful to agree on descriptions of systems first, and settle normative judgements later.
+We propose a new common language as an initial step towards more progressive research on programming systems. Our set of *Technical Dimensions for Programming Systems* seeks to break down the holistic view of systems along various specific "axes" inspired by the approach of the *Cognitive\ Dimensions of\ Notation*\ \cite{CogDims}. While not strictly quantitative, we have designed them to be narrow enough to be comparable, so that we may say one system has more or less of a property than another. Generally, we see the various possibilities as trade-offs and are reluctant to assign them "good" or "bad" status. If the framework is to be useful, then it must encourage consensus on how to apply it; we expect it will be more helpful to agree on descriptions of systems first, and settle normative judgements later.
 
 The set of dimensions can be understood as a map of the design space of programming systems (Figure\ \ref{fig:tech-dims-diagram}). Past and present systems will serve as landmarks, and with enough of them, unexplored or overlooked possibilities will reveal themselves. So far, the field has not been able to establish a virtuous cycle of feedback; it is hard for practitioners to situate their work in the context of others' so that subsequent work can improve on it. Our aim is to provide foundations for the study of programming systems that would allow such development.
 
-1. We present the dimensions in detail, organised into related clusters: *interaction*, *notation*, *conceptual structure*, *customizability*, *complexity*, *errors*, and *adoptability*.
-2. We define these dimensions by reference to landmark programming systems of the past, and discuss any relationships between them.
-3. We demonstrate the salience of these dimensions by applying them to example systems from both the past and present. We situate some experimental systems as explorations at the frontier of certain dimensions.
+This paper is intended as a reference on the current state of the technical dimensions framework and it is meant to be _used_ rather than _read_. We present the dimensions in detail, but encourage the reader to skim through the details on the first read, but return to the details of relevant dimensions once they have a concrete programming system that they wish to analyze in mind. The main contributions of this paper are organized as follows:
+
+1. In Section\ \ref{programming-systems}, we characterize what a programming system is and review landmark programming systems of the past that are used as examples throughout this paper, as well as to delineate our notion of a programming system.
+2. In Section\ \ref{technical-dimensions}, we present the technical dimensions in details, organised into related clusters: *interaction*, *notation*, *conceptual structure*, *customizability*, *complexity*, *errors*, and *adoptability*. For each technical dimension, we give examples that illustrate a number of values along the axis identified by the dimension.
+2. In Section\ \ref{discussion}, we sketch two ways of using the technical dimensions framework. In Section\ \ref{evaluating-programming-systems}, we use it to evaluate a recent interesting programming system and in Section\ \ref{exploring-design-space}, we use it to identify an unexplored point in the design space and envision a potential novel programming system.
 
 # Related work
 
@@ -642,6 +644,53 @@ The economic sustainability of a programming system can be even more important t
 
 Unfortunately sociability is often in conflict with learnability. Compatibility leads to ever increasing historical baggage for new learners to master. Large internet corporations have invested mainly in technologies relevant to their expdert staff and high-end needs. Open-source communities have mainly flourished around technologies for expert programmers "scratching their own itch". While there has been a flow of venture funding into "no-code" and "low-code" programming systems, it is not clear how they can become economically and socially sustainable. By and large, the internet era has seen the ascendancy of expert programmers and the eclipsing of programming systems for "the rest of us".
 
+# Discussion
+The technical dimensions framework is indented to assist the designers of programming systems. This section illustrates two ways in which the framework can be used. First, we use technical dimensions to analyze the recent programming system Dark^[https://darklang.com/], explaining how it relates to past work and how it contributes to the state of the art. Second, we use technical dimensions to identify a new unexplored point in the design space of programming systems and envision a new design that could emerge from the analysis.
+
+## Evaluating programming systems
+
+Dark^[https://darklang.com/] is a programming system for building "serverless backends", i.e., services that are used by web and mobile applications. Dark aims to make building of such services easier by "removing accidental complexity"^[https://roadmap.darklang.com/goals-of-dark-v2.html] that is the result of the large number of systems that are typically involved in deployment and operation of such services. This includes infrastructure for orchestration, scaling, logging, monitoring and versioning. Dark provides integrated tooling (Figure\ \ref{fig:dark}) for development and has been described as _deployless_, meaning that deploying code to production is instantaneous.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=1\linewidth]{dark.png}
+  \caption{Dark programming environment showing a simple web service consisting of a database, two HTTP end-points and a worker.\label{fig:dark}}
+  \note{FROM https://medium.com/@wilk/dark-lang-an-uncommon-step-towards-the-future-of-programming-921cf7f38baf}
+\end{figure}
+
+Dark is an interesting example of a programming system, because it shows the need for a holistic perspective that programming systems allow. Code is written in a programming language inspired by OCaml/F#, but the distinguishing feature is that it eliminates the many secondary systems that are needed for deployment of modern cloud-based services. Those exist outside of a typical programming language, but form a major part of the complexity of the overall development process.
+
+So much for the Dark "sales pitch". With technical dimensions, we can look behind the scenes and better understand the interesting technical aspects of Dark as a programming system.
+
+### Dimension analysis of Dark
+
+*Modes of interaction and feedback loops.* Conventional modes of interaction include running, editing and debugging. For modern web services, running refers to operation in a cloud-based environment that typically comes with further kind of feedback (logging and monitoring). The key design decision of Dark is to integrate all the different modes of interaction into a single one. The tight integration also allows Dark to provide more immediate feedback loop where code changes become immediately available not just to the developer, but also to external users. The integrated mode of interaction is reminiscent of the image-based programming in Smalltalk, but Dark advances the state of art by using the model in a multi-user (cloud-based) context.
+
+*Feedback loops and error response.* The integration of development and operation also makes it possible to use errors occurring during operation to drive the development. In particular, when a Dark service receives a request that is not supported, the user can build a handler to provide response and utilize the live data that was sent as part of the request. In terms of technical dimensions, this is a kind of _error response_ that has been pioneered by the PILOT system for LISP
+\cite{Pilot}, but Dark uses not just to respond to errors, but also as the primary development mechanism, which allows programmers to construct programs with respect to sample input values.
+
+*Conceptual structure and learnability.* Dark programs are expressed using high-level concepts that are specific to the domain of server-side web programming. Those are designed to reduce accidental complexity and aim for high _conceptual integrity_. There are high-level concepts for structuring applications (such as HTTP request handlers, database, worker and scheduled job). At the level of code, Dark uses a functional language inspired by OCaml that is general-purpose but emphasizes certain concepts (especially records and pipelines). The high-level concepts contribute to _learnability_ of the system, because they are highly domain-specific and will already be familiar to the intended users of the system.
+
+*Notational structure and uniformity.* Dark uses a combination of graphical editor and code. The two aspects of the notation follow the _complementing notations_ pattern. Graphical interface is used to work with the high-level concepts and code is used for working with low-level concepts. At the high-level, code is structured in boxes on a two-dimensional surface. This may resemble Boxer \cite{Boxer}, but the boxes are not nested and the space cannot be used for other content (one might imagine using it for comments, architectural illustrations or other media). Code at the low-level is manipulated using a syntax-aware structure editor that shows inferred types, computed live values and provides special editing support for records and pipelines, allowing users to add fields and steps, respectively.
+
+*Factoring of complexity and automation.* One of the advertised goals of Dark is to remove accidental complexity. This is achieved by collapsing heterogeneous stack of technologies that are typically required for development, cloud deployment, orchestration and operation. Dark hides this via _factoring of complexity_. The advanced infrastructure is provided by the Dark platform and is hidden from the user. The infrastructure is programmed explicitly and there is no need for sophisticated automation. This factoring of functionality that was previously coded manually follows a similar pattern as the development of garbage collection in high-level programming languages.
+
+*Customizability.* The Dark platform makes a clear distinction between the platform itself and the user application and so _self-sustainability_ is not an objective. Within the user code, system is developed by modifying and adding code and this requires access to source code. Thanks to the integration of execution and development, permanent changes may be done during execution (c.f., _staging of customization_) but this is done through the Dark editor, which is separate from the running service. Due to the strict division between the platform and user (which supports _factoring of complexity_), changes in the Dark platform would need to be done by modifying the platform source code itself (which is available under a license that solely allows using it for the purpose of contributing).
+
+### Technical innovations of Dark
+
+The analysis reveals a number of interesting aspects of the Dark programming system. The first is the tight integration of different _modes of interaction_ which collapses heterogeneous stack of technologies, makes Dark _learnable_ and allows quick feedback from deployed services. The second is the use of _error response_ to guide the development of HTTP handlers. Thanks to the technical dimensions framework, each of those can be more precisely described and it is also possible to see how they may be supported in other programming systems. The technical dimension framework also points to possible alternatives (and perhaps improvements) such as building a more self-sustainable system that has similar characteristics to Dark, but allows greater flexibility in modifying the platform itself from within itself.
+
+## Exploring design space
+
+
+TBD
+
+TBD
+
+TBD
+
+TBD
 
 # Conclusions
 There is a renewed interest in developing new programming systems. Such systems go beyond the simple model of code written in a programming language using a more or less sophisticated text editor. They combine textual and visual notations, create programs through rich graphical interactions, and challenge accepted assumptions about program editing, execution and debugging. Despite the growing number of novel programming systems, it remains difficult to evaluate the design of programming systems and see how they improve over work done in the past. To address the issue, we proposed a framework of “technical dimensions” that captures essential characteristics of programming systems in a qualitative but rigorous way.
