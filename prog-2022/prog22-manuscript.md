@@ -8,44 +8,30 @@
 
 # Introduction
 
-Many forms of software have been developed to enable programming. The classic form consists of a *programming language*, a text editor to enter source code, and a compiler to turn it into an executable program. Instances of this form are differentiated by the syntax and semantics of the language, along with the implementation techniques in the compiler or runtime environment. Since the advent of graphical user interfaces (GUIs), programming languages can be found embedded within graphical environments that increasingly define how programmers work with the language (by directly supporting debugging or refactoring, for instance.) Beyond this, the rise of GUIs also permits diverse visual forms of programming, including visual languages and GUI-based end-user programming tools. This paper relies on, and encourages, a shift of attention from *programming languages* to the more general notion of "software that enables programming"---in other words, *programming systems*.
+Many forms of software have been developed to enable programming. The classic form consists of a *programming language*, a text editor to enter source code, and a compiler to turn it into an executable program. Instances of this form are differentiated by the syntax and semantics of the language, along with the implementation techniques in the compiler or runtime environment. Since the advent of graphical user interfaces (GUIs), programming languages can be found embedded within graphical environments that increasingly define how programmers work with the language, for instance by directly supporting debugging or refactoring. Beyond this, the rise of GUIs also permits diverse visual forms of programming, including visual languages and GUI-based end-user programming tools. This paper advocates a shift of attention from *programming languages* to the more general notion of "software that enables programming"---in other words, *programming systems*.
 
-A *programming system* may include tools, protocols, notations, and languages. It is a software artifact that makes it possible to construct programs, debug them, and turn them into operational, maintained, and evolvable artifacts running on appropriate hardware. This notion covers classic programming languages together with their editors, debuggers, compilers, and other tools. Yet it is intentionally broad enough to accommodate image-based programming environments like Smalltalk, operating systems like UNIX, and hypermedia authoring systems like Hypercard, in addition to various other examples we will mention.
+A *programming system* may include tools, protocols, notations, interfaces, and languages. It is a software artifact that makes it possible to construct programs, debug them, and turn them into operational, maintained, and evolvable artifacts running on appropriate hardware. This notion covers classic programming languages together with their editors, debuggers, compilers, and other tools. Yet it is intentionally broad enough to accommodate image-based programming environments like Smalltalk, operating systems like UNIX, and hypermedia authoring systems like Hypercard, in addition to various other examples we will mention.
 
 ## What is the problem?
 
-There is a growing interest in broader forms of *programming systems*, both in the programming research community and in industry. On the one hand, researchers are increasingly studying topics such as *programming experience* and *live programming* that require considering not just the *language*, but further aspects of a given system. On the other hand, commercial companies are building new programming environments like Replit^[https://replit.com/] or low-code programming tools like Dark^[https://darklang.com/] and Glide.^[https://www.glideapps.com/] Yet, such topics remain at the sidelines of mainstream programming research. While *programming languages* are a well-established concept, analysed and compared in a common vocabulary, no similar foundation exists for the wider range of *programming systems*.
+There is a growing interest in broader forms of *programming systems*, both in the programming research community and in industry. On the one hand, researchers are studying topics such as *programming experience* and *live programming* that require considering not just the *language*, but further aspects of a given system. On the other hand, commercial companies are building new programming environments like Replit \cite{ReplitWeb} or low-code tools like Dark \cite{DarkWeb} and Glide \cite{GlideWeb}. Yet, such topics remain at the sidelines of mainstream programming research. While *programming languages* are a well-established concept, analysed and compared in a common vocabulary, no similar foundation exists for the wider range of *programming systems*.
 
-The academic research on programming suffers from this lack of common vocabulary. While we can thoroughly assess programming languages, as soon as we add interaction or graphics into the picture, we often get stuck on how the resulting system is vaguely "cool" or "interesting". Moreover, when designing new systems, inspiration is often drawn from the same few standalone sources of ideas. These might be influential past systems like Smalltalk, programmable end-user applications like spreadsheets, or motivational illustrations by thinkers like Victor\ \cite{BretVictor}.
+The academic research on programming suffers from this lack of common vocabulary. We can thoroughly assess programming languages, but as soon as we add interaction or graphics into the picture, we often get stuck on how the resulting system is vaguely "interesting". Moreover, when designing new systems, inspiration is often drawn from the same few standalone sources of ideas. These might be influential past systems like Smalltalk, programmable end-user applications like spreadsheets, or motivational illustrations by thinkers like Victor\ \cite{BretVictor}.
 
-Instead of forming a solid body of work, the ideas that emerge are difficult to relate to each other. Similarly, the research methods used to study programming systems lack the more rigorous structure of programming language research methods. They tend to rely on singleton examples, which demonstrate the author's ideas, but are inadequate methods for comparing new ideas with the work of others. This makes it hard to build on top and thereby advance the state of the art.
+Instead of forming a solid body of work, the ideas that emerge are difficult to relate to each other. The research methods used to study programming systems lack the rigorous structure of programming language research methods. They tend to rely on singleton examples, which demonstrate the author's ideas, but are inadequate methods for comparing new ideas with the work of others. This makes it hard to build on top and thereby advance the state of the art.
 
 Studying *programming systems* is not merely about taking a programming language and looking at the tools that surround it. It presents a *paradigm shift* to a perspective that is, at least partly, *incommensurable* with that of languages. When studying programming languages, everything that matters is in the program code; when studying programming systems, everything that matters is in the *interaction* between the programmer and the system. As documented by Gabriel \cite{PLrev}, looking at a *system* from a *language* perspective makes it impossible to think about concepts that arise from interaction with a system, but are not reflected in the language. Thus, we must proceed with some caution. As we will see, when we talk about Lisp as a programming system, we mean something very different from a parenthesis-heavy programming language!
 
 ## Contributions
-We propose a new common language as an initial step towards more progressive research on programming systems. Our set of *Technical Dimensions for Programming Systems* seeks to break down the holistic view of systems along various specific "axes" inspired by the approach of the *Cognitive\ Dimensions of\ Notation*\ \cite{CogDims}. While not strictly quantitative, we have designed them to be narrow enough to be comparable, so that we may say one system has more or less of a property than another. Generally, we see the various possibilities as trade-offs and are reluctant to assign them "good" or "bad" status. If the framework is to be useful, then it must encourage consensus on how to apply it; we expect it will be more helpful to agree on descriptions of systems first, and settle normative judgements later.
+We propose a common language as an initial step towards a more progressive research on programming systems. Our set of *technical dimensions* seeks to break down the holistic view of systems along various specific "axes". The dimensions identify a range of possible design choices, characterized by two extreme points in the design space. They are not quantitative, but they allow comparison by locating systems on a common axis. The extreme points on the range do not represent "good" or "bad" designs and a position on the axis is often a result of design trade-offs. This encourages agreement on descriptions of systems first and postpones normative judgements to later.
 
 The set of dimensions can be understood as a map of the design space of programming systems (Figure\ \ref{fig:tech-dims-diagram}). Past and present systems will serve as landmarks, and with enough of them, unexplored or overlooked possibilities will reveal themselves. So far, the field has not been able to establish a virtuous cycle of feedback; it is hard for practitioners to situate their work in the context of others' so that subsequent work can improve on it. Our aim is to provide foundations for the study of programming systems that would allow such development.
 
-This paper is intended as a reference on the current state of the technical dimensions framework and it is meant to be _used_ rather than _read_. We present the dimensions in detail, but encourage the reader to skim through the details on the first read, but return to the details of relevant dimensions once they have a concrete programming system that they wish to analyze in mind. The main contributions of this paper are organized as follows:
+This paper is intended as a reference on the current state of the technical dimensions framework and it is meant to be _used_ rather than _read_. We present the dimensions in detail, but encourage the reader to skim through the details on the first read and revisit the details of relevant dimensions once they have a concrete programming system in mind. The main contributions of this paper are organized as follows:
 
 1. In Section\ \ref{programming-systems}, we characterize what a programming system is and review landmark programming systems of the past that are used as examples throughout this paper, as well as to delineate our notion of a programming system.
 2. In Section\ \ref{technical-dimensions}, we present the technical dimensions in details, organised into related clusters: *interaction*, *notation*, *conceptual structure*, *customizability*, *complexity*, *errors*, and *adoptability*. For each technical dimension, we give examples that illustrate a number of values along the axis identified by the dimension.
 2. In Section\ \ref{discussion}, we sketch two ways of using the technical dimensions framework. In Section\ \ref{evaluating-programming-systems}, we use it to evaluate a recent interesting programming system and in Section\ \ref{exploring-design-space}, we use it to identify an unexplored point in the design space and envision a potential novel programming system.
-
-# Related work
-
-While we do have new ideas to propose, part of our contribution is integrating a wide range of *existing* concepts under a common umbrella. This work is spread out across different domains, but each part connects to programming systems or focuses on a specific characteristic they may have.
-
-## Which "systems" are we talking about?
-
-The programming systems that shape our framework come from a few recognisable clusters:
-
-- "Platforms" supporting arbitrary software ecosystems: UNIX, Lisp, Smalltalk, the Web
-- "Applications" targeted to a specific domain: spreadsheets
-- Mixed aspects of platform and application: HyperCard, Boxer, Flash, and programming language workflows
-
-Richard Gabriel noted a "paradigm shift" \cite{PLrev} from the study of systems to the study of languages in computer science, which informs our distinction here. One consequence of the change is that a *language* is often formally specified apart from any specific implementations, while *systems* resist formal specification and are often *defined by* an implementation. We do, however, intend to recognize programming language implementations as a *small region* of the space of possible systems (Figure\ \ref{fig:tech-dims-diagram}). Hence we refer to the *interactive programming system* aspects of languages, such as text editing and command-line workflow.
 
 \begin{figure}
   \centering
@@ -53,52 +39,66 @@ Richard Gabriel noted a "paradigm shift" \cite{PLrev} from the study of systems 
   \caption{A speculative sketch of one 2-dimensional slice of the space of possible systems.\label{fig:tech-dims-diagram}}
 \end{figure}
 
-Our "system" concept is mostly technical in scope, with occasional excursions as in "Adoptability" (Section\ \ref{adoptability}). This contrasts with the more socio-political focus found in Tchernavskij \cite{TcherDiss}. It overlaps with Kell's conceptualization of UNIX, Smalltalk, and Operating Systems generally\ \cite{KellOS}, and we have ensured that UNIX has a place in our framework.
 
-## Industry and research interest in programming systems
-There is renewed interest in programming systems in both industry and research. In industry we see:
+# Related work
 
-- Computational notebooks such as Jupyter^[https://jupyter.org/] that make data analysis more amenable to scientists by combining code snippets and their numerical or graphical output in a convenient document format.
-- “Low code” end-user programming systems that present a simplified GUI for developing applications. One example is Coda,^[https://coda.io/welcome] which combines tables, formulas, and scripts to enable non-technical people to build “applications as a document”.
-- Specialized programming systems that augment a specific domain. For example Dark, which creates cloud API services with a “holistic” programming experience including a language and direct manipulation editor with near-instantaneous building and deployment.
+While we do have new ideas to propose, part of our contribution is integrating a wide range of *existing* concepts under a common umbrella. This work is spread out across different domains, but each part connects to programming systems or focuses on a specific characteristic they may have.
+
+\paragraph{From languages to systems.}
+Our approach lies between narrow focus on programming languages and broad focus on programming as a socio-political and cultural subject. Our concept of a programming system is technical in scope, although we acknowledge the technical side often has important social implications as in the case of the "Adoptability" dimension (Section\ \ref{adoptability}). This contrasts with the more socio-political focus found in Tchernavskij \cite{TcherDiss} or in software studies \cite{SwStudies}. It overlaps with Kell's conceptualization of UNIX, Smalltalk, and Operating Systems generally\ \cite{KellOS}, and we have ensured that UNIX has a place in our framework.
+
+The distinction between more narrow _programming languages_ and broader _programming systems_ is more subtle. Richard Gabriel noted an invisible paradigm shift \cite{PLrev} from the study of systems to the study of languages in computer science. This observation informs our distinction here. One consequence of the change is that a *language* is often formally specified apart from any specific implementations, while *systems* resist formal specification and are often *defined by* an implementation. We recognize programming language implementations as a *small region* of the space of possible systems (Figure\ \ref{fig:tech-dims-diagram}). Hence we refer to the *interactive programming system* aspects of languages, such as text editing and command-line workflow.
+
+\paragraph{Programming systems research}
+There is renewed interest in programming systems in both industry and research, but the holistic programming systems view is more often adopted in work on non-traditional programming tools:
+
+- Computational notebooks such as Jupyter simplify data analysis by combining code snippets with text and visual output. They are backed by stateful "kernels" and used interactively.
+- "Low code" end-user programming systems allow application development (mostly) through a GUI. One example is Coda \cite{CodaWeb}, which combines tables, formulas, and scripts to enable non-technical people to build "applications as documents".
+- Domain-specific programming systems such as Dark, which creates cloud API services with a "holistic" programming experience including a language and direct manipulation editor with near-instantaneous building and deployment.
 - Even for general purpose programming with conventional tools, systems like Replit have demonstrated the benefits of integrating all needed languages, tools, and user interfaces into a seamless experience available from a browser with no setup.
 
-In research, there are an increasing number of explorations of the possibilities of full programming systems:
+Research that follows the programming system perspective can be found in a number of research venues. Those include human-computer interaction conferences such as [UIST](https://uist.acm.org/) (ACM Symposium on User Interface Software and Technology) and [VL/HCC](https://conferences.computer.org/VLHCC/) (IEEE Symposium on Visual Languages and Human-Centric Computing). However, work in those often emphasizes the user experience over technical description. Programming systems are often presented in workshops such as [LIVE](https://liveprog.org/) and [PX](https://2021.programming-conference.org/home/px-2021) (Programming eXperience). However, work in those venues often presents individual perspectives.
 
-- Subtext \cite{Subtext}, which combines code with its live execution in a single editable representation.
-- Sketch-n-sketch \cite{SnS}, which can synthesize code by direct manipulation of its outputs.
-- Hazel \cite{Hazel}, a live functional programming environment featuring typed holes which enable execution of incomplete or type-erroneous programs.
+Concrete examples of interesting programming systems appear throughout the paper. Recent systems that motivated some of our technical dimensions include Subtext \cite{Subtext}, which combines code with its live execution in a single editable representation; Sketch-n-sketch \cite{SnS}, which can synthesize code by direct manipulation of its outputs; Hazel \cite{Hazel}, a live functional programming environment featuring typed holes which enable execution of incomplete or type-erroneous programs; and Webstrates \cite{Webstrates}, a programming system that extends web technology with real-time sharing of state.
 
-Several research venues investigate programming systems:
+\paragraph{Already known characteristics.}
+There are several existing projects identifying characteristics of programming systems. Some revolve around a single one, such as levels of liveness \cite{Liveness}, or plurality and communicativity \cite{KellComm}. Others propose an entire collection. *Memory Models of Programming Languages*\ \cite{MemMod} identifies the "everything is an X" metaphors underlying many programming languages; the *Design Principles of Smalltalk*\ \cite{STdesign} documents the philosophical goals and dicta used in the design of Smalltalk; the "Gang of Four" *Design Patterns*\ \cite{DesPats} catalogues specific implementation tactics; and the *Cognitive Dimensions of Notation*\ \cite{CogDims} introduces a common vocabulary for software's *notational surface* and identify their trade-offs.
 
-- [UIST](https://uist.acm.org/) (ACM Symposium on User Interface Software and Technology)
-- [VL/HCC](https://conferences.computer.org/VLHCC/) (IEEE Symposium on Visual Languages and Human-Centric Computing)
-- The [LIVE programming](https://liveprog.org/) workshop at SPLASH
-- The [PX](https://2021.programming-conference.org/home/px-2021) (Programming eXperience) workshop at $\langle$Programming$\rangle$
+The latter two directly influence our proposal. Technical dimensions extends the approach of  Cognitive Dimensions to the "rest" of a system beyond its notation. Our individual dimensions naturally fall under larger *clusters* that we present in a regular format, similar to the presentation of the classic Design Patterns. As for characteristics identified by others, part of our contribution is to integrate them under a common umbrella: liveness, pluralism, and uniformity metaphors ("everything is an X") that have already been identified by others become dimensions in our framework.
 
-## Characteristics already identified elsewhere
-
-There are several existing projects identifying characteristics of programming systems. Some of these revolve around a single one, such as levels of liveness \cite{Liveness}, or plurality and communicativity \cite{KellComm}. Others propose, as we do here, an entire collection:
-
-- *Memory\ Models of\ Programming\ Languages*\ \cite{MemMod} identifies the "everything is an X" metaphors underlying many programming languages.
-- The *Design\ Principles of\ Smalltalk*\ \cite{STdesign} documents the philosophical goals and dicta used in the design of Smalltalk.
-- The "Gang of Four" *Design Patterns*\ \cite{DesPats} names and catalogues specific tactics within the *codebases* of software systems.
-- The *Cognitive\ Dimensions of\ Notation*\ \cite{CogDims} introduces a common vocabulary for software's *notational surface* and shows how they trade off and affect the performance of certain types of tasks.
-
-Of these sources, the latter two bear the most obvious influence on our proposal. Our framework of "technical dimensions" continues the approach of the Cognitive Dimensions to the "rest" of a system beyond its notation. Our individual dimensions naturally fall under larger *clusters* that we present in a regular format, similar to the presentation of the classic Design Patterns. As for characteristics identified by others, part of our contribution is to integrate them under a common umbrella: liveness, pluralism, and uniformity metaphors ("everything is an X") are incorporated as dimensions already identified by the related work.
-
+\paragraph{Methodology.}
 We follow the attitude of *Evaluating Programming Systems*\ \cite{EvProgSys} in distinguishing our work from HCI methods and empirical evaluation. We are generally concerned with characteristics that are not obviously amenable to statistical analysis (e.g. mining software repositories) or experimental methods like controlled user studies, so numerical quantities are generally not featured.
 
-Similar development seems to be taking place in HCI research focused on user interfaces. The UIST guidelines^[https://uist.acm.org/uist2021/author-guide.html] instruct authors to evaluate system contributions holistically, and the community has developed heuristics for such evaluation, such as *Evaluating User Interface Systems Research*\ \cite{EvUISR}. Our set of dimensions offers similar heuristics for identifying interesting aspects of programming systems, though they focus more on underlying technical properties than the surface interface.
+Similar development seems to be taking place in HCI research focused on user interfaces. The UIST guidelines \cite{UISTAuthor} instruct authors to evaluate system contributions holistically, and the community has developed heuristics for such evaluation, such as *Evaluating User Interface Systems Research*\ \cite{EvUISR}. Our set of dimensions offers similar heuristics for identifying interesting aspects of programming systems, though they focus more on underlying technical properties than the surface interface.
 
 Finally, we believe that the aforementioned paradigm shift from programming systems to programming languages has hidden many ideas about programming that are worthwhile recovering and developing further \cite{ComplementaryBasic}. Thus our approach is related to the idea of _complementary science_ developed by Chang\ \cite{Chang} in the context of history and philosophy of science. Chang argues that even in disciplines like physics, superseded or falsified theories may still contain interesting ideas worth documenting. In the field of programming, where past systems are discarded for many reasons besides empirical failure, Chang's _complementary science_ approach seems particularly suitable.
 
-## What we are trying to achieve
+\paragraph{Programming systems deserve a theory too!}
 In short, while there is a theory for programming languages, programming *systems* deserve a theory too. It should apply from the small scale of language implementations to the vast scale of operating systems. It should be possible to analyse the common and unique features of different systems, to reveal new possibilities, and to build on past work in an effective manner. In Kuhnian terms, it should enable a body of "normal science": filling in the map of the space of possible systems (Figure \ref{fig:tech-dims-diagram}), thereby forming a knowledge repository for future designers.
 
 # Programming systems
 
 \note{JE there is a lot of historical narrative in this section that may not be strictly necessary}
+
+x
+
+x
+
+TBD: DEFINE system here?
+
+x
+
+REUSE: The programming systems that shape our framework come from a few recognisable clusters:
+
+- "Platforms" supporting arbitrary software ecosystems: UNIX, Lisp, Smalltalk, the Web
+- "Applications" targeted to a specific domain: spreadsheets
+- Mixed aspects of platform and application: HyperCard, Boxer, Flash, and programming language workflows
+
+x
+
+x
+
+x
 
 We intentionally use the term _programming system_ to refer to a broad range of systems which are programmable to a varying degree. This section highlights a number of example families of programming systems, following a roughly chronological order. This serves three purposes. First, looking at a number of examples from the past helps build an intuitive understanding of what we mean by a programming system. Second, it allows us to introduce example systems that we will use in the next section to illustrate the individual technical dimensions. Third, studying the difference between systems in individual families is one way of identifying and motivating interesting technical dimensions.
 
