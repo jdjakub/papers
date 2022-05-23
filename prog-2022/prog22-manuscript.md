@@ -681,8 +681,15 @@ So much for the Dark "sales pitch". With technical dimensions, we can look behin
 
 The analysis reveals a number of interesting aspects of the Dark programming system. The first is the tight integration of different _modes of interaction_ which collapses heterogeneous stack of technologies, makes Dark _learnable_ and allows quick feedback from deployed services. The second is the use of _error response_ to guide the development of HTTP handlers. Thanks to the technical dimensions framework, each of those can be more precisely described and it is also possible to see how they may be supported in other programming systems. The technical dimension framework also points to possible alternatives (and perhaps improvements) such as building a more self-sustainable system that has similar characteristics to Dark, but allows greater flexibility in modifying the platform itself from within itself.
 
-## Exploring design space
+## Exploring the design space
 
+With a little work, technical dimensions can let us see patterns or gaps in the design space by plotting their values on a simple scatterplot. Here, we will look at two dimensions, notational flexibilty and self-sustainability, for the following programming systems: Haskell, Jupyter notebooks, Boxer, HyperCard, Web browsers, spreadsheets, Lisp, Smalltalk, and Unix.
+
+While our choice to identify and describe dimensions as qualitative concepts was necessary for coming up with them, *some* way of generating numbers is clearly necessary for visualizing their relationships like this. For simplicity,^[There are undoubtedly many ways to turn our descriptions into various measures, with strengths and weaknesses for different purposes, but this is beyond the scope of the present paper. Here, we merely wish to demonstrate that such a thing is possible and illustrate what one can do with the results.] we adopt the following scheme. For each dimension, we distill the main idea into several yes/no questions (Appendix\ \ref{questions}) that capture enough of the distinctions we observe between the systems we wish to plot. Then, for each system, we add up the number of "yes" answers and obtain a plausible score for the dimension.
+
+TODO: graph.
+
+Figure ?? shows the results we obtained with our sets of questions.
 
 TBD
 
