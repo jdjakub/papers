@@ -640,7 +640,7 @@ Dark^[https://darklang.com/] is a programming system for building "serverless ba
   \note{FROM https://medium.com/@wilk/dark-lang-an-uncommon-step-towards-the-future-of-programming-921cf7f38baf}
 \end{figure}
 
-Dark is an interesting example of a programming system, because it shows the need for a holistic perspective that programming systems allow. Code is written in a programming language inspired by OCaml/F#, but the distinguishing feature is that it eliminates the many secondary systems that are needed for deployment of modern cloud-based services. Those exist outside of a typical programming language, but form a major part of the complexity of the overall development process.
+Dark is an A-type programming system, meaning that it is an application used for building domain-specific programs, albeit in a broad general-purpose domain of web services. It illustrates the need for a holistic perspective that programming systems allow. Code is written in a programming language inspired by OCaml/F#, but the distinguishing feature is that it eliminates the many secondary systems that are needed for deployment of modern cloud-based services. Those exist outside of a typical programming language, but form a major part of the complexity of the overall development process.
 
 So much for the Dark "sales pitch". With technical dimensions, we can look behind the scenes and better understand the interesting technical aspects of Dark as a programming system.
 
