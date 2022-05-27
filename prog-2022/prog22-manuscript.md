@@ -35,10 +35,9 @@ This paper is intended as a reference on the current state of the technical dime
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.5\linewidth]{tech-dims-diagram.png}
-  \caption{A speculative sketch of one 2-dimensional slice of the space of possible systems.\label{fig:tech-dims-diagram}}
+  \includegraphics[width=0.6\linewidth]{plot-figure0.pdf}
+  \caption{One 2-dimensional slice of the space of possible systems, to be examined in more detail in Section\ \ref{exploring-the-design-space}.\label{fig:tech-dims-diagram}}
 \end{figure}
-
 
 # Related work
 
@@ -140,7 +139,7 @@ While spreadsheets were designed to solve problems in a specific application are
 
 As a programming system, HyperCard is interesting for a couple of reasons. It effectively combines visual and textual notation. Programs appear the same way during editing as they do during execution. Most notably, HyperCard supports gradual progression from the "user" role to "developer": a user may first use stacks, then go on to edit the visual aspects or choose pre-defined logic until, eventually, they learn to program in HyperTalk.
 
-\includepdf{table.pdf}
+\includepdf[pages={2}]{table.pdf}
 
 # Technical dimensions
 For the rest of this paper, we present our proposed technical dimensions grouped under *clusters*. The clusters may be regarded as "topics of interest" or "areas of inquiry" when studying a given system, grouping together related dimensions against which to measure it. We also include a concise reference sheet on the next page, though it will make more sense after reading the relevant sections.
@@ -464,7 +463,7 @@ The terms "self-describing" or "self-implementing" have been used for this prope
 
 *UNIX*: Self-sustainability of UNIX is owed to the combination of two factors. First, the system is implemented in binary files (via ELF^[Executable and Linkable Format.]) and text files (for configuration). Second, these files are part of the user-facing filesystem, so users can replace and modify parts of the system using UNIX file interfaces.
 
-*Smalltalk and COLAs*: Self-sustainability in Smalltalk is similar to UNIX, but at a finer granularity and with less emphasis on whether things reside in volatile (process) or non-volatile (file) storage. The analogous points are that (1) the system is implemented as objects with methods containing Smalltalk code, and (2) these are modifiable using the class browser and code editor. Combined Object Lambda Architectures, or COLAs \cite{COLAs}, are a theoretical system design to improve on the self-sustainability of Smalltalk. This is achieved by generalizing the object model to support relationships beyond classes.
+*Smalltalk and COLAs*: Self-sustainability in Smalltalk is similar to UNIX, but at a finer granularity and with less emphasis on whether things reside in volatile (process) or non-volatile (file) storage. The analogous points are that (1) the system is implemented as objects with methods containing Smalltalk code, and (2) these are modifiable using the class browser and code editor. Combined Object Lambda Architectures, or COLAs\ \cite{COLAs}, are a theoretical system design to improve on the self-sustainability of Smalltalk. This is achieved by generalizing the object model to support relationships beyond classes.
 
 ### References
 In addition to the examples discussed above, the proceedings of self-sustaining systems workshops \cite{SelfSustaining2008,SelfSustaining2010} provides numerous examples of systems and languages that are able to bootstrap, implement, modify, and maintain themselves; Gabriel's analysis of programming language revolutions \cite{PLrev} uses _advising_ in PILOT, related Lisp mechanisms, and "mixins" in OOP to illustrate the difference between the "languages" and "systems" paradigms.
@@ -666,19 +665,17 @@ This analysis reveals a number of interesting aspects of the Dark programming sy
 
 ## Exploring the design space
 
-With a little work, technical dimensions can let us see patterns or gaps in the design space by plotting their values on a simple scatterplot. Here, we will look at two dimensions, *notational diversity*^[This is simply the dimension we named as *uniformity of notations*, but flipped in the opposite direction.] and *self-sustainability*, for the following programming systems: Haskell, Jupyter notebooks, Boxer, HyperCard, the Web, spreadsheets, Lisp, Smalltalk, Unix, and COLAs.
+With a little work, technical dimensions can let us see patterns or gaps in the design space by plotting their values on a simple scatterplot. Here, we will look at two dimensions, *notational diversity*^[This is simply the dimension we named as *uniformity of notations*, but flipped in the opposite direction.] and *self-sustainability*, for the following programming systems: Haskell, Jupyter notebooks, Boxer, HyperCard, the Web, spreadsheets, Lisp, Smalltalk, UNIX, and COLAs.
 
 While our choice to identify and describe dimensions as qualitative concepts was necessary for coming up with them, *some* way of generating numbers is clearly necessary for visualizing their relationships like this. For simplicity,^[There are undoubtedly many ways to turn our descriptions into various measures, with strengths and weaknesses for different purposes, but this is beyond the scope of the present paper. Here, we merely wish to demonstrate that such a thing is possible and show what one can do with the results.] we adopt the following scheme. For each dimension, we distill the main idea into several yes/no questions (Appendix\ \ref{questions}) that capture enough of the distinctions we observe between the systems we wish to plot. Then, for each system, we add up the number of "yes" answers and obtain a plausible score for the dimension.
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.5\linewidth]{plot.pdf}
+  \includegraphics[width=0.6\linewidth]{plot-figure0.pdf}
   \caption{Example programming systems (or system families) measured against \emph{self-sustainability} and \emph{notational diversity}, revealing an absence of systems with a high degree of both. \label{fig:design-space-plot}}
 \end{figure}
 
-Figure\ \ref{fig:design-space-plot} shows the results we obtained with our sets of questions.
-
-As you can see, it's pretty cool.
+Figure\ \ref{fig:design-space-plot} shows the results we obtained with our sets of questions. It shows that the A-types span a range of notational diversity, but only within fairly low self-sustainability. The O-types cluster in an "island" at the right, sharing identical notational diversity and near-identical self-sustainability. There is also a conspicuous blank space at the top-right, representing an unexplored combination of high values on both dimensions. With other pairs of dimensions, we might take this as evidence of an oppositional relationship, such that more of one inherently means less of the other (perhaps looking for a single new dimension that describes this better.) In this case, though, there is no obvious conflict between having many notations and being able to change a system from within. Therefore, we interpret the gap as a new opportunity to try out: combine the self-sustainability of COLAs with the notational diversity of Boxer and Web development. In fact, this is more or less the programming system one of us (Joel) has been creating for his forthcoming dissertation.
 
 # Conclusions
 There is a renewed interest in developing new programming systems. Such systems go beyond the simple model of code written in a programming language using a more or less sophisticated text editor. They combine textual and visual notations, create programs through rich graphical interactions, and challenge accepted assumptions about program editing, execution and debugging. Despite the growing number of novel programming systems, it remains difficult to evaluate the design of programming systems and see how they improve over work done in the past. To address the issue, we proposed a framework of “technical dimensions” that captures essential characteristics of programming systems in a qualitative but rigorous way.
