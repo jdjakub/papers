@@ -31,7 +31,7 @@ This paper is intended as a reference on the current state of the technical dime
 
 1. In Section\ \ref{programming-systems}, we characterize what a programming system is and review landmark programming systems of the past that are used as examples throughout this paper, as well as to delineate our notion of a programming system.
 2. In Section\ \ref{technical-dimensions}, we present the technical dimensions in details, organised into related clusters: *interaction*, *notation*, *conceptual structure*, *customizability*, *complexity*, *errors*, and *adoptability*. For each technical dimension, we give examples that illustrate a number of values along the axis identified by the dimension.
-2. In Section\ \ref{discussion}, we sketch two ways of using the technical dimensions framework. In Section\ \ref{evaluating-programming-systems}, we use it to evaluate a recent interesting programming system and in Section\ \ref{exploring-design-space}, we use it to identify an unexplored point in the design space and envision a potential novel programming system.
+2. In Section\ \ref{discussion}, we sketch two ways of using the technical dimensions framework. In Section\ \ref{evaluating-programming-systems}, we use it to evaluate a recent interesting programming system and in Section\ \ref{exploring-the-design-space}, we use it to identify an unexplored point in the design space and envision a potential novel programming system.
 
 \begin{figure}
   \centering
@@ -49,7 +49,7 @@ Our approach lies between a narrow focus on programming languages and a broad fo
 
 The distinction between more narrow _programming languages_ and broader _programming systems_ is more subtle. Richard Gabriel noted an invisible paradigm shift from the study of "systems" to the study of "languages" in computer science \cite{PLrev}, and this observation informs our distinction here. One consequence of the change is that a *language* is often formally specified apart from any specific implementations, while *systems* resist formal specification and are often *defined by* an implementation. We recognize programming language implementations as a *small region* of the space of possible systems (Figure\ \ref{fig:tech-dims-diagram}). Hence we refer to the *interactive programming system* aspects of languages, such as text editing and command-line workflow.
 
-\paragraph{Programming systems research}
+\paragraph{Programming systems research.}
 There is renewed interest in programming systems in both industry and research, but the holistic programming systems view is more often adopted in work on non-traditional programming tools:
 
 - Computational notebooks such as Jupyter simplify data analysis by combining code snippets with text and visual output. They are backed by stateful "kernels" and used interactively.
@@ -61,7 +61,7 @@ Research that follows the programming systems perspective can be found in a numb
 
 Concrete examples of systems appear throughout the paper. Recent systems which motivated some of our dimensions include Subtext \cite{Subtext}, which combines code with its live execution in a single editable representation; Sketch-n-sketch \cite{SnS}, which can synthesize code by direct manipulation of its outputs; Hazel \cite{Hazel}, a live functional programming environment with typed holes to enable execution of incomplete or ill-typed programs; and Webstrates \cite{Webstrates}, which extends Web pages with real-time sharing of state.
 
-\paragraph{Already known characteristics.}
+\paragraph{Already-known characteristics.}
 There are several existing projects identifying characteristics of programming systems. Some revolve around a single one, such as levels of liveness \cite{Liveness}, or plurality and communicativity \cite{KellComm}. Others propose an entire collection. *Memory Models of Programming Languages*\ \cite{MemMod} identifies the "everything is an X" metaphors underlying many programming languages; the *Design Principles of Smalltalk*\ \cite{STdesign} documents the philosophical goals and dicta used in the design of Smalltalk; the "Gang of Four" *Design Patterns*\ \cite{DesPats} catalogues specific implementation tactics; and the *Cognitive Dimensions of Notation*\ \cite{CogDims} introduces a common vocabulary for software's *notational surface* and identify their trade-offs.
 
 The latter two directly influence our proposal. Technical dimensions extends the approach of Cognitive Dimensions to the "rest" of a system beyond its notation. Our individual dimensions naturally fall under larger *clusters* that we present in a regular format, similar to the presentation of the classic Design Patterns. As for characteristics identified by others, part of our contribution is to integrate them under a common umbrella: liveness, pluralism, and uniformity metaphors ("everything is an X"), which have already been identified by others, become dimensions in our framework.
@@ -78,7 +78,7 @@ In short, while there is a theory for programming languages, programming *system
 
 # Programming systems
 
-We introduce the notion of a _programming system_ through a number of examples, classified into three broad types. Our classification follows the style of Lehman \cite{SPEPrograms} and identifies three types of programming systems, loosely inspired by the notions of _languages_, _operating systems_ and _applications_:
+We introduce the notion of a _programming system_ through a number of examples, classified following the style of Lehman \cite{SPEPrograms} into three broad types. These are loosely inspired by the notions of _languages_, _operating systems_ and _applications_:
 
 - **L-type programming systems** are software ecosystems built around a text-based programming _language_. They consist of a set of tools such as compilers, debuggers, and profilers. These tools may exist as separate command-line programs, or within an Integrated Development Environment.
 
@@ -636,7 +636,7 @@ Dark is a programming system for building "serverless backends", i.e. services t
 \begin{figure}
   \centering
   \includegraphics[width=1\linewidth]{dark.png}
-  \caption{Dark programming environment showing a simple web service comprising a database, two HTTP endpoints and a worker.\label{fig:dark}}
+  \caption{The Dark programming environment showing a simple web service comprising a database, two HTTP endpoints and a worker.\label{fig:dark}}
   \note{FROM https://medium.com/@wilk/dark-lang-an-uncommon-step-towards-the-future-of-programming-921cf7f38baf}
 \end{figure}
 
@@ -662,25 +662,23 @@ The integration of development and operation also makes it possible to use *erro
 
 ### Technical innovations of Dark
 
-This analysis reveals a number of interesting aspects of the Dark programming system. The first is the tight integration of different _modes of interaction_ which collapses a heterogeneous stack of technologies, makes Dark _learnable_ and allows quick feedback from deployed services. The second is the use of _error response_ to guide the development of HTTP handlers. Thanks to the technical dimensions framework, each of these can be more precisely described. It is also possible to see how they may be supported in other programming systems. The framework also points to possible alternatives (and perhaps improvements) such as building a more self-sustainable system that has similar characteristics to Dark, but allows greater flexibility in modifying the platform from within itself.
+This analysis reveals a number of interesting aspects of the Dark programming system. The first is the tight integration of different _modes of interaction_ which collapses a heterogeneous stack of technologies, makes Dark _learnable_, and allows quick feedback from deployed services. The second is the use of _error response_ to guide the development of HTTP handlers. Thanks to the technical dimensions framework, each of these can be more precisely described. It is also possible to see how they may be supported in other programming systems. The framework also points to possible alternatives (and perhaps improvements) such as building a more self-sustainable system that has similar characteristics to Dark, but allows greater flexibility in modifying the platform from within itself.
 
 ## Exploring the design space
 
-With a little work, technical dimensions can let us see patterns or gaps in the design space by plotting their values on a simple scatterplot. Here, we will look at two dimensions, *notational diversity*^[This is simply the dimension we named as *uniformity of notations*, but flipped in the opposite direction.] and *self-sustainability*, for the following programming systems: Haskell, Jupyter notebooks, Boxer, HyperCard, the Web, spreadsheets, Lisp, Smalltalk, and Unix.
+With a little work, technical dimensions can let us see patterns or gaps in the design space by plotting their values on a simple scatterplot. Here, we will look at two dimensions, *notational diversity*^[This is simply the dimension we named as *uniformity of notations*, but flipped in the opposite direction.] and *self-sustainability*, for the following programming systems: Haskell, Jupyter notebooks, Boxer, HyperCard, the Web, spreadsheets, Lisp, Smalltalk, Unix, and COLAs.
 
-While our choice to identify and describe dimensions as qualitative concepts was necessary for coming up with them, *some* way of generating numbers is clearly necessary for visualizing their relationships like this. For simplicity,^[There are undoubtedly many ways to turn our descriptions into various measures, with strengths and weaknesses for different purposes, but this is beyond the scope of the present paper. Here, we merely wish to demonstrate that such a thing is possible and illustrate what one can do with the results.] we adopt the following scheme. For each dimension, we distill the main idea into several yes/no questions (Appendix\ \ref{questions}) that capture enough of the distinctions we observe between the systems we wish to plot. Then, for each system, we add up the number of "yes" answers and obtain a plausible score for the dimension.
+While our choice to identify and describe dimensions as qualitative concepts was necessary for coming up with them, *some* way of generating numbers is clearly necessary for visualizing their relationships like this. For simplicity,^[There are undoubtedly many ways to turn our descriptions into various measures, with strengths and weaknesses for different purposes, but this is beyond the scope of the present paper. Here, we merely wish to demonstrate that such a thing is possible and show what one can do with the results.] we adopt the following scheme. For each dimension, we distill the main idea into several yes/no questions (Appendix\ \ref{questions}) that capture enough of the distinctions we observe between the systems we wish to plot. Then, for each system, we add up the number of "yes" answers and obtain a plausible score for the dimension.
 
-TODO: graph.
+\begin{figure}
+  \centering
+  \includegraphics[width=0.5\linewidth]{plot.pdf}
+  \caption{Example programming systems (or system families) measured against \emph{self-sustainability} and \emph{notational diversity}, revealing an absence of systems with a high degree of both. \label{fig:design-space-plot}}
+\end{figure}
 
-Figure ?? shows the results we obtained with our sets of questions.
+Figure\ \ref{fig:design-space-plot} shows the results we obtained with our sets of questions.
 
-TBD
-
-TBD
-
-TBD
-
-TBD
+As you can see, it's pretty cool.
 
 # Conclusions
 There is a renewed interest in developing new programming systems. Such systems go beyond the simple model of code written in a programming language using a more or less sophisticated text editor. They combine textual and visual notations, create programs through rich graphical interactions, and challenge accepted assumptions about program editing, execution and debugging. Despite the growing number of novel programming systems, it remains difficult to evaluate the design of programming systems and see how they improve over work done in the past. To address the issue, we proposed a framework of “technical dimensions” that captures essential characteristics of programming systems in a qualitative but rigorous way.
