@@ -3,7 +3,7 @@
 set -euxo pipefail
 
 pandoc prog22-manuscript.md --output prog22-manuscript.tex
-#pandoc prog22-appendix.md --output prog22-appendix.tex
+pandoc prog22-appendix.md --output prog22-appendix.tex
 lualatex prog22-master
 
 if [ -z "${LITE:-}" ]; then

@@ -11,6 +11,11 @@
 % before \begin{document} on input line 6.
 \usepackage{changepage} % For the single-page summary table PDF insert.
 \usepackage{pdfpages}
+\usepackage{pifont} % For checkmark / cross symbols for Appendix table :)
+
+% Thanks https://tex.stackexchange.com/a/32687
+\NewDocumentCommand{\rot}{O{45} O{1em} m}{\makebox[#2][l]{\rotatebox{#1}{#3}}}%
+
 \begin{document}
 
 \paperdetails{perspective=art, area={Programming systems}}
@@ -81,8 +86,8 @@ Technical dimensions capture characteristics that may be studied, compared and a
 
 \input{prog22-manuscript.tex}
 
-% \appendix
-% \input{prog22-appendix.tex}
+\appendix
+\input{prog22-appendix.tex}
 
 \bibliography{prog22}
 \end{document}
