@@ -139,8 +139,6 @@ While spreadsheets were designed to solve problems in a specific application are
 
 As a programming system, HyperCard is interesting for a couple of reasons. It effectively combines visual and textual notation. Programs appear the same way during editing as they do during execution. Most notably, HyperCard supports gradual progression from the "user" role to "developer": a user may first use stacks, then go on to edit the visual aspects or choose pre-defined logic until, eventually, they learn to program in HyperTalk.
 
-\includepdf[pages={2}]{table.pdf}
-
 # Technical dimensions
 For the rest of this paper, we present our proposed technical dimensions grouped under *clusters*. The clusters may be regarded as "topics of interest" or "areas of inquiry" when studying a given system, grouping together related dimensions against which to measure it. We also include a concise reference sheet on the next page, though it will make more sense after reading the relevant sections.
 
@@ -155,6 +153,8 @@ An essential aspect of programming systems is how the user interacts with them w
 Other forms are yet possible. On the one hand, some typical interactions like compilation or execution of a program  may not be perceptible at all. On the other hand, the system may provide various interfaces to support the plethora of other interactions that are often important in programming, such as looking up documentation, managing dependencies, refactoring or pair programming.
 
 We focus on the interactions where programmer interacts with the system to construct a program with a desired behavior. To analyze those, we use the concepts of *gulf of execution* and *gulf of evaluation* from *The Design of Everyday Things*\ \cite{Norman}.
+
+\includepdf[pages={2}]{table.pdf}
 
 ### Dimension: feedback loops
 In using a system, one first has some idea and attempts to make it exist in the software; the gap between the user's goal and the means to execute the goal is known as the *gulf of execution*. Then, one compares the result actually achieved to the original goal in mind; this crosses the *gulf of evaluation*. These two activities comprise the *feedback loop* through which a user gradually realises their desires in the imagination, or refines those desires to find out "what they actually want".
