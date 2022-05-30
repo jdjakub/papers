@@ -1,4 +1,12 @@
-# Methodology for obtaining numbers
+# Making dimensions quantitative
+
+To generate numerical co-ordinates for *self-sustainability* and *notational diversity*, we split both dimensions into a small number of yes/no questions and counted the "yes" answers for each system. We came up with the questions informally, with the goal of achieving three things:
+
+1. To capture the basic ideas or features of the dimension
+2. To make prior impressions more precise (i.e. to roughly match where we intuitively felt certain key systems fit, but provide precision and possible surprises for systems we were not as confident about.)
+3. To be the fewest in number necessary to attain the above
+
+The results of this process were as follows.
 
 \newcommand{\y}{\ding{52}}
 \newcommand{\n}{}
