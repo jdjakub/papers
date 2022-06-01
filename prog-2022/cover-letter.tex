@@ -1,0 +1,21 @@
+\documentclass[english]{programming}
+\usepackage[a4paper, top=1in, bottom=1in]{geometry}
+% Class scrartcl Warning: seems someone has broken package `auxhook'.
+% Usually this happens, if `auxhook' is loaded or used implicitly or explicitly
+% by patching \document or via etoolbox command \AtEndPreamble. Trying an
+% emergency workaround. You can avoid this warning adding:
+\usepackage{auxhook}
+% before \begin{document} on input line 6.
+
+\title{Cover letter}
+
+\begin{document}
+
+\providecommand{\tightlist}{}% Don't want Pandoc's tight lists
+%\newcommand{\hypertarget}[1]{}
+
+\pagenumbering{gobble}
+
+\input{changelog.tex}
+
+\end{document}
