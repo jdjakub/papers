@@ -1,0 +1,53 @@
+\documentclass[sigplan,review]{acmart}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{amsthm}
+
+\acmConference{Onward! Essays}{December 5--10, 2022}{Auckland, New Zealand}
+
+\title{Ascending the Ladder to Self-Sustainability}
+\subtitle{Achieving open evolution in an interactive graphical system}
+\author{Joel Jakubovic}
+\affiliation{\institution{University of Kent} \city{Canterbury} \country{United Kingdom}}
+\email{jdj9@kent.ac.uk}
+\author{Tomas Petricek}
+\affiliation{\institution{Charles University} \city{Prague} \country{Czechia}}
+\email{tomas@tomasp.net}
+
+\begin{document}
+
+\lstset{breaklines=true, columns=fullflexible, breakatwhitespace=true, basicstyle=\ttfamily\footnotesize}
+\lstdefinelanguage{JavaScript}{
+  keywords={break, case, catch, continue, debugger, default, delete, do, else, finally, for, function, if, in, instanceof, new, return, switch, this, throw, try, typeof, var, void, while, with, let, const},
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]",
+  sensitive=true
+}
+
+\newcommand{\joel}[1]{}
+\newcommand{\tomas}[1]{}
+\newcommand{\note}[1]{}
+\newcommand{\notes}[1]{}
+\newcommand{\todo}[1]{\textbf{TODO: #1}}
+\newcommand{\delete}[1]{\textbf{DELETE:}#1}
+\providecommand{\tightlist}{}% Don't want Pandoc's tight lists
+% Nor do we want long tables by default
+\newenvironment{longtable}[2]{\begin{tabular}}{\end{tabular}}
+\newenvironment{head}{}{}
+\theoremstyle{definition}
+\newtheorem{force}{Force}
+\newtheorem{heuristic}{Heuristic}
+\newtheorem{requirement}{Requirement}
+\newcommand{\naive}{na\"ive}
+%\newcommand{\hypertarget}[1]{}
+
+\input{onward22-manuscript.tex}
+
+\appendix
+\input{onward22-appendix.tex}
+
+\bibliographystyle{plainurl}
+\bibliography{onward22}
+\end{document}
