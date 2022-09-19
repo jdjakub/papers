@@ -12,6 +12,8 @@
 \usepackage{changepage} % For the single-page summary table PDF insert.
 \usepackage{pdfpages}
 \usepackage{pifont} % For checkmark / cross symbols for Appendix table :)
+\usepackage{amsthm} % For numberless Definition
+\usepackage{epigraph} % For the opening quotes
 
 % Thanks https://tex.stackexchange.com/a/32687
 \NewDocumentCommand{\rot}{O{45} O{1em} m}{\makebox[#2][l]{\rotatebox{#1}{#3}}}%
@@ -88,6 +90,7 @@ NOTE TO REVIEWERS: The main contribution of the paper is a comprehensive survey 
 \newcommand{\tp}[1]{}
 \newcommand{\mybox}[1]{\noindent\fbox{\parbox{\textwidth}{#1}}}
 \providecommand{\tightlist}{}% Don't want Pandoc's tight lists
+\newtheorem*{defn}{Definition}
 %\newcommand{\hypertarget}[1]{}
 
 \input{prog22-manuscript.tex}
