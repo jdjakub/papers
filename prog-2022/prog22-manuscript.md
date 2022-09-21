@@ -1,4 +1,4 @@
-
+\setlength{\epigraphwidth}{0.6\linewidth}
 \epigraph{A systematic presentation removes ideas from the ground that made them grow and arranges them in an artificial pattern.}{\textit{The Tyranny of Science} \\ \textsc{Paul Feyerabend}}
 
 \joel{
@@ -23,7 +23,7 @@ This notion covers classic programming languages together with their editors, de
 
 There is a growing interest in broader forms of *programming systems*, both in the programming research community and in industry. On the one hand, researchers are studying topics such as *programming experience* and *live programming* that require considering not just the *language*, but further aspects of a given system. On the other hand, commercial companies are building new programming environments like Replit\ \cite{ReplitWeb} or low-code tools like Dark\ \cite{DarkWeb} and Glide\ \cite{GlideWeb}. Yet, such topics remain at the sidelines of mainstream programming research. While *programming languages* are a well-established concept, analysed and compared in a common vocabulary, no similar foundation exists for the wider range of *programming systems*.
 
-The academic research on programming suffers from this lack of common vocabulary. While we may thoroughly assess programming *languages*, as soon as we add interaction or graphics into the picture, we risk lacking rationale beyond being vaguely "interesting". Moreover, when designing new systems, inspiration is often drawn from the same few standalone sources of ideas. These might be influential past systems like Smalltalk, programmable end-user applications like spreadsheets, or motivational illustrations by thinkers like Victor\ \cite{BretVictor}.
+The academic research on programming suffers from this lack of common vocabulary. While we may thoroughly assess programming *languages*, as soon as we add interaction or graphics into the picture, evaluation beyond subjective "coolness" becomes fraught with difficulty \cite{EvUISR}. Moreover, when designing new systems, inspiration is often drawn from the same few standalone sources of ideas. These might be influential past systems like Smalltalk, programmable end-user applications like spreadsheets, or motivational illustrations by thinkers like Victor\ \cite{BretVictor}.
 
 Instead of forming a solid body of work, the ideas that emerge are difficult to relate to each other. The research methods used to study programming systems lack the rigorous structure of programming language research methods. They tend to rely on singleton examples, which demonstrate the author's ideas, but are inadequate methods for comparing new ideas with the work of others. This makes it hard to build on top and thereby advance the state of the art.
 
@@ -88,7 +88,7 @@ We introduce the notion of a _programming system_ through a number of example sy
 
 - Software ecosystems built around a text-based programming _language_. They consist of a set of tools such as compilers, debuggers, and profilers. These tools may exist as separate command-line programs, or within an Integrated Development Environment.
 
-- Those that resemble _operating systems_ in that they structure the execution environment and encompass the resources of an entire machine (physical or virtual). They provide a common interface for communication, both between the user and the computer, and between programs themselves.
+- Those that resemble an _operating system_ (OS) in that they structure the execution environment and encompass the resources of an entire machine (physical or virtual). They provide a common interface for communication, both between the user and the computer, and between programs themselves.
 
 - Programmable _applications_, typically optimized for a specific domain, offering a limited degree of programmability which may be increased with newer versions.
 
@@ -111,9 +111,9 @@ A different kind of developer ecosystem that evolved around a programming langua
 
 As a programming system, Jupyter has a number of interesting characteristics. The primary outcome of programming is the notebook itself, rather than a separate application to be compiled and run. The code lives in a document format, interleaved with other notations. Code is written in small parts that are executed quickly, offering the user more rapid feedback than in conventional programming. A notebook can be seen as a trace of how the result has been obtained, yet one often problematic feature of notebooks is that some allow the user to run code blocks out-of-order. The code manipulates mutable state that exists in a "kernel" running in the background. Thus, retracing one's steps in a notebook is more subtle than in, say, Common Lisp, where the `dribble` function would directly record the user's session to a file.
 
-## Systems resembling operating systems
+## OS-like programming systems
 
-These begin from the 1960s when it became possible to interact one-on-one with a computer. First, time-sharing systems enabled interactive shared use of a computer via a teletype; smaller computers such as the PDP-1 and PDP-8 provided similar direct interaction, while 1970s workstations such as the Alto and Lisp Machines added graphical displays and mouse input.
+These begin from the 1960s when it became possible to interact one-on-one with a computer. First, time-sharing systems enabled interactive shared use of a computer via a teletype; smaller computers such as the PDP-1 and PDP-8 provided similar direct interaction, while 1970s workstations such as the Alto and Lisp Machines added graphical displays and mouse input. These *OS-like* systems stand out as having the totalising scope of *operating systems*, whether or not they are *officially* considered as such.
 
 \paragraph{MacLisp and Interlisp.}
 LISP 1.5 \cite{LISP15} arrived before the rise of interactive computers, but the existence of an interpreter and the absence of declarations made it natural to use Lisp interactively, with the first such implementations appearing in the early 1960s. Two branches of the Lisp family \cite{LispEvolve}, MacLisp and the later Interlisp, embraced the interactive "conversational" way of working, first through a teletype and later using the screen and keyboard.
@@ -223,7 +223,45 @@ Dark is a programming system for building "serverless backends", i.e. services t
 
 Dark illustrates the need for the broader perspective of programming systems. Of course, it contains a programming language, which is inspired by OCaml and F#. But Dark's distinguishing feature is that it eliminates the many secondary systems needed for deployment of modern cloud-based services. Those exist outside of a typical programming language, yet form a major part of the complexity of the overall development process.
 
-With technical dimensions, we can go beyond the "sales pitch", look behind the scenes, and better understand the interesting technical aspects of Dark as a programming system.
+With technical dimensions, we can go beyond the "sales pitch", look behind the scenes, and better understand the interesting technical aspects of Dark as a programming system. Table\ \ref{tab:dark} summarises the more detailed analysis that follows.
+
+\newcommand{\wrap}[1]{\parbox[t]{9cm}{#1}}
+\renewcommand{\arraystretch}{1.3}
+
+\begin{table}
+\centering
+\caption{Summary of where Dark lies on some of the dimensions.}
+\begin{tabular}{ r l }
+\hline
+Dimension (CLUSTER) & Summary \\ 
+\hline\hline
+INTERACTION	\\
+Modes of Interaction & 
+\wrap{Single integrated mode comprises development, debugging and operation ("deployless")} \\
+Feedback Loops & \wrap{Code editing is triggered either by user or by unsupported HTTP request and changes are deployed automatically, allowing for \emph{immediate feedback}}\\
+\hline
+ERRORS	\\
+Error Response & \wrap{When an unsupported HTTP request is received, programmer can write handler code using data from the request in the process}\\
+\hline
+CONCEPTUAL STRUCTURE	\\
+Conceptual Integrity vs. Openness & \wrap{Two-level conceptual structure with high-level abstractions (HTTP handlers, database, workers) and low-level functional abstractions (records, pipelines)}\\
+\hline
+ADOPTABILITY \\
+Learnability & \wrap{High-level concepts will be immediately familiar to the target audience; low-level language has the usual learning curve of basic functional programming}\\
+\hline
+NOTATION	\\
+Notational Structure & \wrap{Graphical notation for high-level concepts is complemented by structure editor for low-level code} \\
+Uniformity & \wrap{Common notational structures are used for database and code, enabling the same editing construct for sequential structures (records, pipelines, tables)}\\
+\hline
+COMPLEXITY	\\
+Factoring of Complexity & \wrap{Cloud infrastructure (deployment, orchestration, etc.) is provided by the Dark platform that is invisible to the programmer, but also cannot be modified}\\
+Level of Automation & \wrap{Current implementation provides basic infrastructure, but a higher degree of automation in the platform can be provided in the future, e.g. for scalability} \\
+\hline
+CUSTOMIZABILITY\\	
+Staging of Customization & \wrap{System can be modified while running and changes are persisted, but they have to be made in the Dark editor, which is distinct from the running service}
+\end{tabular}
+\label{tab:dark}
+\end{table}
 
 ### Dimensional analysis of Dark
 
