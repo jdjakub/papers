@@ -1,7 +1,7 @@
 \documentclass[english,submission]{programming}
 %DIF LATEXDIFF DIFFERENCE FILE
-%DIF DEL diff/old-prog22.tex   Wed Sep 28 15:12:55 2022
-%DIF ADD diff/new-prog22.tex   Wed Sep 28 15:06:15 2022
+%DIF DEL old-prog22.tex   Wed Sep 28 15:12:55 2022
+%DIF ADD new-prog22.tex   Fri Sep 30 15:31:07 2022
 
 %\citestyle{acmauthoryear}
 %\markboth{}{}
@@ -120,7 +120,7 @@ University of Kent, Canterbury, UK
 
   \emph{Grounding.} Our framework is derived using a qualitative analysis of past programming systems. We outline two concrete ways of using our framework. First, we show how it can analyze a recently developed novel programming system. Then, we use it to identify an interesting unexplored point in the design space of programming systems. 
 
-  \emph{Importance.} Much research effort focuses on building programming systems that are easier to use, accessible to non-experts, moldable and/or powerful, but such efforts are disconnected. They are informal, guided by the personal vision of the authors and thus are only evaluable and comparable on the basis of individual experience using them. By providing foundations for more systematic research, we can help programming systems researchers to stand, at last, on the shoulders of giants.
+  \emph{Importance.} Much research effort focuses on building programming systems that are easier to use, accessible to non-experts, moldable and/or powerful, but such efforts are disconnected. They are informal, guided by the personal vision of \DIFdelbegin \DIFdel{the }\DIFdelend \DIFaddbegin \DIFadd{their }\DIFaddend authors and thus are only evaluable and comparable on the basis of individual experience using them. By providing foundations for more systematic research, we can help programming systems researchers to stand, at last, on the shoulders of giants.
 
 NOTE TO REVIEWERS: The main contribution of the paper is a comprehensive \DIFdelbegin \DIFdel{survey }\DIFdelend \DIFaddbegin \DIFadd{catalogue }\DIFaddend of 22 design dimensions of programming systems. Each one comes with detailed discussion, including known uses, to properly motivate it. \DIFdelbegin \DIFdel{Regrettably, we only have space for a small number of these dimensions }\DIFdelend \DIFaddbegin \DIFadd{We feel these belong }\DIFaddend in the main paper body \DIFdelbegin \DIFdel{. To give a broader picture of what we are contributing, we invite the reader to explore Appendix}\DIFdelend \DIFaddbegin \DIFadd{rather than in an appendix, even though this increases the page count, and have received permission to do this. We intend the catalogue as a reference to be used }\emph{\DIFadd{as necessary,}} \DIFadd{not to be read from start to finish. This means that Section}\DIFaddend \ \DIFdelbegin \DIFdel{\ref{dimensions-catalogue} for dimensions that suit their interest}\DIFdelend \DIFaddbegin \DIFadd{\ref{technical-dimensions-catalogue} can be considered to be }\textbf{\DIFadd{outside}} \DIFadd{of the normal reviewable material, leaving the rest of the paper within the journal's 22 page limit}\DIFaddend .
 \end{abstract}
@@ -181,9 +181,12 @@ environments that increasingly define how programmers work with the
 language---for instance, by directly supporting debugging or
 refactoring. Beyond this, the rise of GUIs also permits diverse visual
 forms of programming, including visual languages and GUI-based end-user
-programming tools. This paper advocates a shift of attention from
-\emph{programming languages} to the more general notion of ``software
-that enables programming''---in other words, \emph{programming systems}.
+programming tools.
+\DIFaddbegin 
+
+\DIFaddend This paper advocates a shift of attention from \emph{programming
+languages} to the more general notion of ``software that enables
+programming''---in other words, \emph{programming systems}.
 
 \DIFaddbegin \begin{defn}[Programming System]
 \DIFaddend A \emph{programming system} \DIFdelbegin \DIFdel{may include tools , protocols, notations,
@@ -200,21 +203,27 @@ broad enough to accommodate image-based programming environments like
 Smalltalk, operating systems like UNIX, and hypermedia authoring systems
 like Hypercard, in addition to various other examples we will mention.
 
-\hypertarget{what-is-the-problem}{%
-\subsection{What is the problem?}\label{what-is-the-problem}}
+\DIFdelbegin %DIFDELCMD < \hypertarget{what-is-the-problem}{%
+%DIFDELCMD < \subsection{What is the problem?}\label{what-is-the-problem}}
+%DIFDELCMD < %%%
+\DIFdelend \DIFaddbegin \hypertarget{the-problem-no-systematic-framework-for-systems}{%
+\subsection{The problem: no systematic framework for
+systems}\label{the-problem-no-systematic-framework-for-systems}}
+\DIFaddend 
 
 There is a growing interest in broader forms of \emph{programming
-systems}, both in the programming research community and in industry. On
-the one hand, researchers are studying topics such as \emph{programming
-experience} and \emph{live programming} that require considering not
-just the \emph{language}, but further aspects of a given system. On the
-other hand, commercial companies are building new programming
-environments like Replit~\cite{ReplitWeb} or low-code tools like
-Dark~\cite{DarkWeb} and Glide~\cite{GlideWeb}. Yet, such topics remain
-at the sidelines of mainstream programming research. While
-\emph{programming languages} are a well-established concept, analysed
-and compared in a common vocabulary, no similar foundation exists for
-the wider range of \emph{programming systems}.
+systems}, both in the programming research community and in industry.
+\DIFdelbegin \DIFdel{On
+the one hand, researchers }\DIFdelend \DIFaddbegin \DIFadd{Researchers }\DIFaddend are studying topics such as \emph{programming experience}
+and \emph{live programming} that require considering not just the
+\emph{language}, but further aspects of a given system. \DIFdelbegin \DIFdel{On the other hand}\DIFdelend \DIFaddbegin \DIFadd{At the same
+time}\DIFaddend , commercial companies are building new programming environments
+like Replit~\cite{ReplitWeb} or low-code tools like Dark~\cite{DarkWeb}
+and Glide~\cite{GlideWeb}. Yet, such topics remain at the sidelines of
+mainstream programming research. While \emph{programming languages} are
+a well-established concept, analysed and compared in a common
+vocabulary, no similar foundation exists for the wider range of
+\emph{programming systems}.
 
 The academic research on programming suffers from this lack of common
 vocabulary. While we may thoroughly assess programming \emph{languages},
@@ -237,16 +246,16 @@ difficulty.}\footnote{\DIFadd{The same difficulty in the context of user
 \DIFaddend Moreover, when designing new systems, inspiration is often drawn from
 the same few standalone sources of ideas. These might be influential
 past systems like Smalltalk, programmable end-user applications like
-spreadsheets, or motivational illustrations by thinkers like
-Victor~\cite{BretVictor}.
+spreadsheets, or motivational illustrations \DIFdelbegin \DIFdel{by thinkers like }\DIFdelend \DIFaddbegin \DIFadd{like those of Bret
+}\DIFaddend Victor~\cite{BretVictor}.
 
 Instead of forming a solid body of work, the ideas that emerge are
 difficult to relate to each other. The research methods used to study
 programming systems lack the rigorous structure of programming language
 research methods. They tend to rely on singleton examples, which
-demonstrate the author's ideas, but are inadequate methods for comparing
-new ideas with the work of others. This makes it hard to build on top
-and thereby advance the state of the art.
+demonstrate \DIFdelbegin \DIFdel{the }\DIFdelend \DIFaddbegin \DIFadd{their }\DIFaddend author's ideas, but are inadequate methods for
+comparing new ideas with the work of others. This makes it hard to build
+on top and thereby advance the state of the art.
 
 Studying \emph{programming systems} is not merely about taking a
 programming language and looking at the tools that surround it. It
@@ -273,18 +282,18 @@ design choices, characterized by two extreme points in the design space.
 They are not quantitative, but they allow comparison by locating systems
 on a common axis. We do not intend for the extreme points to represent
 ``good'' or ``bad'' designs; we expect any position to be a result of
-design trade-offs. At this stage we encourage agreement on descriptions
-of systems first, in order to settle any normative judgements later.
+design trade-offs. At this \DIFdelbegin \DIFdel{stage }\DIFdelend \DIFaddbegin \DIFadd{early stage in the life of such a framework,
+}\DIFaddend we encourage agreement on descriptions of systems first \DIFdelbegin \DIFdel{, }\DIFdelend in order to
+settle any normative judgements later.
 
 The set of dimensions can be understood as a map of the design space of
 programming systems (Figure~\ref{fig:tech-dims-diagram}). Past and
-present systems will serve as landmarks, and with enough of them,
-unexplored or overlooked possibilities will reveal themselves. So far,
-the field has not been able to establish a virtuous cycle of feedback;
-it is hard for practitioners to situate their work in the context of
-others' so that subsequent work can improve on it. Our aim is to provide
-foundations for the study of programming systems that would allow such
-development.
+present systems will serve as landmarks, and with enough of them, \DIFaddbegin \DIFadd{we may
+reveal }\DIFaddend unexplored or overlooked possibilities\DIFdelbegin \DIFdel{will reveal themselves}\DIFdelend . So far, the field has not
+been able to establish a virtuous cycle of feedback; it is hard for
+practitioners to situate their work in the context of others' so that
+subsequent work can improve on it. Our aim is to provide foundations for
+the study of programming systems that would allow such development.
 
 This paper is intended as a reference on the current state of the
 technical dimensions framework and it is meant to be \emph{used} rather
@@ -376,9 +385,9 @@ adopted in work on }\DIFdelend \DIFaddbegin \DIFadd{the form of recent
 \begin{itemize}
 \tightlist
 \item
-  Computational notebooks such as Jupyter\DIFaddbegin \DIFadd{~\mbox{%DIFAUXCMD
+  Computational notebooks such as Jupyter\DIFdelbegin \DIFdel{simplify }\DIFdelend \DIFaddbegin \DIFadd{~\mbox{%DIFAUXCMD
 \cite{Jupyter} }\hspace{0pt}%DIFAUXCMD
-}\DIFaddend simplify data
+facilitate }\DIFaddend data
   analysis by combining code snippets with text and visual output. They
   are backed by stateful ``kernels'' and used interactively.
 \item
@@ -444,15 +453,16 @@ trade-offs.
 
 The latter two directly influence our proposal. Firstly, the Cognitive
 Dimensions are a set of qualitative properties which can be used to
-analyze \emph{notations}. We wish to extend this approach to the
-``rest'' of a system, beyond its notation, with \emph{Technical}
-Dimensions. Secondly, our individual dimensions naturally fall under
-larger \emph{clusters} that we present in a regular format, similar to
-the presentation of the classic Design Patterns. As for characteristics
+analyze \emph{notations}. We \DIFdelbegin \DIFdel{wish to extend }\DIFdelend \DIFaddbegin \DIFadd{are extending }\DIFaddend this approach to the ``rest''
+of a system, beyond its notation, with \emph{Technical} Dimensions.
+Secondly, our individual dimensions naturally fall under larger
+\emph{clusters} that we present in a regular format, similar to the
+presentation of the classic Design Patterns. As for characteristics
 identified by others, part of our contribution is to integrate them
-under a common umbrella: liveness, pluralism, and uniformity metaphors
-(``everything is an X''), which have already been identified by others,
-become dimensions in our framework.
+under a common umbrella: \DIFaddbegin \DIFadd{the existing concepts of }\DIFaddend liveness, pluralism,
+and uniformity metaphors (``everything is an X'') \DIFdelbegin \DIFdel{, which have already been identified by others,
+}\DIFdelend become dimensions in
+our framework.
 
 \paragraph{Methodology.}
 
@@ -492,9 +502,11 @@ In short, while there is a theory for programming languages, programming
 scale of language implementations to the vast scale of operating
 systems. It should be possible to analyse the common and unique features
 of different systems, to reveal new possibilities, and to build on past
-work in an effective manner. In Kuhnian terms, it should enable a body
-of ``normal science'': filling in the map of the space of possible
-systems (Figure \ref{fig:tech-dims-diagram}), thereby forming a
+work in an effective manner. In Kuhnian terms\DIFaddbegin \DIFadd{~\mbox{%DIFAUXCMD
+\cite{Kuhn}}\hspace{0pt}%DIFAUXCMD
+}\DIFaddend , it should
+enable a body of ``normal science'': filling in the map of the space of
+possible systems (Figure \ref{fig:tech-dims-diagram}), thereby forming a
 knowledge repository for future designers.
 
 \hypertarget{programming-systems}{%
@@ -546,14 +558,14 @@ establish a collection of go-to examples for the rest of the paper.
 languages}\label{systems-based-around-languages}}
 \DIFaddend 
 
-We see programming systems as (collections of) software artifacts that
+\DIFdelbegin \DIFdel{We see programming systems as (collections of) software artifacts that
 make it possible to construct programs, debug them, and turn them into
 operational, maintained, and evolvable artifacts running on an
-appropriate hardware. Text-based programming languages sit within
-programming systems whose boundaries are not explicitly defined. To
-speak of a programming system, we need to consider a language with, at
-minimum, an editor and a compiler or interpreter. However, the exact
-boundaries are a design choice that significantly affects our analysis.
+appropriate hardware. }\DIFdelend Text-based programming languages sit within programming systems whose
+boundaries are not explicitly defined. To speak of a programming system,
+we need to consider a language with, at minimum, an editor and a
+compiler or interpreter. However, the exact boundaries are a design
+choice that significantly affects our analysis.
 
 \paragraph{Java with the Eclipse ecosystem.}
 
@@ -580,8 +592,13 @@ through the command-line \emph{GHC} compiler\DIFaddbegin \DIFadd{~\mbox{%DIFAUXC
 \cite{GHC} }\hspace{0pt}%DIFAUXCMD
 }\DIFaddend and \emph{GHCi}
 REPL, alongside a text editor that provides features like syntax
-highlighting and auto-completion. In general, we can consider any editor
-that supports the Language Server Protocol\DIFaddbegin \DIFadd{~}\DIFaddend \cite{LSP}.
+highlighting and auto-completion. \DIFdelbegin \DIFdel{In general, we can consider any }\DIFdelend \DIFaddbegin \DIFadd{Any }\DIFaddend editor that supports the Language
+Server Protocol\DIFdelbegin \DIFdel{\mbox{%DIFAUXCMD
+\cite{LSP}}\hspace{0pt}%DIFAUXCMD
+}\DIFdelend \DIFaddbegin \DIFadd{~\mbox{%DIFAUXCMD
+\cite{LSP} }\hspace{0pt}%DIFAUXCMD
+will suffice to complete the programming
+system}\DIFaddend .
 
 Haskell is mathematically rooted and relies on mathematical intuition
 for understanding many of its concepts. This background is also
@@ -632,14 +649,14 @@ session to a file.
 systems}\label{os-like-programming-systems}}
 \DIFaddend 
 
-\DIFdelbegin \DIFdel{The first O-type programming systems emerged in }\DIFdelend \DIFaddbegin \DIFadd{These begin from }\DIFaddend the 1960s when it became possible to interact
+\DIFdelbegin \DIFdel{The first O-type programming systems emerged in }\DIFdelend \DIFaddbegin \DIFadd{``OS-likes'' begin from }\DIFaddend the 1960s when it became possible to interact
 one-on-one with a computer. First, time-sharing systems enabled
 interactive shared use of a computer via a teletype; smaller computers
 such as the PDP-1 and PDP-8 provided similar direct interaction, while
 1970s workstations such as the Alto and Lisp Machines added graphical
 displays and mouse input. \DIFaddbegin \DIFadd{These }\emph{\DIFadd{OS-like}} \DIFadd{systems stand out as
 having the totalising scope of }\emph{\DIFadd{operating systems}}\DIFadd{, whether or not
-they are }\emph{\DIFadd{officially}} \DIFadd{considered as such.
+they are ordinarily seen as taking this role.
 }\DIFaddend 
 
 \paragraph{MacLisp and Interlisp.}
@@ -692,9 +709,13 @@ preserved when the computer is turned off. Lastly, the fact that much of
 the Smalltalk environment is implemented in itself makes it possible to
 extensively modify the system from within.
 
-\paragraph{UNIX.}
+\DIFdelbegin \paragraph{\DIFdel{UNIX.}}
+%DIFAUXCMD
+\addtocounter{paragraph}{-1}%DIFAUXCMD
+%DIFDELCMD < 
 
-We \DIFdelbegin \DIFdel{included }\DIFdelend \DIFaddbegin \DIFadd{include }\DIFaddend Lisp and Smalltalk in \DIFdelbegin \DIFdel{the O-type }\DIFdelend \DIFaddbegin \DIFadd{this group }\DIFaddend because they function as
+%DIFDELCMD < %%%
+\DIFdel{We included }\DIFdelend \DIFaddbegin \DIFadd{We include }\DIFaddend Lisp and Smalltalk in the \DIFdelbegin \DIFdel{O-type }\DIFdelend \DIFaddbegin \DIFadd{OS-likes }\DIFaddend because they function as
 operating systems in many ways. On specialized machines, like the Xerox
 Alto and Lisp machines, the user started their machine directly in the
 Lisp or Smalltalk environment and was able to do everything they needed
@@ -702,7 +723,9 @@ from \emph{within} the system. Nowadays, however, this experience is
 associated with UNIX and its descendants on a vast range of commodity
 machines.
 
-UNIX illustrates the fact that many aspects of programming systems are
+\DIFaddbegin \paragraph{\DIFadd{UNIX.}}
+
+\DIFaddend UNIX illustrates the fact that many aspects of programming systems are
 shaped by their intended target audience. Built for computer
 hackers\DIFaddbegin \DIFadd{~\mbox{%DIFAUXCMD
 \cite{Hackers}}\hspace{0pt}%DIFAUXCMD
@@ -721,7 +744,7 @@ persistent address space. Still, this did not prevent the UNIX ontology
 from supporting a pluralistic ecosystem of different languages and
 tools.
 
-\paragraph{Early and late Web.}
+\paragraph{Early and \DIFdelbegin \DIFdel{late }\DIFdelend \DIFaddbegin \DIFadd{modern }\DIFaddend Web.}
 
 The Web evolved\DIFaddbegin \DIFadd{~\mbox{%DIFAUXCMD
 \cite{DotCom} }\hspace{0pt}%DIFAUXCMD
