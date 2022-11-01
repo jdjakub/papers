@@ -1,12 +1,15 @@
-\documentclass[sigplan,review]{acmart}
+\documentclass[sigplan,screen]{acmart}
+\usepackage[utf8]{inputenc}
+%\usepackage[T1]{fontenc}
 \usepackage{listings}
 \usepackage{hyperref}
 \usepackage{amsthm}
-
-\acmConference{Onward! Essays}{December 5--10, 2022}{Auckland, New Zealand}
+%\usepackage{pifont} % For checkmark / cross symbols
+\usepackage{microtype}
+\usepackage{flushend}
 
 \title{Ascending the Ladder to Self-Sustainability}
-\subtitle{Achieving open evolution in an interactive graphical system}
+\subtitle{Achieving Open Evolution in an Interactive Graphical System}
 \author{Joel Jakubovic}
 \affiliation{\institution{University of Kent} \city{Canterbury} \country{United Kingdom}}
 \email{jdj9@kent.ac.uk}
@@ -14,7 +17,45 @@
 \affiliation{\institution{Charles University} \city{Prague} \country{Czechia}}
 \email{tomas@tomasp.net}
 
+\setcopyright{acmlicensed}
+\acmPrice{15.00}
+\acmDOI{10.1145/3563835.3568736}
+\acmYear{2022}
+\copyrightyear{2022}
+\acmSubmissionID{onward22essays-p6-p}
+\acmISBN{978-1-4503-9909-8/22/12}
+\acmConference[Onward! '22]{Proceedings of the 2022 ACM SIGPLAN International Symposium on New Ideas, New Paradigms, and Reflections on Programming and Software}{December 8--10, 2022}{Auckland, New Zealand}
+\acmBooktitle{Proceedings of the 2022 ACM SIGPLAN International Symposium on New Ideas, New Paradigms, and Reflections on Programming and Software (Onward! '22), December 8--10, 2022, Auckland, New Zealand}
+\received{2022-09-05}
+\received[accepted]{2022-10-03}
+
 \begin{document}
+
+\begin{CCSXML}
+<ccs2012>
+   <concept>
+       <concept_id>10011007.10011006.10011066.10011069</concept_id>
+       <concept_desc>Software and its engineering~Integrated and visual development environments</concept_desc>
+       <concept_significance>500</concept_significance>
+       </concept>
+   <concept>
+       <concept_id>10011007.10011006.10011050</concept_id>
+       <concept_desc>Software and its engineering~Context specific languages</concept_desc>
+       <concept_significance>500</concept_significance>
+       </concept>
+   <concept>
+       <concept_id>10011007.10011006.10011041.10011048</concept_id>
+       <concept_desc>Software and its engineering~Runtime environments</concept_desc>
+       <concept_significance>300</concept_significance>
+       </concept>
+</ccs2012>
+\end{CCSXML}
+
+\ccsdesc[500]{Software and its engineering~Integrated and visual development environments}
+\ccsdesc[500]{Software and its engineering~Context specific languages}
+\ccsdesc[300]{Software and its engineering~Runtime environments}
+
+\keywords{self-sustaining, self-sustainable, interactive, bootstrapping, visual programming, context-specific, domain-specific}
 
 \lstset{breaklines=true, columns=fullflexible, breakatwhitespace=true, basicstyle=\ttfamily\footnotesize}
 \lstdefinelanguage{JavaScript}{
@@ -48,6 +89,7 @@
 \appendix
 \input{onward22-appendix.tex}
 
-\bibliographystyle{plainurl}
+\bibliographystyle{ACM-Reference-Format}
 \bibliography{onward22}
+
 \end{document}
