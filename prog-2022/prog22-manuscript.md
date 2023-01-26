@@ -21,7 +21,7 @@ A \emph{programming system} is an integrated and complete set of tools sufficien
 
 This notion covers classic programming languages together with their editors, debuggers, compilers, and other tools. Yet it is intentionally broad enough to accommodate image-based programming environments like Smalltalk, operating systems like UNIX, and hypermedia authoring systems like Hypercard, in addition to various other examples we will mention.
 
-## The problem: no systematic framework for systems
+## The Problem: No Systematic Framework for Systems
 
 There is a growing interest in broader forms of *programming systems*, both in the programming research community and in industry. Researchers are studying topics such as *programming experience* and *live programming* that require considering not just the *language*, but further aspects of a given system. At the same time, commercial companies are building new programming environments like Replit\ \cite{ReplitWeb} or low-code tools like Dark\ \cite{DarkWeb} and Glide\ \cite{GlideWeb}. Yet, such topics remain at the sidelines of mainstream programming research. While *programming languages* are a well-established concept, analysed and compared in a common vocabulary, no similar foundation exists for the wider range of *programming systems*.
 
@@ -45,10 +45,10 @@ This paper is intended as a reference on the current state of the technical dime
 \begin{figure}
   \centering
   \includegraphics[width=0.6\linewidth]{plot-figure0.pdf}
-  \caption{One 2-dimensional slice of the space of possible systems, to be examined in more detail in Section\ \ref{exploring-the-design-space}.\label{fig:tech-dims-diagram}}
+  \caption{One 2-dimensional slice of the space of possible systems, to be examined in more detail in Section\ \ref{exploring-the-design-space}. The numerical scores on each axis are generated systematically by a method described in Appendix\ \ref{making-dimensions-quantitative}. While these results are plausible, they are not definitive as the method could be developed a lot further in future work (see Section \ref{remarks-and-future-work}). \label{fig:tech-dims-diagram}}
 \end{figure}
 
-# Related work
+# Related Work
 
 While we do have new ideas to propose, part of our contribution is integrating a wide range of *existing* concepts under a common umbrella. This work is spread out across different domains, but each part connects to programming systems or focuses on a specific characteristic they may have.
 
@@ -84,7 +84,7 @@ Finally, we believe that the aforementioned paradigm shift from programming syst
 \paragraph{Programming systems deserve a theory too!}
 In short, while there is a theory for programming languages, programming *systems* deserve a theory too. It should apply from the small scale of language implementations to the vast scale of operating systems. It should be possible to analyse the common and unique features of different systems, to reveal new possibilities, and to build on past work in an effective manner. In Kuhnian terms\ \cite{Kuhn}, it should enable a body of "normal science": filling in the map of the space of possible systems (Figure \ref{fig:tech-dims-diagram}), thereby forming a knowledge repository for future designers.
 
-# Programming systems
+# Programming Systems
 
 We introduce the notion of a _programming system_ through a number of example systems. We draw them from three broad reference classes:
 
@@ -94,9 +94,9 @@ We introduce the notion of a _programming system_ through a number of example sy
 
 - Programmable _applications_, typically optimized for a specific domain, offering a limited degree of programmability which may be increased with newer versions.
 
-We will proceed to detail some systems under this grouping. This will provide an intuition for the notion of a programming system and establish a collection of go-to examples for the rest of the paper.
+It must be noted that our selection of systems is not meant to be exhaustive; there will be many past and present systems that we are not aware of or do not know much about, and we obviously cannot cover programming systems that have not been created yet. With that caveat, we will proceed to detail some systems under the above grouping. This will provide an intuition for the notion of a programming system and establish a collection of go-to examples for the rest of the paper. 
 
-## Systems based around languages
+## Systems Based Around Languages
 
 Text-based programming languages sit within programming systems whose boundaries are not explicitly defined. To speak of a programming system, we need to consider a language with, at minimum, an editor and a compiler or interpreter. However, the exact boundaries are a design choice that significantly affects our analysis.
 
@@ -113,7 +113,7 @@ A different kind of developer ecosystem that evolved around a programming langua
 
 As a programming system, Jupyter has a number of interesting characteristics. The primary outcome of programming is the notebook itself, rather than a separate application to be compiled and run. The code lives in a document format, interleaved with other notations. Code is written in small parts that are executed quickly, offering the user more rapid feedback than in conventional programming. A notebook can be seen as a trace of how the result has been obtained, yet one often problematic feature of notebooks is that some allow the user to run code blocks out-of-order. The code manipulates mutable state that exists in a "kernel" running in the background. Thus, retracing one's steps in a notebook is more subtle than in, say, Common Lisp\ \cite{CommonLisp}, where the `dribble` function would directly record the user's session to a file.
 
-## OS-like programming systems
+## OS-like Programming Systems
 
 "OS-likes" begin from the 1960s when it became possible to interact one-on-one with a computer. First, time-sharing systems enabled interactive shared use of a computer via a teletype; smaller computers such as the PDP-1 and PDP-8 provided similar direct interaction, while 1970s workstations such as the Alto and Lisp Machines added graphical displays and mouse input. These *OS-like* systems stand out as having the totalising scope of *operating systems*, whether or not they are ordinarily seen as taking this role.
 
@@ -137,7 +137,7 @@ The Web evolved\ \cite{DotCom} from a system for sharing and organizing informat
 
 In the "modern web", multiple programming languages treat JavaScript as a compilation target, and JavaScript is also used as a language on the server-side. This web is no longer simple enough to encourage copy-and-paste remixing of code from different sites. However, it does come with advanced developer tools that provide functionality resembling early interactive programming systems like Lisp and Smalltalk. The *Document Object Model (DOM)* structure created by a web page is transparent, accessible to the user and modifiable through the built-in browser inspector tools. Third-party code to modify the DOM can be injected via extensions. The DOM almost resembles the tree/graph model of Smalltalk and Lisp images, lacking the key persistence property. This limitation, however, is being addressed by Webstrates\ \cite{Webstrates}.
 
-## Application-focused systems
+## Application-Focused Systems
 The previously discussed programming systems were either universal, not focusing on any particular kind of application, or targeted at broad fields, such as Artificial Intelligence and symbolic data manipulation in Lisp's case. In contrast, the following examples focus on more narrow kinds of applications that need to be built. Many support programming based on rich interactions with specialized visual and textual notations.
 
 \paragraph{Spreadsheets.}
@@ -151,21 +151,23 @@ While spreadsheets were designed to solve problems in a specific application are
 
 As a programming system, HyperCard is interesting for a couple of reasons. It effectively combines visual and textual notation. Programs appear the same way during editing as they do during execution. Most notably, HyperCard supports gradual progression from the "user" role to "developer": a user may first use stacks, then go on to edit the visual aspects or choose pre-defined logic until, eventually, they learn to program in HyperTalk.
 
-\includepdf[pages={2}]{table.pdf}
-
-# Technical dimensions catalogue
-Here, we present our proposed technical dimensions in great detail. Please note that our intention is to provide a *reference* to be looked up and *used* as needed, not something that should be read from start to finish. Therefore, we recommend skimming through this for anything particularly interesting before proceeding to Section\ \ref{evaluation}. There, we will reference several dimensions in the context of a specific example, at which point it may be helpful to come back for more detail. For a quick overview, we included a concise reference sheet on the previous page, though it may make more sense after reading the relevant sections.
+# Technical Dimensions Catalogue
+Here, we present our proposed technical dimensions in great detail. Please note that our intention is to provide a *reference* to be looked up and *used* as needed, not something that should be read from start to finish. Therefore, we recommend skimming through this for anything particularly interesting before proceeding to Section\ \ref{evaluation}. There, we will reference several dimensions in the context of a specific example, at which point it may be helpful to come back for more detail. For a quick overview, we include a concise reference sheet on the next page, though it may make more sense after reading the relevant sections.
 
 We present the dimensions grouped under *clusters*. These may be regarded as "topics of interest" or "areas of inquiry" when studying a given system, grouping together related dimensions against which to measure it.
 
 Each cluster is named and opens with a boxed *summary*, followed by a longer *discussion*, and closes with a list of any *relations* to other clusters along with any *references* if applicable. Within the main discussion, individual *dimensions* are listed. Sometimes, a particular value along a dimension (or a combination of values along several dimensions) can be recognized as a familiar pattern---perhaps with a name already established in the literature. These are marked as *examples*. Finally, interspersed discussion that is neither a *dimension* nor an *example* is introduced as a *remark*.
+
+We reiterate that we do not expect the proposed catalogue to be exhaustive for all aspects of programming systems, past and future. We welcome follow-up work expanding or challenging the aspects we have focused on here.
+
+\includepdf[pages={2}]{table.pdf}
 
 \input{prog22-alldims.tex}
 
 # Evaluation
 The technical dimensions should be evaluated on the basis of how useful they are for designing and analysing programming systems. To that end, this section demonstrates two uses of the framework. First, we use the dimensions to analyze the recent programming system Dark\ \cite{DarkWeb}, explaining how it relates to past work and how it contributes to the state of the art. Second, we use technical dimensions to identify a new unexplored point in the design space of programming systems and envision a new design that could emerge from the analysis.
 
-## Evaluating the Dark programming system
+## Evaluating the Dark Programming System
 
 Dark is a programming system for building "serverless backends", i.e. services that are used by web and mobile applications. It aims to make building such services easier by "removing accidental complexity"^[https://roadmap.darklang.com/goals-of-dark-v2.html] resulting from the large number of systems typically involved in their deployment and operation. This includes infrastructure for orchestration, scaling, logging, monitoring and versioning. Dark provides integrated tooling (Figure\ \ref{fig:dark}) for development and is described as _deployless_, meaning that deploying code to production is instantaneous.
 
@@ -178,14 +180,17 @@ Dark is a programming system for building "serverless backends", i.e. services t
 
 Dark illustrates the need for the broader perspective of programming systems. Of course, it contains a programming language, which is inspired by OCaml and F#. But Dark's distinguishing feature is that it eliminates the many secondary systems needed for deployment of modern cloud-based services. Those exist outside of a typical programming language, yet form a major part of the complexity of the overall development process.
 
-With technical dimensions, we can go beyond the "sales pitch", look behind the scenes, and better understand the interesting technical aspects of Dark as a programming system. Table\ \ref{tab:dark} summarises the more detailed analysis that follows.
+With technical dimensions, we can go beyond the "sales pitch", look behind the scenes, and better understand the interesting technical aspects of Dark as a programming system. Table\ \ref{tab:dark} summarises the more detailed analysis that follows. Two clear benefits of such an analysis are:
+
+1. It provides a list of narrower topics to investigate when examining a programming system such as Dark.
+2. It give us a common vocabulary for these topics that can be used to compare Dark with other systems on the same terms.
 
 \newcommand{\wrap}[1]{\parbox[t]{10cm}{#1}}
 \renewcommand{\arraystretch}{1.3}
 
 \begin{table}
 \centering
-\caption{Summary of where Dark lies on some of the dimensions.}
+\caption{Summary of where Dark lies on its distinguishing dimensions. For brevity, dimensions where Dark does not differ from ordinary programming are omitted.}
 \begin{tabular}{ >{\raggedleft\arraybackslash}p{4.6cm} l }
 \hline
 Dimension (CLUSTER) & Summary \\ 
@@ -221,7 +226,7 @@ Staging of Customization & \wrap{System can be modified while running and change
 \label{tab:dark}
 \end{table}
 
-### Dimensional analysis of Dark
+### Dimensional Analysis of Dark
 
 \paragraph{Modes of interaction and feedback loops.}
 Conventional *modes of interaction* (\ref{dimension-modes-of-interaction}) include running, editing and debugging. For modern web services, running refers to operation in a cloud-based environment that typically comes with further kinds of feedback (logging and monitoring). The key design decision of Dark is to integrate all these different modes of interaction into a single one. This tight integration allows Dark to provide a more immediate *feedback loop* (\ref{dimension-feedback-loops}) where code changes become immediately available not just to the developer, but also to external users. The integrated mode of interaction is reminiscent of the image-based environment in Smalltalk; Dark advances the state of art by using this model in a multi-user, cloud-based context.
@@ -237,11 +242,11 @@ The integration of development and operation also makes it possible to use *erro
 
 \paragraph{Customizability.} The Dark platform makes a clear distinction between the platform itself and the user application, so _self-sustainability_ (\ref{dimension-self-sustainability}) is not an objective. The strict division between the platform and user (related to its aforementioned _factoring of complexity_) means that changes to Dark require modifying the platform source code itself, which is available under a license that solely allows using it for the purpose of contributing. Similarly, applications themselves are developed by modifying and adding code, requiring destructive access to it---so _additive authoring_ (\ref{dimension-addressing-and-externalizability}) is not exhibited at either level. Thanks to the integration of execution and development, persistent changes may be made during execution (c.f. _staging of customization_, \ref{dimension-staging-of-customization}) but this is done through the Dark editor, which is separate from the running service.
 
-### Technical innovations of Dark
+### Technical Innovations of Dark
 
 This analysis reveals a number of interesting aspects of the Dark programming system. The first is the tight integration of different _modes of interaction_ which collapses a heterogeneous stack of technologies, makes Dark _learnable_, and allows quick feedback from deployed services. The second is the use of _error response_ to guide the development of HTTP handlers. Thanks to the technical dimensions framework, each of these can be more precisely described. It is also possible to see how they may be supported in other programming systems. The framework also points to possible alternatives (and perhaps improvements) such as building a more self-sustainable system that has similar characteristics to Dark, but allows greater flexibility in modifying the platform from within itself.
 
-## Exploring the design space
+## Exploring the Design Space
 
 With a little work, technical dimensions can let us see patterns or gaps in the design space by plotting their values on a simple scatterplot. Here, we will look at two dimensions, *notational diversity*^[This is simply the dimension we named as *uniformity of notations* (\ref{dimension-uniformity-of-notations}), but flipped in the opposite direction.] and *self-sustainability*, for the following programming systems: Haskell, Jupyter notebooks, Boxer, HyperCard, the Web, spreadsheets, Lisp, Smalltalk, UNIX, and COLAs.
 
@@ -261,4 +266,6 @@ There is a renewed interest in developing new programming systems. Such systems 
 The framework of technical dimensions puts the vast variety of programming systems, past and present, on a common footing of commensurability. This is crucial to enable the strengths of each to be identified and, if possible, combined by designers of the next generation of programming systems. As more and more systems are assessed in the framework, a picture of the space of possibilities will gradually emerge. Some regions will be conspicuously empty, indicating unrealized possibilities that could be worth trying. In this way, a domain of "normal science" is created for the design of programming systems.
 
 \acks
-(To be completed for publication.)
+We particularly thank Richard Gabriel for shepherding our submission to the 2021 *Pattern Languages of Programming* (PLoP) conference. We thank the participants of the PLoP Writers' Workshop for their feedback, as well as others who have proofread or otherwise given input on the ideas at different stages. These include Luke Church, Filipe Correia, Thomas Green, Brian Hempel, Clemens Klokmose, Geoffery Litt, Mariana Mărășoiu, Stefan Marr, Michael Weiss, and Rebecca and Allen Wirfs-Brock. We also thank the attendees of our Programming 2021 Conversation Starters session and our Programming 2022 tutorial/workshop entitled "Methodology Of Programming Systems" (MOPS).
+
+This work was partially supported by the project of Czech Science Foundation no.\ 23-06506S.

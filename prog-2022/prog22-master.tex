@@ -1,4 +1,4 @@
-\documentclass[english,submission]{programming}
+\documentclass[english,crc]{programming}
 
 %\citestyle{acmauthoryear}
 %\markboth{}{}
@@ -18,6 +18,19 @@
 % Thanks https://tex.stackexchange.com/a/32687
 \NewDocumentCommand{\rot}{O{45} O{1em} m}{\makebox[#2][l]{\rotatebox{#1}{#3}}}%
 
+%%% The following is specific to Programming Journal, Volume 7, Issue 3 and the paper
+%%% 'Technical Dimensions of Programming Systems'
+%%% by Joel Jakubovic, Jonathan Edwards, and Tomas Petricek.
+%%%
+\paperdetails{
+  submitted=2022-09-30,
+  published=2023-02-15,
+  year=2023,
+  volume=7,
+  issue=3,
+  articlenumber=13,
+}
+
 \begin{document}
 
 \paperdetails{perspective=art, area={Programming systems}}
@@ -33,8 +46,9 @@ University of Kent, Canterbury, UK
 \affiliation{\email{jonathanmedwards@gmail.com}}
 \author{Tomas Petricek}
 \affiliation{
-University of Kent, Canterbury, UK
-\email{T.Petricek@kent.ac.uk}
+University of Kent, Canterbury, UK \\
+Charles University, Prague, Czechia
+\email{tomas@tomasp.net}
 }
 
 \keywords{Programming Systems, Dimensions, Design, Framework, Analysis}
@@ -79,8 +93,6 @@ University of Kent, Canterbury, UK
   \emph{Grounding.} Our framework is derived using a qualitative analysis of past programming systems. We outline two concrete ways of using our framework. First, we show how it can analyze a recently developed novel programming system. Then, we use it to identify an interesting unexplored point in the design space of programming systems. 
   
   \emph{Importance.} Much research effort focuses on building programming systems that are easier to use, accessible to non-experts, moldable and/or powerful, but such efforts are disconnected. They are informal, guided by the personal vision of their authors and thus are only evaluable and comparable on the basis of individual experience using them. By providing foundations for more systematic research, we can help programming systems researchers to stand, at last, on the shoulders of giants.
-
-NOTE TO REVIEWERS: The main contribution of the paper is a comprehensive catalogue of 22 design dimensions of programming systems. Each one comes with detailed discussion, including known uses, to properly motivate it. We feel these belong in the main paper body rather than in an appendix, even though this increases the page count, and have received permission to do this. We intend the catalogue as a reference to be used \emph{as necessary,} not to be read from start to finish. This means that Section\ \ref{technical-dimensions-catalogue} can be considered to be \textbf{outside} of the normal reviewable material, leaving the rest of the paper within the journal's 22 page limit.
 \end{abstract}
 
 %\thispagestyle{empty}
