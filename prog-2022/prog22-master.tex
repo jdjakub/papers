@@ -3,13 +3,8 @@
 %\citestyle{acmauthoryear}
 %\markboth{}{}
 
-% Class scrartcl Warning: seems someone has broken package `auxhook'.
-% Usually this happens, if `auxhook' is loaded or used implicitly or explicitly
-% by patching \document or via etoolbox command \AtEndPreamble. Trying an
-% emergency workaround. You can avoid this warning adding:
-\usepackage{auxhook}
-% before \begin{document} on input line 6.
-\usepackage{changepage} % For the single-page summary table PDF insert.
+%\usepackage{changepage}
+%\usepackage{lscape} % For the summary table
 \usepackage{pdfpages}
 \usepackage{pifont} % For checkmark / cross symbols for Appendix table :)
 \usepackage{amsthm} % For numberless Definition
@@ -37,19 +32,15 @@
 
 \title{Technical Dimensions of Programming Systems}
 
-\author{Joel Jakubovic}
-\affiliation{
-University of Kent, Canterbury, UK
-\email{jdj9@kent.ac.uk}
-}
-\author{Jonathan Edwards}
-\affiliation{\email{jonathanmedwards@gmail.com}}
-\author{Tomas Petricek}
-\affiliation{
-University of Kent, Canterbury, UK \\
-Charles University, Prague, Czechia
-\email{tomas@tomasp.net}
-}
+\author[a]{Joel Jakubovic}
+\authorinfo[joel]{is Tomas' final-year PhD student interested in overcoming pervasive ``premature commitment'' in programming. His forthcoming dissertation is about creating programming systems that combine self-sustainability and notational freedom. Send him an e-mail at \email{jdj9@kent.ac.uk} and read his blog at \href{https://programmingmadecomplicated.wordpress.com}{\texttt{programmingmadecomplicated.wordpress.com}}.}
+\author[b]{Jonathan Edwards}
+\authorinfo[jonathan]{is an independent researcher working on drastically simplifying programming. He is known for his Subtext series of programming language experiments and his blog at \href{https://alarmingdevelopment.org}{\texttt{alarmingdevelopment.org}}. He has been a researcher at MIT CSAIL and CDG/HARC. He tweets \texttt{@jonathoda} and can be reached at \email{jonathanmedwards@gmail.com}.}
+\author[a,c]{Tomas Petricek}
+\authorinfo[tomas]{is an assistant professor at Charles University. He is interested in finding easier and more accessible ways of thinking about programming. To do so, he combines technical work on programming systems and tools with research into history and philosophy of science. His work can be found at \href{https://tomasp.net}{\texttt{tomasp.net}} and he can be reached at \email{tomas@tomasp.net}.}
+\affiliation[a]{University of Kent, Canterbury, UK}
+\affiliation[b]{Independent}
+\affiliation[c]{Charles University, Prague, Czechia}
 
 \keywords{Programming Systems, Dimensions, Design, Framework, Analysis}
 
@@ -81,18 +72,20 @@ Charles University, Prague, Czechia
 
 \maketitle
 
+\newcommand{\ciakgi}[1]{}
+
 \begin{abstract}
-  \emph{Context.} Programming requires much more than just writing code in a programming language. It is usually done in the context of a stateful environment, by interacting with a system through a graphical user interface. Yet, this wide space of possibilities lacks a common structure for navigation. Work on programming systems fails to form a coherent body of research, making it hard to improve on past work and advance the state of the art.
+  \ciakgi{Context} Programming requires much more than just writing code in a programming language. It is usually done in the context of a stateful environment, by interacting with a system through a graphical user interface. Yet, this wide space of possibilities lacks a common structure for navigation. Work on programming systems fails to form a coherent body of research, making it hard to improve on past work and advance the state of the art.
   
-  \emph{Inquiry.} In computer science, much has been said and done to allow comparison of \emph{programming languages}, yet no similar theory exists for \emph{programming systems;} we believe that programming systems deserve a theory too. 
+  \ciakgi{Inquiry} In computer science, much has been said and done to allow comparison of \emph{programming languages}, yet no similar theory exists for \emph{programming systems;} we believe that programming systems deserve a theory too. 
   
-  \emph{Approach.} We present a framework of \emph{technical dimensions} which capture the underlying characteristics of programming systems and provide a means for conceptualizing and comparing them. 
+  \ciakgi{Approach} We present a framework of \emph{technical dimensions} which capture the underlying characteristics of programming systems and provide a means for conceptualizing and comparing them. 
   
-  \emph{Knowledge.} We identify technical dimensions by examining past influential programming systems and reviewing their design principles, technical capabilities, and styles of user interaction. Technical dimensions capture characteristics that may be studied, compared and advanced independently. This makes it possible to talk about programming systems in a way that can be shared and constructively debated rather than relying solely on personal impressions.
+  \ciakgi{Knowledge} We identify technical dimensions by examining past influential programming systems and reviewing their design principles, technical capabilities, and styles of user interaction. Technical dimensions capture characteristics that may be studied, compared and advanced independently. This makes it possible to talk about programming systems in a way that can be shared and constructively debated rather than relying solely on personal impressions.
    
-  \emph{Grounding.} Our framework is derived using a qualitative analysis of past programming systems. We outline two concrete ways of using our framework. First, we show how it can analyze a recently developed novel programming system. Then, we use it to identify an interesting unexplored point in the design space of programming systems. 
+  \ciakgi{Grounding} Our framework is derived using a qualitative analysis of past programming systems. We outline two concrete ways of using our framework. First, we show how it can analyze a recently developed novel programming system. Then, we use it to identify an interesting unexplored point in the design space of programming systems. 
   
-  \emph{Importance.} Much research effort focuses on building programming systems that are easier to use, accessible to non-experts, moldable and/or powerful, but such efforts are disconnected. They are informal, guided by the personal vision of their authors and thus are only evaluable and comparable on the basis of individual experience using them. By providing foundations for more systematic research, we can help programming systems researchers to stand, at last, on the shoulders of giants.
+  \ciakgi{Importance} Much research effort focuses on building programming systems that are easier to use, accessible to non-experts, moldable and/or powerful, but such efforts are disconnected. They are informal, guided by the personal vision of their authors and thus are only evaluable and comparable on the basis of individual experience using them. By providing foundations for more systematic research, we can help programming systems researchers to stand, at last, on the shoulders of giants.
 \end{abstract}
 
 %\thispagestyle{empty}
@@ -100,7 +93,8 @@ Charles University, Prague, Czechia
 \newcommand{\joel}[1]{}
 \newcommand{\note}[1]{}
 \newcommand{\tp}[1]{}
-\newcommand{\mybox}[1]{\noindent\fbox{\parbox{\textwidth}{#1}}}
+%\newcommand{\mybox}[1]{\noindent\fbox{\parbox{\textwidth}{#1}}}
+\newcommand{\mybox}[1]{\textbf{#1}}
 \providecommand{\tightlist}{}% Don't want Pandoc's tight lists
 \newtheorem*{defn}{Definition}
 %\newcommand{\hypertarget}[1]{}

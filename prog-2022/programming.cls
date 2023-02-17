@@ -1,7 +1,7 @@
 \NeedsTeXFormat{LaTeX2e}[2005/12/01]
 \def\P@banner{The Art, Science, and Engineering of Programming}
 \ProvidesClass{programming}%
-    [2017/11/16 v1.3a ^^J Articles for \P@banner^^J]
+    [2022/09/07 v1.4a ^^J Articles for \P@banner^^J]
 
 
 %%
@@ -20,19 +20,20 @@
 
 \GenerateLogMacros{class}[P]{programming}
 
-\RequirePackage{etoolbox}
+\RequirePackage{etoolbox,xstring}
 \RequirePackage{scrbase}[2014/10/28]
 \@ifpackagelater{scrbase}{2014/10/28}{}{%
   \P@error{KOMA-Script too old}{Please upgrade to at least TeXLive 2015 or similar, or upgrade your MiKTeX 2.9 packages.}}
 %%
-\RequirePackage{ifthen,ifpdf,ifluatex,ifxetex}
-\ifthenelse{\boolean{luatex}}%
+\RequirePackage{ifpdf,ifluatex,ifxetex}
+\ifboolexpr{bool{luatex}}%
   {\IfFileExists{luatex85.sty}%
     {\RequirePackage{luatex85}
       \@ifpackagelater{luatex85}{2016/06/15}%
         {}% creationdate-problem fixed
         {{\outputmode=1 \xdef\pdfcreationdate{\pdffeedback creationdate}}}}
-    {}}%
+    {}
+    \IfFileExists{luatexbase.sty}{\RequirePackage{luatexbase}}{}}%
   {}
 
 %%%%
@@ -80,21 +81,45 @@
   \let\CurrentOption\P@curropt
 }
 
+
+\newbool{P@cleveref}
+\newbool{P@varioref}
+\P@Key{references}[hyperonly]{
+  \P@setnum{references}{@tempa}{%
+    {clever}{0},{cleveref}{0},{cleverref}{0}% account for common typo
+    {noclever}{1},{nocleveref}{1},%
+    {vario}{2},{varioref}{2},%
+    {novario}{3},{novarioref}{3},%
+    {hyperonly}{4},{hyperrefonly}{4},%
+  }{#1}
+  \ifcase \@tempa\relax
+      \booltrue{P@cleveref}
+  \or \boolfalse{P@cleveref}
+  \or \booltrue{P@varioref}
+  \or \boolfalse{P@varioref}
+  \or \boolfalse{P@cleveref}
+      \boolfalse{P@varioref}
+  \fi
+  \FamilyKeyStateProcessed}
+\P@StdOption{cleveref}{references=cleveref}
+\P@StdOption{varioref}{references=varioref}
+
+
 \newbool{P@submission}
 \P@Key{phase}[final]{%
-  \ifstr{#1}{final}{\boolfalse{P@submission}}{}
-  \ifstr{#1}{submission}{\booltrue{P@submission}}{}
+  \ifstrequal{#1}{final}{\boolfalse{P@submission}}{}
+  \ifstrequal{#1}{submission}{\booltrue{P@submission}}{}
   \FamilyKeyStateProcessed}
 \P@StdOption{submission}{phase=submission}
 \P@StdOption{crc}{phase=final}
 
 \providecommand*{\P@SubmissionKey}{}
 \def\P@SubmissionKey#1#2{\P@Key{#1}{%
-    \AfterP@Options{\ifthenelse{\boolean{P@submission}}%
+    \AfterP@Options{\ifboolexpr{bool{P@submission}}%
       {#2}{}}}}
 \providecommand*{\P@CRCKey}{}
 \def\P@CRCKey#1#2{\P@Key{#1}{%
-    \AfterP@Options{\ifthenelse{\boolean{P@submission}}%
+    \AfterP@Options{\ifboolexpr{bool{P@submission}}%
       {}{#2}}}}
 
 
@@ -118,11 +143,19 @@
 \newcommand*\P@set@license[1]{%
   \renewcommand*\P@license{#1}
   \if@atdocument
-    \setkeys{doclicense}{modifier=#1}
-  \else%
-    \PassOptionsToPackage{doclicense}{modifier=#1}%
+  \P@error{License set too late, move \string\paperdetails up in the document.}%
+  {The license cannot be set to ``#1'' at this point in the process. Please
+    move the \string\paperdetails command before the \string\begin\{document\}
+    command.}
+  \else
+  \@ifpackageloaded{doclicense}%
+    {\undef\doclicenseURL%
+      \setkeys{doclicense}{modifier=#1}%
+      % hack: propagate settings
+      \doclicense@set}
+    {\PassOptionsToPackage{modifier=#1}{doclicense}}
   \fi}
-
+ 
 \P@Key{license}{
   \P@setnum{license}{@tempa}{%
     {ccby}{0},{cc-by}{0},%
@@ -213,8 +246,8 @@
    {fixltx2e}}
    {\RequirePackage{fixltx2e}}%
 
-% don't be too noisy.
- \PassOptionsToPackage{log-declarations=false}{xparse}
+% % don't be too noisy.
+%  \PassOptionsToPackage{log-declarations=false}{xparse}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -272,7 +305,7 @@
 \RequirePackage{babel}
 
 \RequirePackage[LGR,OT1,LY1,T1]{fontenc}
-\ifthenelse{\boolean{xetex}\OR\boolean{luatex}}{}{%
+\ifboolexpr{bool{xetex}or bool{luatex}}{}{%
   \RequirePackage[utf8]{inputenx}
   \input{ix-utf8enc.dfu}
   \RequirePackage{alphabeta}}
@@ -305,13 +338,13 @@
 \csundef{P@MDback@footnoterule}
 \csundef{P@MDback@hrulefill}
 % }}}
-\ifthenelse{\boolean{xetex}\OR\boolean{luatex}}%
+\ifboolexpr{bool{xetex}or bool{luatex}}%
   {\@ifpackagelater{scrbase}{2015/11/22}%
     {% >= TL 2016; not much is tuenc ready.
       \PassOptionsToPackage{euenc}{fontspec}}
     {}
     \RequirePackage{fontspec}[2013/05/20]
-    \ifthenelse{\boolean{xetex}}%
+    \ifboolexpr{bool{xetex}}%
       {\setmainfont[Numbers=OldStyle,SmallCapsFeatures={Letters=SmallCaps,LetterSpace=5}]{XCharter}\relax}%
       {\setmainfont[Numbers=OldStyle]{XCharter}\relax}
     \def\P@fontscale{MatchLowercase}}%
@@ -325,6 +358,7 @@
    {}}
 \linespread{1.05}
 
+\AtBeginDocument{
 \defcaptionname{english}{\figureautorefname}{figure}
 \defcaptionname{english}{\tableautorefname}{table}
 \defcaptionname{english}{\lstlistingautorefname}{listing}
@@ -332,31 +366,31 @@
 \defcaptionname{english}{\subsectionautorefname}{\sectionautorefname}
 \defcaptionname{english}{\subsubsectionautorefname}{\sectionautorefname}
 \defcaptionname{english}{\appendixautorefname}{appendix}
+}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\ifthenelse{\boolean{luatex}}%
+\ifboolexpr{bool{luatex}}%
   {\RequirePackage[final]{microtype}[2013/05/23]}%
   {\RequirePackage[final,babel=true]{microtype}[2013/05/23]}
-\ifthenelse{\boolean{xetex}}%
+\ifboolexpr{bool{xetex}}%
   {\let\textls\undefined
     \DeclareRobustCommand{\textls}[2][80]{%
       {{\addfontfeature{LetterSpace=\the\numexpr#1/10\relax}#2}}}}%
   {}
 
-\ifthenelse{\boolean{xetex}}%
- {}% see above
- {\microtypesetup{letterspace=50}
-  \ifthenelse{\boolean{luatex}}{}{\microtypesetup{tracking}}
-  \DisableLigatures{encoding = *, family = tt* }}
+\ifboolexpr{bool{xetex}}%
+  {}% see above
+  {\microtypesetup{letterspace=50}
+   \ifboolexpr{bool{luatex}}{}{\microtypesetup{tracking}}
+   \DisableLigatures{encoding = *, family = tt* }}
 
 \newcommand*\P@CodeSetup{%
-  \ifthenelse{\boolean{xetex}\or\boolean{luatex}}%
-    {\addfontfeatures{Ligatures={NoCommon}}%
-      \ifthenelse{\boolean{luatex}}%
-        {\addfontfeatures{RawFeature={-tlig,-trep}}}%
-        {\addfontfeatures{Mapping=}}}%
-    {}}
+ \ifboolexpr{bool{xetex}or bool{luatex}}%
+   {\ifboolexpr{bool{luatex}}%
+      {\addfontfeatures{RawFeature={-rlig,-tlig,-trep,-onum,+zero}}}%
+      {\addfontfeatures{Mapping=,Ligatures={NoCommon}}}}%
+    {}}%
 
 \AtBeginEnvironment{verbatim}{\microtypesetup{activate=false}\P@CodeSetup}
 
@@ -366,6 +400,19 @@
   % path is tt-only and actually, urls are better.
   \DeclareUrlCommand\path{}% fool emacs: }
 }
+
+%%
+% Order is important here:
+% 1. Varioref (directly loaded here)
+% 2. Hyperref (as late as possible, but not AtEndPreamble,
+%              as this would break biblatex)
+% 3. Cleveref (as late as possible, /after/ hyperref)
+% Selection based on user options.
+%
+
+\ifboolexpr{bool{P@varioref}}%
+  {\RequirePackage{varioref}}
+  {} % nothing
 
 \PassOptionsToPackage{log-declarations=false}{xparse}
 \PassOptionsToPackage{hyphens}{url}
@@ -380,14 +427,40 @@
   bookmarksnumbered = true,
   pdfpagemode = UseOutlines,
 }{hyperref}
-\AtEndPreamble{%
-  \RequirePackage{hyperref}%
+\BeforeBeginEnvironment{document}{
+  \RequirePackage{hyperref}
+  \RequirePackage{bookmark}
   \RequirePackage{hyperxmp}
+  \@ifpackagelater{hyperxmp}{2019/03/31}%
+    {\hypersetup{keeppdfinfo}}% new
+    {}% ok
   \RequirePackage{hypcap}
   \RequirePackage{accsupp}
 }
 
-\RequirePackage[table,svgnames,dvipsnames,x11names]{xcolor}
+\PassOptionsToPackage{nameinlink,noabbrev}{cleveref}
+\ifboolexpr{bool{P@cleveref}}%
+  {\BeforeBeginEnvironment{document}{\RequirePackage{cleveref}}}
+  {} % nothing
+
+
+\RequirePackage{color}
+\PassOptionsToPackage{table,svgnames,dvipsnames*,x11names}{xcolor}
+\ifboolexpr{bool{luatex} or bool{xetex}}%
+  {}%
+  {\PassOptionsToPackage{fixpdftex}{xcolor}}%
+
+% from Volume 6 on
+\AfterPackage{xcolor}%
+  {\definecolors{Aquamarine,Black,Blue,BlueViolet,Brown,CadetBlue,%
+      CornflowerBlue,Cyan,DarkOrchid,ForestGreen,Fuchsia,Goldenrod,Gray,%
+      Green,GreenYellow,Lavender,LimeGreen,Magenta,Maroon,MidnightBlue,%
+      NavyBlue,Orange,OrangeRed,Orchid,Plum,Purple,Red,Salmon,%,RoyalBlue
+      SeaGreen,SkyBlue,SpringGreen,Tan,Thistle,Turquoise,Violet,%
+      VioletRed,White,Yellow,YellowGreen}}%
+\RequirePackage{xcolor}
+
+\definecolor[named]{RoyalBlue}{RGB/cmyk}{65,105,225/.8,.61,0,0}
 \definecolor{P@Blue}{named}{RoyalBlue}
 \definecolor{P@ColorOnBlue}{gray}{.95}
 \definecolor{P@GrayFG}{named}{darkgray}
@@ -420,12 +493,15 @@
 % prefer pdf over png
 \PrependGraphicsExtensions{.pdf,.PDF}
 % ai's are just pdfs.
-\ifthenelse{\boolean{xetex}}{
-  \DeclareGraphicsRule{.ai}{QTm}{*}{}
-}{
-  \DeclareGraphicsRule{.ai}{pdf}{*}{}
-}
+\ifboolexpr{bool{xetex}}%
+  {\DeclareGraphicsRule{.ai}{QTm}{*}{}}
+  {\DeclareGraphicsRule{.ai}{pdf}{*}{}}
 \AppendGraphicsExtensions{.ai,.AI}
+
+\ifboolexpr{bool{xetex}}%
+  {% XeTeX can naturally process eps. This here avoids a warning
+    \PreventPackageFromLoading{epstopdf}}
+  {}
 
 \RequirePackage{multirow,tabularx,booktabs,threeparttable}
 \RequirePackage[figuresright]{rotating}
@@ -434,9 +510,10 @@
 \RequirePackage[useregional]{datetime2}
 
 
-\ifthenelse{\boolean{xetex}\or\boolean{luatex}}%
+\ifboolexpr{bool{xetex}or bool{luatex}}%
   {\newfontfamily\firaoldstylemono
-      [ Numbers = {Monospaced,OldStyle},
+      [ Path,
+        Numbers = {Monospaced,OldStyle},
         UprightFont    = *-Book ,
         ItalicFont     = *-BookItalic ,
         BoldFont    = *-Bold ,
@@ -447,7 +524,7 @@
 
 \newcommand*\P@listingnumbersfont{%
   \sffamily\small\color{P@GrayFG!40}%
-  \ifthenelse{\boolean{xetex}\or\boolean{luatex}}%
+  \ifboolexpr{bool{xetex}or bool{luatex}}%
     {\firaoldstylemono}
     {\tbfigures}}%
 
@@ -471,10 +548,33 @@
 \lst@AddToHook{DisplayStyle}{\def\baselinestretch{1}\@currsize}
 \lst@AddToHook{TextStyle}{\lstset{breaklines=false}}
 % work around listings being too smart
-\lst@AddToHook{Init}{\let\ttdefault\f@family}
+% \lst@AddToHook{Init}{\let\ttdefault\f@family\edef\ttdefault{\ttdefault}}
+\patchcmd{\lst@ttfamily}%
+  {\ifx\f@family\ttdefault#1\relax\else#2\fi}%
+  {#1\relax}%
+  {}{\P@warning@noline{Cannot patch listings internals. Ignoring.}}
 
+\AfterPackage{minted}{%
+  \AtEndPreamble{%
+    \RequirePackage{mdframed}
+    \mdfdefinestyle{P@md@minted}%
+      {backgroundcolor=P@GrayBG,hidealllines=true}
+    \surroundwithmdframed[style=P@md@minted]{minted}}
+    \renewcommand{\theFancyVerbLine}%
+      {{\P@listingnumbersfont \arabic{FancyVerbLine}}}
+    \setminted{%
+      autogobble,%
+      linenos,%
+      numbersep=.5em,%
+      xleftmargin=-.7em,%
+      fontsize=\small,%
+      breaklines=true}
+    \setmintedinline{fontsize=\normalsize}}
 
-\AtEndPreamble{\RequirePackage{siunitx}}
+% XXX: 2021-07-15: require v2 until everything is upgraded
+\@ifpackagelater{scrbase}{2017/09/06} % gues TL from KOMA
+  {\AtEndPreamble{\RequirePackage{siunitx}[=v2]}} % syntax 2017+ ok
+  {\AtEndPreamble{\RequirePackage{siunitx}}} % not needed/possible <=2016 anyway
 \AfterPackage{siunitx}{%
   \sisetup{
     binary-units,
@@ -485,7 +585,8 @@
     unit-optional-argument,
     parse-units = false}
   \AtEndPreamble{
-    \@ifpackageloaded{pgf}{\SendSettingsToPgf }{}
+    % If siunitx support pgf-setting, use it.
+    \@ifpackageloaded{pgf}{\csuse{SendSettingsToPgf}}{}
     \addto\extrasenglish{\sisetup{locale = US}}}}
 
 \PassOptionsToPackage{style=numeric,sortcites}{biblatex}
@@ -495,9 +596,11 @@
   \ExecuteBibliographyOptions{
     url=true,%
     abbreviate=false,%
-    maxnames=20}
+    maxnames=999}
   \@ifpackagelater{biblatex}{2016/09/10}%
-    {\ExecuteBibliographyOptions{urldate=edtf,seconds=true}}%
+    {\@ifpackagelater{biblatex}{2017/12/19}%
+      {\ExecuteBibliographyOptions{urldate=iso,seconds=true}}%
+      {\ExecuteBibliographyOptions{urldate=edtf,seconds=true}}}%
     {\ExecuteBibliographyOptions{urldate=iso8601}}
   \PreventPackageFromLoading[\message{%
     ^^J^^JERROR: You tried to load  the cite package that is not compatible
@@ -505,9 +608,15 @@
   }]{cite}
 }
 \AtEndPreamble{
-  \@ifpackageloaded{biblatex}{}{
-    % normal bibtex
-    \bibliographystyle{plainurl}}}
+  \@ifpackageloaded{biblatex}%
+    {\pretocmd{\printbibliography}%
+      {\pdfbookmark[section]{\refname}{bib}}
+      {}{\P@warning@noline{Cannot prepend to printbibliography. Ignoring.}}}
+    {% normal bibtex
+    \bibliographystyle{plainurl}
+    \pretocmd{\bibliography}%
+      {\pdfbookmark[section]{\refname}{bib}}
+      {}{\P@warning@noline{Cannot prepend to bibliography. Ignoring.}}}}
 
 
 \setfootnoterule{4cc}
@@ -520,7 +629,6 @@
 \setfnpct{after-punct-space={-.2em}}
 
 % koma-hacks
-\RequirePackage{etoolbox}
 \AtEndPreamble{\RequirePackage{scrhack}}
 
 \setkomafont{pageheadfoot}{\firamedium}
@@ -603,21 +711,21 @@
 \RequirePackage{comment}
 \excludecomment{CCSXML}
 
+
 \let\@ACMccs\@empty
 \newcommand*\ccsdesc[2][100]{%
-  \@@ACMccs#2[#1]}
-\def\@@ACMccs#1~#2[#3]{%
+  \@@ACMccs#2@#1@}
+\def\@@ACMccs#1~#2@#3@{%
   \def\@tempa{\relax}%
-  \ifnum#3>299\def\@tempa{\itshape}\fi%
-  \ifnum#3>499\def\@tempa{\bfseries}\fi%
-%
+  \ifnumgreater{#3}{299}{\def\@tempa{\itshape}}{}%
+  \ifnumgreater{#3}{499}{\def\@tempa{\bfseries}}{}%
+  %
   \ifcsdef{@ACMccs@#1}{}{%
-    \def\@tempb{\item{}\begingroup}
-    \eappto{\@tempb}{\expandonce\@tempa}
-    \appto{\@tempb}{#1 → }
-    \global\cslet{@ACMccs@#1}\@tempb
-    \gappto\@ACMccs{\csuse{@ACMccs@#1}\endgroup}}%
-  \csgappto{@ACMccs@#1}{#2; }}
+    \csgdef{@ACMccs@#1}{\item{}\textbf{#1} → }
+    \gappto\@ACMccs{\csuse{@ACMccs@#1}}}%
+  \ifstrempty{#2}{}{%
+    \csxappto{@ACMccs@#1}{\begingroup\expandonce\@tempa}
+    \csgappto{@ACMccs@#1}{#2\endgroup; }}}
 
 \let\P@keywords\@empty
 \newcommand*\keywords[1]{\gdef\P@keywords{#1}}
@@ -631,7 +739,7 @@
   \hspace*{0.67em}}
 \DeclareCaptionLabelFormat{withbox}{%
   \P@BlueBox\bothIfFirst{#1}{~}#2}
-\captionsetup{labelformat=withbox}
+\captionsetup{labelformat=withbox,singlelinecheck=false}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -777,7 +885,7 @@
 \setkomafont{pagenumber}{\firamedium}
 \cfoot{%
   \ifdefvoid\P@ArticleNumber{}{%
-    \usekomafont{pagenumber}\mdseries\P@ArticleNumber\P@pagemarkseparator}%
+    \sffamily\mdseries\P@ArticleNumber\P@pagemarkseparator}%
   \pagemark}
 
 
@@ -797,13 +905,13 @@
       {\dimexpr\linewidth - \doclicenseimagewidth - 1\columnsep\relax}%
       \ignorespaces
       \scriptsize%
-      \textcopyright\ {\@author}\\
+      \textcopyright\ {\@authorrunning}\\
       \doclicenseText\\
-      \ifthenelse{\boolean{P@submission}}%
+      \ifboolexpr{bool{P@submission}}%
         {Submitted to \textit{\P@banner}.}%
         {In \textit{\P@banner}\ignorespaces%
           \ifcsvoid{P@Volume}{}{, vol.\,\P@Volume\ignorespaces}%
-          \ifcsvoid{P@Issue}{}{, no.\,\P@Issue\ignorespaces}%
+          \ifcsvoid{P@Issue}{}{, \IfInteger{\P@Issue}{no.\,}{}\P@Issue\ignorespaces}%
           \ifcsvoid{P@Year}{}{, \P@Year\ignorespaces}%
           \ifcsvoid{P@ArticleNumber}{}{, article \P@ArticleNumber}%
           ; \P@lastpage\space pages.}%
@@ -815,6 +923,7 @@
 
 \addtokomafont{title}{\Large\sffamily\bfseries\mathversion{bold}}
 \addtokomafont{author}{\large}
+\addtokomafont{subject}{\sffamily\itshape\color{P@GrayFG}}
 
 \renewcommand*\@maketitle{%
   \label{P:firstpage}%
@@ -823,6 +932,11 @@
   \parindent\z@ \raggedright%
   \normalfont%
   \raggedright%
+  \ifdefvoid\@subject%
+    {}%
+    {\vspace*{-2.5\baselineskip}%
+      {\usekomafont{subject}\selectfont%
+          \@subject \par}}%
   {\usekomafont{title}\@title\par}%
   \ifdefvoid\@subtitle{}{%
     {\usekomafont{subtitle}\selectfont%
@@ -854,8 +968,8 @@
     {\hypersetup{pdftitle={\@title: \@subtitle}}}%
   \relax%
   \hypersetup{pdfcreator={programming},pdfproducer={programming}}% WOAMI
-  \ifthenelse{\boolean{pdf}}%
-    {\ifthenelse{\boolean{luatex}}%
+  \ifboolexpr{bool{pdf}}%
+    {\ifboolexpr{bool{luatex}}%
       {\gdef\P@aftertitle{\directlua{pdf.setsuppressoptionalinfo(15)}}}%
       {\gdef\P@aftertitle{\ifx\pdfsuppressptexinfo\undefined\relax\else\global\pdfsuppressptexinfo=-1\fi}}}%
     {\gdef\P@aftertitle{}}%
@@ -901,7 +1015,7 @@
     \Large\selectfont \P@banner\par}
   {\color{P@Blue}\rule{\linewidth}{.5\P@corebaselineskip}\par}%
   \sffamily
-    \ifthenelse{\boolean{P@submission}}{%
+    \ifboolexpr{bool{P@submission}}{%
       {{\P@headersection{\rlap{Perspective}\phantom{Area of Submission}}}{\normalsize\P@perspective}}\strut%
       {{\P@headersection{Area of Submission}}{\normalsize\P@area}}\strut%
     }{%

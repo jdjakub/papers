@@ -65,7 +65,7 @@ There is renewed interest in programming systems in the form of recent non-tradi
 - Domain-specific programming systems such as Dark\ \cite{DarkWeb}, which claims a "holistic" programming experience for cloud API services. This includes a language, a direct manipulation editor, and near-instantaneous building and deployment.
 - Even for general purpose programming with conventional tools, systems like Replit\ \cite{ReplitWeb} have demonstrated the benefits of integrating all needed languages, tools, and user interfaces into a seamless experience, available from the browser, that requires no setup.
 
-Research that follows the programming systems perspective can be found in a number of research venues. Those include Human-Computer Interaction conferences such as [UIST](https://uist.acm.org/)^[ACM Symposium on User Interface Software and Technology] and [VL/HCC](https://conferences.computer.org/VLHCC/)^[IEEE Symposium on Visual Languages and Human-Centric Computing]. However, work in those often emphasizes the user experience over technical description. Programming systems are often presented in workshops such as [LIVE](https://liveprog.org/) and [PX](https://2021.programming-conference.org/home/px-2021)^[Programming eXperience]. However, work in those venues is often limited to the authors' individual perspectives and suffers from the aforementioned difficulty of comparing to other systems.
+Research that follows the programming systems perspective can be found in a number of research venues. Those include Human-Computer Interaction conferences such as [UIST](https://uist.acm.org/)^[ACM Symposium on User Interface Software and Technology.] and [VL/HCC](https://conferences.computer.org/VLHCC/)^[IEEE Symposium on Visual Languages and Human-Centric Computing.]. However, work in those often emphasizes the user experience over technical description. Programming systems are often presented in workshops such as [LIVE](https://liveprog.org/) and [PX](https://2021.programming-conference.org/home/px-2021)^[Programming eXperience.]. However, work in those venues is often limited to the authors' individual perspectives and suffers from the aforementioned difficulty of comparing to other systems.
 
 Concrete examples of systems appear throughout the paper. Recent systems which motivated some of our dimensions include Subtext\ \cite{Subtext}, which combines code with its live execution in a single editable representation; Sketch-n-sketch\ \cite{SnS}, which can synthesize code by direct manipulation of its outputs; Hazel\ \cite{Hazel}, a live functional programming environment with typed holes to enable execution of incomplete or ill-typed programs; and Webstrates\ \cite{Webstrates}, which extends Web pages with real-time sharing of state.
 
@@ -152,7 +152,7 @@ While spreadsheets were designed to solve problems in a specific application are
 As a programming system, HyperCard is interesting for a couple of reasons. It effectively combines visual and textual notation. Programs appear the same way during editing as they do during execution. Most notably, HyperCard supports gradual progression from the "user" role to "developer": a user may first use stacks, then go on to edit the visual aspects or choose pre-defined logic until, eventually, they learn to program in HyperTalk.
 
 # Technical Dimensions Catalogue
-Here, we present our proposed technical dimensions in great detail. Please note that our intention is to provide a *reference* to be looked up and *used* as needed, not something that should be read from start to finish. Therefore, we recommend skimming through this for anything particularly interesting before proceeding to Section\ \ref{evaluation}. There, we will reference several dimensions in the context of a specific example, at which point it may be helpful to come back for more detail. For a quick overview, we include a concise reference sheet on the next page, though it may make more sense after reading the relevant sections.
+Here, we present our proposed technical dimensions in great detail. Please note that our intention is to provide a *reference* to be looked up and *used* as needed, not something that should be read from start to finish. Therefore, we recommend skimming through this for anything particularly interesting before proceeding to Section\ \ref{evaluation}. There, we will reference several dimensions in the context of a specific example, at which point it may be helpful to come back for more detail. For a quick overview, we include summary tables\ \ref{tab:summary},\ \ref{tab:summary2}, and\ \ref{tab:summary3}, though they may make more sense after reading the relevant sections.
 
 We present the dimensions grouped under *clusters*. These may be regarded as "topics of interest" or "areas of inquiry" when studying a given system, grouping together related dimensions against which to measure it.
 
@@ -160,7 +160,7 @@ Each cluster is named and opens with a boxed *summary*, followed by a longer *di
 
 We reiterate that we do not expect the proposed catalogue to be exhaustive for all aspects of programming systems, past and future. We welcome follow-up work expanding or challenging the aspects we have focused on here.
 
-\includepdf[pages={2}]{table.pdf}
+\joel{\includepdf[pages={2}]{table.pdf}}
 
 \input{prog22-alldims.tex}
 
@@ -169,7 +169,7 @@ The technical dimensions should be evaluated on the basis of how useful they are
 
 ## Evaluating the Dark Programming System
 
-Dark is a programming system for building "serverless backends", i.e. services that are used by web and mobile applications. It aims to make building such services easier by "removing accidental complexity"^[https://roadmap.darklang.com/goals-of-dark-v2.html] resulting from the large number of systems typically involved in their deployment and operation. This includes infrastructure for orchestration, scaling, logging, monitoring and versioning. Dark provides integrated tooling (Figure\ \ref{fig:dark}) for development and is described as _deployless_, meaning that deploying code to production is instantaneous.
+Dark is a programming system for building "serverless backends", i.e. services that are used by web and mobile applications. It aims to make building such services easier by "removing accidental complexity"^[\url{https://roadmap.darklang.com/goals-of-dark-v2.html}, accessed 2023-02-05.] resulting from the large number of systems typically involved in their deployment and operation. This includes infrastructure for orchestration, scaling, logging, monitoring and versioning. Dark provides integrated tooling (Figure\ \ref{fig:dark}) for development and is described as _deployless_, meaning that deploying code to production is instantaneous.
 
 \begin{figure}
   \centering
@@ -180,12 +180,12 @@ Dark is a programming system for building "serverless backends", i.e. services t
 
 Dark illustrates the need for the broader perspective of programming systems. Of course, it contains a programming language, which is inspired by OCaml and F#. But Dark's distinguishing feature is that it eliminates the many secondary systems needed for deployment of modern cloud-based services. Those exist outside of a typical programming language, yet form a major part of the complexity of the overall development process.
 
-With technical dimensions, we can go beyond the "sales pitch", look behind the scenes, and better understand the interesting technical aspects of Dark as a programming system. Table\ \ref{tab:dark} summarises the more detailed analysis that follows. Two clear benefits of such an analysis are:
+With technical dimensions, we can go beyond the "sales pitch", look behind the scenes, and better understand the interesting technical aspects of Dark as a programming system. Tables\ \ref{tab:dark} and \ref{tab:dark2} summarise the more detailed analysis that follows. Two clear benefits of such an analysis are:
 
 1. It provides a list of narrower topics to investigate when examining a programming system such as Dark.
 2. It give us a common vocabulary for these topics that can be used to compare Dark with other systems on the same terms.
 
-\newcommand{\wrap}[1]{\parbox[t]{10cm}{#1}}
+\newcommand{\wrap}[1]{\parbox[t]{8.5cm}{#1}}
 \renewcommand{\arraystretch}{1.3}
 
 \begin{table}
@@ -208,6 +208,17 @@ Conceptual Integrity vs. Openness & \wrap{Abstractions at the domain specific hi
 Composability & \wrap{
 User applications are composed from high-level primitives; the low-level uses composable functional abstractions (records, pipelines).}\\
 Convenience & \wrap{Powerful high-level domain-specific abstractions are provided (HTTP, database, workers); core functional libraries exist for the low-level.} \\
+\end{tabular}
+\label{tab:dark}
+\end{table}
+
+\renewcommand{\wrap}[1]{\parbox[t]{8.75cm}{#1}}
+\begin{table}
+\centering
+\caption{Summary of where Dark lies on its distinguishing dimensions. For brevity, dimensions where Dark does not differ from ordinary programming are omitted.}
+\begin{tabular}{ >{\raggedleft\arraybackslash}p{4.35cm} l }
+\hline
+Dimension (CLUSTER) & Summary \\
 \hline
 ADOPTABILITY \\
 Learnability & \wrap{High-level concepts will be immediately familiar to the target audience; low-level language has the usual learning curve of basic functional programming}\\
@@ -223,7 +234,7 @@ Level of Automation & \wrap{Current implementation provides basic infrastructure
 CUSTOMIZABILITY\\	
 Staging of Customization & \wrap{System can be modified while running and changes are persisted, but they have to be made in the Dark editor, which is distinct from the running service}
 \end{tabular}
-\label{tab:dark}
+\label{tab:dark2}
 \end{table}
 
 ### Dimensional Analysis of Dark

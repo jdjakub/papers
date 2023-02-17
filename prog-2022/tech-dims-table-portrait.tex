@@ -1,12 +1,15 @@
-\newcommand{\summ}[1]{\multicolumn{2}{p{0.8\linewidth}}{#1} \\ \hline}
+\newcommand{\summ}[1]{\multicolumn{2}{>{\hsize=\dimexpr2\hsize+2\tabcolsep+\arrayrulewidth\relax}X}{#1} \\ \hline}
+%\newcommand{\summ}[1]{\\}
+
 \setlength\extrarowheight{2pt}
+
 \begin{table}
-%\centering
-\begin{tabular}{ >{\raggedleft\arraybackslash}p{0.2\linewidth}  p {0.4\linewidth}  >{\raggedright\arraybackslash}p{0.4\linewidth} }
+\caption{Technical Dimensions cheat sheet.}
+\begin{tabularx}{\linewidth}{ >{\raggedleft\arraybackslash}p{3.75cm} X X }
 \hline
 Dimension (CLUSTER) & Summary & Range of key examples \\ \hline
 \hline INTERACTION &
-\summ{How do users execute their ideas, evaluate the result, and generate new ideas in response?}
+\summ{How do users manifest their ideas, evaluate the result, and generate new ideas in response?}
 Feedback Loops &
 How wide are the various gulfs of \emph{execution} and \emph{evaluation} and how are they related? &
 Immediate Feedback (short) vs. batch mode (long) gulf of evaluation \\
@@ -33,10 +36,19 @@ Concise yet error-prone vs. explicit yet verbose \\
 Uniformity of Notations &
 Does the notation use a small or a large number of basic concepts? &
 Lisp S-expressions vs. English-like textual notations \\
-\hline ARCHITECTURE &
-\summ{What is the system's attitude to its own organization and that of the outside world?}
-Conceptual Outlook &
-Does the system present as \emph{designed} or \emph{improvised}? &
+\end{tabularx}
+\label{tab:summary} 
+\end{table}
+
+\begin{table}
+\caption{Technical Dimensions cheat sheet (continued).}
+\begin{tabularx}{\linewidth}{ >{\raggedleft\arraybackslash}p{3.5cm} X X }
+\hline
+Dimension (CLUSTER) & Summary & Range of key examples \\ \hline
+\hline CONCEPTUAL STRUCTURE &
+\summ{How is meaning constructed? How are internal and external incentives balanced?}
+Conceptual Integrity vs. Openness &
+Does the system present as elegantly \emph{designed} or pragmatically \emph{improvised}? &
 Integrity (Everything is a X) vs. openness (compatible mixtures) \\
 Composability &
 What are the primitives? How can they be combined to achieve novel behaviors? &
@@ -46,40 +58,37 @@ Which wheels do users not need to reinvent? &
 Small vs. expansive standard libraries \\
 Commonality &
 How much is \emph{common structure} explicitly marked as such? &
-Common structure is redundantly flattened vs. factored out\\
-\hline
-\end{tabular}
-\caption{\label{summary-table1} Quick reference sheet for our set of Technical Dimensions.}
-\end{table}
-
-\begin{table}
-\begin{tabular}{ >{\raggedleft\arraybackslash}p{0.2\linewidth}  p {0.4\linewidth}  >{\raggedright\arraybackslash}p{0.4\linewidth} }
-\hline
-Dimension (CLUSTER) & Summary & Range of key examples \\ \hline
+Common structure is redundantly flattened vs. factored out \\
 \hline CUSTOMIZABILITY &
 \summ{Once a program exists in the system, how can it be extended and modified?}
 Staging of Customization &
 Must we customize \emph{running} programs differently to \emph{inert} ones? Do these changes last beyond termination? &
 Source code vs. config files, Developer Tools tab, auto image-based persistence, scripting language \\
-Externalizability &
-Which portions of the system's state can be referenced and transferred to/from it? &
-None (state is private) vs. all state exposed as human-legible, CSS-like addressing \\
-Additive Authoring &
-How far can the system's behavior be changed by \emph{adding} expressions? &
-None (requires power to change original) vs. full (anything can be overridden repeatedly) \\
+Externalizability / Additive Authoring &
+Which portions of the system's state can be referenced and transferred to/from it? How far can the system's behavior be changed by \emph{adding} expressions? &
+State is: (\emph{i}) private and hidden; (\emph{ii}) externalizable and overwriteable; (\emph{iii}) externalized and \emph{overridable} by addition \\
 Self-Sustainability &
 How far can the system’s behavior be changed from within? &
-None (rely on extenal tools) vs. self-sufficient (contains everything needed) \\
+None (rely on external tools) vs. self-sufficient (contains everything needed) \\
+\end{tabularx}
+\label{tab:summary2}
+\end{table}
+
+\begin{table}
+\caption{Technical Dimensions cheat sheet (continued).}
+\begin{tabularx}{\linewidth}{ >{\raggedleft\arraybackslash}p{3.5cm} X X }
+\hline
+Dimension (CLUSTER) & Summary & Range of key examples \\ \hline
 \hline COMPLEXITY &
 \summ{How does the system structure complexity and what level of detail is required?}
 Factoring of Complexity &
 What programming details are hidden in reusable components and how? &
-Domain-specific (more hiding) vs. general-purpose (less hiding) programming \\
+Domain-specific (more hiding) vs. general-purpose (less hiding) \\
 Level of Automation &
 What part of program logic does not need to be explicitly specified? &
 Garbage collection (low-tech) vs. Prolog engine (hi-tech) \\
 \hline ERRORS &
-\summ{What does the system consider to be an error; how are they prevented and handled?}
+\summ{What does the system consider to be an \emph{error}? How are they prevented and handled?}
 Error Detection &
 What errors can be detected in which feedback loops, and how? &
 Human inspection in live coding vs. partial automation in static typing \\
@@ -93,8 +102,7 @@ What is the attitude towards the \emph{learning curve} and what is the target au
 HyperCard for the general public vs. FORTRAN for scientists \\
 Sociability &
 What are the social and economic factors that make the system the way it is? &
-Funding, volunteers, code sharing, Q/A sites vs. documentation, sense of belonging \\
-\hline
-\end{tabular}
-\caption{\label{summary-table2} Quick reference sheet for our set of Technical Dimensions.}
+Cathedral vs. Bazaar model \\
+\end{tabularx}
+\label{tab:summary3}
 \end{table}
